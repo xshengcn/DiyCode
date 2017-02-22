@@ -25,6 +25,7 @@ import com.xshengcn.diycode.entity.user.UserDetail;
 import com.xshengcn.diycode.ui.BaseActivity;
 import com.xshengcn.diycode.ui.login.LoginActivity;
 import com.xshengcn.diycode.ui.search.SearchActivity;
+import com.xshengcn.diycode.ui.user.UserActivity;
 import com.xshengcn.diycode.ui.userfavorite.usertopic.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.usertopic.UserTopicActivity;
 import com.xshengcn.diycode.util.glide.CircleTransform;
@@ -44,12 +45,13 @@ public class MainActivity extends BaseActivity implements IMainView {
   @BindView(R.id.email) @Nullable TextView email;
 
   @BindView(R.id.notice) @Nullable ImageView menuNotice;
-  @BindView(R.id.notice_count) @Nullable View noticeCount;
+  @BindView(R.id.nitoce_badge) @Nullable View noticeBadge;
 
   @Inject DiyCodeClient client;
   @Inject DiyCodePrefs prefs;
-  @Inject MainPagerAdapter adapter;
   @Inject MainPresenter presenter;
+  @Inject MainPagerAdapter adapter;
+
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -72,6 +74,11 @@ public class MainActivity extends BaseActivity implements IMainView {
     navView.setNavigationItemSelectedListener(menuItem -> onNavigationItemSelected(menuItem));
 
     presenter.onAttach(this);
+  }
+
+  @Override protected void onDestroy() {
+    presenter.onDetach();
+    super.onDestroy();
   }
 
   private boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -103,9 +110,8 @@ public class MainActivity extends BaseActivity implements IMainView {
     getMenuInflater().inflate(R.menu.menu_main, menu);
     final View view = menu.findItem(R.id.action_notice).getActionView();
     menuNotice = ButterKnife.findById(view, R.id.notice);
-    noticeCount = ButterKnife.findById(view, R.id.notice_count);
-    view.setOnClickListener(v -> {});
-    menu.findItem(R.id.action_notice).setCheckable(true);
+    noticeBadge = ButterKnife.findById(view, R.id.nitoce_badge);
+    //view.setOnClickListener(v -> {});
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -129,10 +135,7 @@ public class MainActivity extends BaseActivity implements IMainView {
   }
 
   @Override public void toUserActivity() {
-    //UserActivity.start(this);
-    if (noticeCount != null) {
-      noticeCount.setVisibility(View.VISIBLE);
-    }
+    UserActivity.start(this);
   }
 
   @Override public void toLoginActivity() {
@@ -146,8 +149,8 @@ public class MainActivity extends BaseActivity implements IMainView {
   }
 
   @Override public void showNotificationMenuBadge(Boolean showBadge) {
-    if (noticeCount != null) {
-      noticeCount.setVisibility(showBadge ? View.VISIBLE : View.GONE);
+    if (noticeBadge != null) {
+      noticeBadge.setVisibility(showBadge ? View.VISIBLE : View.GONE);
     }
   }
 }

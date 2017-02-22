@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.ui.BaseActivity;
+import com.xshengcn.diycode.util.ImeUtils;
 
 public class SearchActivity extends BaseActivity {
 
@@ -34,6 +36,9 @@ public class SearchActivity extends BaseActivity {
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
     searchView.onActionViewExpanded();
     searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
     searchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
@@ -50,5 +55,11 @@ public class SearchActivity extends BaseActivity {
         return false;
       }
     });
+
+  }
+
+  @Override public void onEnterAnimationComplete() {
+    super.onEnterAnimationComplete();
+    ImeUtils.showIme(searchView);
   }
 }

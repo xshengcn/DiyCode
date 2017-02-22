@@ -74,6 +74,11 @@ public class TopicFragment extends BaseFragment
     presenter.onAttach(this);
   }
 
+  @Override public void onDestroyView() {
+    presenter.onDetach();
+    super.onDestroyView();
+  }
+
   @Override public void showTopics(List<Topic> topics, boolean clean) {
     if (!recyclerView.isNestedScrollingEnabled()) {
       recyclerView.setNestedScrollingEnabled(true);

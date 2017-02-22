@@ -15,7 +15,7 @@
       />
 
   <View xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/notice_count"
+      android:id="@+id/nitoce_badge"
       android:layout_width="6dp"
       android:layout_height="6dp"
       android:layout_alignRight="@+id/notice"

@@ -67,6 +67,10 @@ public class NewsFragment extends BaseFragment implements NewsAdapter.OnItemClic
     //    });
   }
 
+  @Override public void onDestroyView() {
+    super.onDestroyView();
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     getComponent().inject(this);
