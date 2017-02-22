@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.login.LoginActivity"
+    >
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?actionBarSize"
+      />
+
+  <ImageView
+      android:layout_width="160dp"
+      android:layout_height="100dp"
+      android:layout_gravity="center_horizontal"
+      android:focusableInTouchMode="true"
+      android:src="@drawable/ic_logo"
+      />
+
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/usernameWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/spacing_large"
+      android:layout_marginRight="@dimen/spacing_large"
+      >
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_username"
+        android:inputType="textEmailAddress"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/passwordWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/spacing_large"
+      android:layout_marginRight="@dimen/spacing_large"
+      android:layout_marginTop="@dimen/spacing_small"
+      >
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textEmailAddress"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+
+  <Button
+      android:id="@+id/login"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/spacing_large"
+      android:layout_marginRight="@dimen/spacing_large"
+      android:layout_marginTop="@dimen/spacing"
+      android:background="@drawable/btn_login"
+      android:text="@string/login"
+      android:textColor="@android:color/white"
+      />
+
+
+</LinearLayout>

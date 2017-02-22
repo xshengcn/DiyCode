@@ -1,0 +1,27 @@
+<resources>
+  <string name="app_name">DiyCode</string>
+
+  <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+  <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+  <string name="menu_search">search</string>
+  <string name="menu_notice">notice</string>
+  <string name="menu_more">more</string>
+  <string name="email_username">Email / Username</string>
+  <string name="password">Password</string>
+  <string name="login">login</string>
+  <string name="username_not_empty">Username can not be empty</string>
+  <string name="password_not_empty">Password can not be empty</string>
+  <string name="tips_login">Please wait...</string>
+  <string name="tips_error">error</string>
+  <string name="bt_retry">RETRY</string>
+  <string name="bt_ignore">IGNOR</string>
+  <string name="no_connection">No Connection</string>
+  <string name="no_connection_msg">We could not establish a connection with our servers. Please try again when you are connected to the internet.</string>
+
+  <string-array name="main_tabs">
+    <item>topics</item>
+    <item>news</item>
+    <item>sites</item>
+  </string-array>
+
+</resources>
