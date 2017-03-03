@@ -6,7 +6,7 @@ import com.xshengcn.diycode.entity.common.User;
 public class Notification {
 
   @SerializedName("id") public int id;
-  @SerializedName("type") public String type;
+  @SerializedName("type") public String type; // Follow Mention Reply
   @SerializedName("read") public boolean read;
   @SerializedName("actor") public User actor;
   @SerializedName("mention_type") public String mentionType;

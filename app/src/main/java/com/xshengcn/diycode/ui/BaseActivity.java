@@ -1,12 +1,13 @@
 package com.xshengcn.diycode.ui;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import com.xshengcn.diycode.DiyCodeApplication;
-import com.xshengcn.diycode.injector.component.ActivityComponent;
-import com.xshengcn.diycode.injector.module.ActivityModule;
+import com.xshengcn.diycode.injection.component.ActivityComponent;
+import com.xshengcn.diycode.injection.module.ActivityModule;
 
-public class BaseActivity extends AppCompatActivity {
+@SuppressLint("Registered") public class BaseActivity extends AppCompatActivity {
 
   private ActivityComponent activityComponent;
 

@@ -18,10 +18,13 @@ public abstract class BasePresenter<T> {
     disposables.add(s);
   }
 
+  public CompositeDisposable getDisposables() {
+    return disposables;
+  }
+
   public void onDetach() {
 
     disposables.clear();
-    disposables.dispose();
 
     if (reference != null) {
       reference.clear();

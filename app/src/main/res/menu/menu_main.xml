@@ -12,7 +12,6 @@
       android:id="@+id/action_notice"
       android:icon="@drawable/ic_menu_notice"
       android:title="@string/menu_notice"
-      app:actionLayout="@layout/view_notification_layout"
       app:showAsAction="always"/>
 
 

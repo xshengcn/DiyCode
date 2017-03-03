@@ -1,12 +1,13 @@
 package com.xshengcn.diycode.ui.main.topic;
 
+import com.kennyc.view.MultiStateView;
+import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.api.DiyCodeClient;
 import com.xshengcn.diycode.entity.topic.Topic;
 import com.xshengcn.diycode.ui.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 public class TopicPresenter extends BasePresenter<ITopicView> {
@@ -19,10 +20,14 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
 
   @Override public void onAttach(ITopicView view) {
     super.onAttach(view);
-    loadTopics(true);
+    onRefresh();
   }
 
-  public void refresh() {
+  public void onRefresh() {
+    final ITopicView view = getView();
+    if (!view.isRefreshing()) {
+      view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
+    }
     loadTopics(true);
   }
 
@@ -32,37 +37,35 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
 
   public void loadTopics(boolean clean) {
     final ITopicView view = getView();
-    int offset = clean ? 0 : view.getTopicCount();
-    if (view.getTopicCount() == 0) {
-      view.showProgressBar();
-    }
+    int offset = clean ? 0 : view.getItemOffset();
     Disposable disposable = client.getTopics(offset)
-        //.delay(2000, TimeUnit.MILLISECONDS)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(topics -> handleOnNext(topics, clean), throwable -> handleOnError(throwable),
-            () -> handleOnComplete());
+        .subscribe(topics -> handleOnNext(topics, clean), this::handleOnError);
     addDisposable(disposable);
   }
 
-  private void handleOnComplete() {
-    // nop
-  }
-
-
   private void handleOnError(Throwable throwable) {
+    Logger.d(throwable);
     final ITopicView view = getView();
-    if (view.getTopicCount() == 0) {
-      view.showNoConnection();
+    if (view.isRefreshing()) {
+      view.showRefreshErrorAndComplete();
+    } else if (view.getItemOffset() > 0) {
+      view.showLoadMoreFailed();
     } else {
-      view.showLoadMoreError();
+      view.changeStateView(MultiStateView.VIEW_STATE_ERROR);
     }
   }
 
   private void handleOnNext(List<Topic> topics, boolean clean) {
     final ITopicView view = getView();
+    if (view.getItemOffset() == 0 && topics.isEmpty()) {
+      view.changeStateView(MultiStateView.VIEW_STATE_EMPTY);
+      return;
+    }
+
     view.showTopics(topics, clean);
     if (topics.size() < DiyCodeClient.PAGE_LIMIT) {
-      view.showNoMore();
+      view.showLoadNoMore();
     }
   }
 

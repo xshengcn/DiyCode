@@ -1,17 +1,11 @@
 package com.xshengcn.diycode.ui.login;
 
-import android.app.Activity;
-import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.xshengcn.diycode.DiyCodePrefs;
 import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.Error;
 import com.xshengcn.diycode.ui.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import java.io.IOException;
 import javax.inject.Inject;
-import okhttp3.ResponseBody;
 
 public class LoginPresenter extends BasePresenter<ILoginView> {
 
@@ -33,23 +27,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         .flatMap(token -> client.getMe())
         .doOnNext(user -> prefs.setUser(user))
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(userDetail -> getView().closeActivity(Activity.RESULT_OK), throwable -> {
+        .subscribe(userDetail -> getView().closeActivity(), throwable -> {
         });
     addDisposable(disposable);
   }
 
-  private void handleError(HttpException e) {
-    if (e.response() != null) {
-      ResponseBody responseBody = e.response().errorBody();
-      try {
-        String errorMsg = responseBody.string();
-        Error error = new Gson().fromJson(errorMsg, Error.class);
-        if (error != null) {
-          getView().showError(error.errorDescription);
-        }
-      } catch (IOException e1) {
-        e1.printStackTrace();
-      }
-    }
-  }
 }

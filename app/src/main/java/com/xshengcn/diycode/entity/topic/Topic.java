@@ -18,20 +18,20 @@ public class Topic implements Parcelable {
       return new Topic[size];
     }
   };
-  @SerializedName("id") public int id;
-  @SerializedName("title") public String title;
-  @SerializedName("created_at") public Date createdAt;
-  @SerializedName("updated_at") public Date updatedAt;
-  @SerializedName("replied_at") public Date repliedAt;
-  @SerializedName("replies_count") public int repliesCount;
-  @SerializedName("node_name") public String nodeName;
-  @SerializedName("node_id") public int nodeId;
-  @SerializedName("last_reply_user_id") public int lastReplyUserId;
-  @SerializedName("last_reply_user_login") public String lastReplyUserLogin;
-  @SerializedName("user") public User user;
-  @SerializedName("deleted") public boolean deleted;
-  @SerializedName("excellent") public boolean excellent;
-  @SerializedName("abilities") public Abilities abilities;
+  @SerializedName("id") public int id = -1;
+  @SerializedName("title") public String title = null;
+  @SerializedName("created_at") public Date createdAt = null;
+  @SerializedName("updated_at") public Date updatedAt = null;
+  @SerializedName("replied_at") public Date repliedAt = null;
+  @SerializedName("replies_count") public int repliesCount = -1;
+  @SerializedName("node_name") public String nodeName = null;
+  @SerializedName("node_id") public int nodeId = -1;
+  @SerializedName("last_reply_user_id") public int lastReplyUserId = -1;
+  @SerializedName("last_reply_user_login") public String lastReplyUserLogin = null;
+  @SerializedName("user") public User user = null;
+  @SerializedName("deleted") public boolean deleted = false;
+  @SerializedName("excellent") public boolean excellent = false;
+  @SerializedName("abilities") public Abilities abilities = null;
 
   protected Topic(Parcel in) {
     id = in.readInt();
@@ -61,5 +61,24 @@ public class Topic implements Parcelable {
     dest.writeParcelable(user, flags);
     dest.writeByte((byte) (deleted ? 1 : 0));
     dest.writeByte((byte) (excellent ? 1 : 0));
+  }
+
+  @Override public String toString() {
+    return "Topic{" +
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", createdAt=" + createdAt +
+        ", updatedAt=" + updatedAt +
+        ", repliedAt=" + repliedAt +
+        ", repliesCount=" + repliesCount +
+        ", nodeName='" + nodeName + '\'' +
+        ", nodeId=" + nodeId +
+        ", lastReplyUserId=" + lastReplyUserId +
+        ", lastReplyUserLogin='" + lastReplyUserLogin + '\'' +
+        ", user=" + user +
+        ", deleted=" + deleted +
+        ", excellent=" + excellent +
+        ", abilities=" + abilities +
+        '}';
   }
 }

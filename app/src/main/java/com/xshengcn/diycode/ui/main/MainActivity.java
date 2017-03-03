@@ -3,6 +3,7 @@ package com.xshengcn.diycode.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -18,16 +19,13 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.xshengcn.diycode.DiyCodePrefs;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.api.DiyCodeClient;
 import com.xshengcn.diycode.entity.user.UserDetail;
 import com.xshengcn.diycode.ui.BaseActivity;
-import com.xshengcn.diycode.ui.login.LoginActivity;
-import com.xshengcn.diycode.ui.search.SearchActivity;
-import com.xshengcn.diycode.ui.user.UserActivity;
-import com.xshengcn.diycode.ui.userfavorite.usertopic.UserFavoriteActivity;
-import com.xshengcn.diycode.ui.usertopic.UserTopicActivity;
+import com.xshengcn.diycode.ui.topiccreate.TopicCreatorActivity;
 import com.xshengcn.diycode.util.glide.CircleTransform;
 import javax.inject.Inject;
 
@@ -44,14 +42,14 @@ public class MainActivity extends BaseActivity implements IMainView {
   @BindView(R.id.name) @Nullable TextView name;
   @BindView(R.id.email) @Nullable TextView email;
 
-  @BindView(R.id.notice) @Nullable ImageView menuNotice;
-  @BindView(R.id.nitoce_badge) @Nullable View noticeBadge;
-
-  @Inject DiyCodeClient client;
-  @Inject DiyCodePrefs prefs;
   @Inject MainPresenter presenter;
   @Inject MainPagerAdapter adapter;
+  @BindView(R.id.fab_create_topic) FloatingActionButton fabCreateTopic;
+  @BindView(R.id.fab_create_news) FloatingActionButton fabCreateNews;
+  @BindView(R.id.fab_menu) FloatingActionMenu fabMenu;
+  @BindView(R.id.coordinator_layout) CoordinatorLayout coordinatorLayout;
 
+  private boolean hasNotification;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -67,13 +65,29 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     View headerView = navView.getHeaderView(0);
     header = (ImageView) headerView.findViewById(R.id.header);
-    header.setOnClickListener(v -> presenter.clickHeader());
+    header.setOnClickListener(v -> presenter.clickHeader(this));
     name = (TextView) headerView.findViewById(R.id.name);
     email = (TextView) headerView.findViewById(R.id.email);
 
     navView.setNavigationItemSelectedListener(menuItem -> onNavigationItemSelected(menuItem));
 
+    fabMenu.setClosedOnTouchOutside(true);
+    fabMenu.setOnMenuToggleListener(this::onFabMenuToggle);
+
+    fabCreateTopic.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        TopicCreatorActivity.start(MainActivity.this);
+      }
+    });
     presenter.onAttach(this);
+  }
+
+  private void onFabMenuToggle(boolean open) {
+    if (open) {
+      fabMenu.setBackgroundResource(R.color.fab_menu);
+    } else {
+      fabMenu.setBackgroundResource(android.R.color.transparent);
+    }
   }
 
   @Override protected void onDestroy() {
@@ -84,14 +98,15 @@ public class MainActivity extends BaseActivity implements IMainView {
   private boolean onNavigationItemSelected(MenuItem menuItem) {
     switch (menuItem.getItemId()) {
       case R.id.nav_topic:
-        UserTopicActivity.start(this);
+        presenter.clickUserTopic(this);
         break;
       case R.id.nav_favorite:
-        UserFavoriteActivity.start(this);
+        presenter.clickUserFavorite(this);
+        break;
+      case R.id.nav_reply:
+        presenter.clickUserReply(this);
         break;
     }
-    //        menuItem.setChecked(false);
-
     return true;
   }
 
@@ -108,19 +123,19 @@ public class MainActivity extends BaseActivity implements IMainView {
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
-    final View view = menu.findItem(R.id.action_notice).getActionView();
-    menuNotice = ButterKnife.findById(view, R.id.notice);
-    noticeBadge = ButterKnife.findById(view, R.id.nitoce_badge);
-    //view.setOnClickListener(v -> {});
+    if (hasNotification) {
+      menu.findItem(R.id.action_notice).setIcon(R.drawable.ic_menu_notice_red);
+    }
     return super.onCreateOptionsMenu(menu);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_search:
-        SearchActivity.start(this);
+        presenter.clickSearch(this);
         break;
       case R.id.action_notice:
+        presenter.clickNotification(this);
         break;
     }
     return super.onOptionsItemSelected(item);
@@ -129,28 +144,24 @@ public class MainActivity extends BaseActivity implements IMainView {
   @Override public void onBackPressed() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
       drawerLayout.closeDrawer(GravityCompat.START);
+    } else if (fabMenu.isOpened()) {
+      fabMenu.close(true);
     } else {
       super.onBackPressed();
     }
   }
 
-  @Override public void toUserActivity() {
-    UserActivity.start(this);
-  }
-
-  @Override public void toLoginActivity() {
-    LoginActivity.start(this);
-  }
-
   @Override public void setupNavigationView(UserDetail user) {
-    Glide.with(this).load(user.avatarUrl).transform(new CircleTransform(this)).into(header);
+    Glide.with(this)
+        .load(user.avatarUrl.replace("large_avatar", "avatar"))
+        .transform(new CircleTransform(this))
+        .into(header);
     name.setText(user.name);
     email.setText(user.email);
   }
 
   @Override public void showNotificationMenuBadge(Boolean showBadge) {
-    if (noticeBadge != null) {
-      noticeBadge.setVisibility(showBadge ? View.VISIBLE : View.GONE);
-    }
+    hasNotification = showBadge;
+    invalidateOptionsMenu();
   }
 }

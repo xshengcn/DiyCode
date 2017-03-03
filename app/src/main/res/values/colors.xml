@@ -9,7 +9,7 @@
   <color name="colorTextTertiary">#999999</color>
   <color name="colorTextQuaternary">#C8C8CE</color>
   <color name="touch_effect">#9CCC</color>
-  <color name="designer_news_quote_line">#ffeceef1</color>
+  <color name="fab_menu">#A8FFFFFF</color>
   <color name="colorDivider">#F0F0F0</color>
 
 </resources>

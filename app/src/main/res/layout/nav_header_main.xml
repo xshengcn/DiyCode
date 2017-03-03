@@ -22,7 +22,6 @@
       android:paddingLeft="@dimen/activity_horizontal_margin"
       android:paddingRight="@dimen/activity_horizontal_margin"
       android:paddingTop="@dimen/activity_vertical_margin"
-      android:theme="@style/ThemeOverlay.AppCompat.Dark"
       >
 
     <ImageView
@@ -30,7 +29,7 @@
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:paddingTop="@dimen/spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
+        app:srcCompat="@drawable/ic_default_header"
         />
 
     <TextView
@@ -38,15 +37,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/spacing"
-        android:text="Android Studio"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:text="DiyCode"
+        android:textSize="@dimen/dimenTextSecondary"
+        android:textColor="@android:color/white"
         />
 
     <TextView
         android:id="@+id/email"
+        android:textSize="@dimen/dimenTextTertiary"
+        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="android.studio@android.com"
+        android:text="致力于构建开发工程师高端交流分享社区"
         />
 
 

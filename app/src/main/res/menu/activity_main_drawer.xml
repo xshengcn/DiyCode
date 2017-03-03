@@ -2,36 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-  <group android:checkableBehavior="none">
+  <group
+      android:id="@+id/drawer_group1"
+      android:checkableBehavior="none">
     <item
         android:id="@+id/nav_topic"
         android:icon="@drawable/ic_menu_topic"
-        android:title="我的帖子"/>
+        android:title="@string/topics"/>
     <item
         android:id="@+id/nav_favorite"
         android:icon="@drawable/ic_menu_collection"
-        android:title="我的收藏"/>
+        android:title="@string/favorites"/>
     <item
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_reply"
         android:icon="@drawable/ic_menu_reply"
-        android:title="我的评论"/>
+        android:title="@string/relies"/>
     <item
         android:id="@+id/nav_manage"
         android:icon="@drawable/ic_menu_share"
         android:title="我的分享"/>
   </group>
 
-  <item android:title="其它">
-    <menu>
-      <item
-          android:id="@+id/nav_share"
-          android:icon="@drawable/ic_menu_about"
-          android:title="关于我们"/>
-      <item
-          android:id="@+id/nav_send"
-          android:icon="@drawable/ic_menu_setting"
-          android:title="软件设置"/>
-    </menu>
-  </item>
+  <group
+      android:id="@+id/drawer_group2"
+      android:checkableBehavior="none">
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/ic_menu_about"
+        android:title="关于我们"/>
+    <item
+        android:id="@+id/nav_send"
+        android:icon="@drawable/ic_menu_setting"
+        android:title="软件设置"/>
+  </group>
 
 </menu>

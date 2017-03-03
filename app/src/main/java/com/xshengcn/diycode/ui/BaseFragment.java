@@ -3,8 +3,8 @@ package com.xshengcn.diycode.ui;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import com.xshengcn.diycode.injector.component.FragmentComponent;
-import com.xshengcn.diycode.injector.module.FragmentModule;
+import com.xshengcn.diycode.injection.component.FragmentComponent;
+import com.xshengcn.diycode.injection.module.FragmentModule;
 
 public class BaseFragment extends Fragment {
 

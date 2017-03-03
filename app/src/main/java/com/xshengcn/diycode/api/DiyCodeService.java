@@ -1,6 +1,7 @@
 package com.xshengcn.diycode.api;
 
 import android.support.annotation.StringDef;
+import com.xshengcn.diycode.entity.ImageResult;
 import com.xshengcn.diycode.entity.Token;
 import com.xshengcn.diycode.entity.common.User;
 import com.xshengcn.diycode.entity.news.News;
@@ -9,6 +10,7 @@ import com.xshengcn.diycode.entity.news.Node;
 import com.xshengcn.diycode.entity.topic.Topic;
 import com.xshengcn.diycode.entity.topic.TopicContent;
 import com.xshengcn.diycode.entity.topic.TopicReply;
+import com.xshengcn.diycode.entity.user.Notification;
 import com.xshengcn.diycode.entity.user.NotificationUnread;
 import com.xshengcn.diycode.entity.user.UserDetail;
 import com.xshengcn.diycode.entity.user.UserReply;
@@ -37,9 +39,19 @@ public interface DiyCodeService {
   String AUTH_URL = "https://www.diycode.cc/oauth/token";
   String BASE_URL = "https://www.diycode.cc/api/v3/";
 
-  @POST(AUTH_URL) @FormUrlEncoded Observable<Token> login(@Field("client_id") String client_id,
+  /**
+   * 获取token
+   */
+  @POST(AUTH_URL) @FormUrlEncoded Observable<Token> getToken(@Field("client_id") String client_id,
       @Field("client_secret") String client_secret, @Field("grant_type") String grant_type,
       @Field("username") String username, @Field("password") String password);
+
+  /**
+   * 刷新token
+   */
+  @POST(AUTH_URL) @FormUrlEncoded Observable<Token> refreshToken(
+      @Field("client_id") String client_id, @Field("client_secret") String client_secret,
+      @Field("grant_type") String grant_type, @Field("refresh_token") String refreshToken);
 
   @GET("news/nodes.json") Observable<List<Node>> getNewsNodes();
 
@@ -58,6 +70,9 @@ public interface DiyCodeService {
   @GET("topics/{id}/replies.json") Observable<List<TopicReply>> getTopicReplies(
       @Path("id") Integer id, @Query("offset") Integer offset, @Query("limit") Integer limit);
 
+  @POST("topics/{id}/replies.json") @FormUrlEncoded Observable<TopicReply> sendReply(
+      @Path("id") Integer id, @Field("body") String body);
+
   @GET("users/me.json") Observable<UserDetail> getMe();
 
   /**
@@ -69,8 +84,8 @@ public interface DiyCodeService {
   /**
    * 当前用户的某个通知
    */
-  @GET("notifications.json") Observable<Object> getNotifications(@Query("offset") Integer offset,
-      @Query("limit") Integer limit);
+  @GET("notifications.json") Observable<List<Notification>> getNotifications(
+      @Query("offset") Integer offset, @Query("limit") Integer limit);
 
   @GET("users/{login}.json") Observable<UserDetail> getUserDetail(@Path("login") String userLogin);
 
@@ -106,7 +121,8 @@ public interface DiyCodeService {
       @Path("login") String userLogin, @Query("offset") Integer offset,
       @Query("limit") Integer limit);
 
-  @Multipart @POST("photos.json") Observable<Object> uploadPhoto(@Part MultipartBody.Part file);
+  @Multipart @POST("photos.json") Observable<ImageResult> uploadPhoto(
+      @Part MultipartBody.Part file);
 
   @Retention(RetentionPolicy.SOURCE)
   @StringDef({ TOPIC_LAST_ACTIVED, TOPIC_RECENT, TOPIC_NO_REPLY, TOPIC_POPULAR, TOPIC_EXCELLENT })

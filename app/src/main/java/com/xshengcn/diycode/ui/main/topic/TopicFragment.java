@@ -8,17 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.entity.topic.Topic;
 import com.xshengcn.diycode.ui.BaseFragment;
 import com.xshengcn.diycode.ui.topicdetail.TopicDetailActivity;
-import com.xshengcn.diycode.util.ViewUtils;
 import com.xshengcn.diycode.widget.itemdecoration.OffsetDecoration;
 import com.xshengcn.diycode.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.widget.recyclerview.LoadMoreWrapper;
@@ -30,11 +27,8 @@ public class TopicFragment extends BaseFragment
 
   @BindView(R.id.recycler_View) RecyclerView recyclerView;
   @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
-  @BindView(R.id.stub_no_connection) ViewStub stubNoConnection;
-  @BindView(R.id.stub_progress) ViewStub stubProgress;
-  @Nullable @BindView(R.id.progressbar) ProgressBar progressBar;
-  @Nullable @BindView(R.id.no_connection_view) View noConnection;
-  @Nullable @BindView(R.id.no_connection_retry) Button retryButton;
+  @BindView(R.id.state_view) MultiStateView stateView;
+
   @BindDimen(R.dimen.spacing_xsmall) int space;
   @Inject TopicAdapter adapter;
   @Inject TopicPresenter presenter;
@@ -55,16 +49,14 @@ public class TopicFragment extends BaseFragment
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_common_recycler, container, false);
+    View view = inflater.inflate(R.layout.fragment_topics, container, false);
     ButterKnife.bind(this, view);
     return view;
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    recyclerView.setNestedScrollingEnabled(false);
-    swipeRefreshLayout.setEnabled(false);
-    swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
+    swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
     recyclerView.setPadding(0, space, 0, space);
     recyclerView.addItemDecoration(new OffsetDecoration(space, space, 0, 0));
     adapter.setOnItemClickListener(this);
@@ -80,16 +72,13 @@ public class TopicFragment extends BaseFragment
   }
 
   @Override public void showTopics(List<Topic> topics, boolean clean) {
-    if (!recyclerView.isNestedScrollingEnabled()) {
-      recyclerView.setNestedScrollingEnabled(true);
-    }
-    if (!swipeRefreshLayout.isEnabled()) {
-      swipeRefreshLayout.setEnabled(true);
-    }
+
+    stateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+
     if (swipeRefreshLayout.isRefreshing()) {
       swipeRefreshLayout.setRefreshing(false);
     }
-    ViewUtils.setViewVisibility(progressBar, View.GONE);
+
     wrapper.hideFooter();
     if (clean) {
       adapter.clear();
@@ -103,35 +92,32 @@ public class TopicFragment extends BaseFragment
     }
   }
 
-  @Override public void showNoMore() {
+  @Override public void showLoadMoreFailed() {
+    wrapper.showLoadFailed();
+  }
+
+  @Override public void showLoadNoMore() {
     wrapper.showNoMore();
   }
 
-  @Override public int getTopicCount() {
+  @Override public int getItemOffset() {
     return adapter.getItemCount();
   }
 
-  @Override public void showProgressBar() {
-    ViewUtils.setViewVisibility(noConnection, View.GONE);
-    if (progressBar == null) {
-      progressBar = (ProgressBar) stubProgress.inflate();
-    }
-    progressBar.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void showNoConnection() {
-    ViewUtils.setViewVisibility(progressBar, View.GONE);
-    if (noConnection == null) {
-      noConnection = stubNoConnection.inflate();
-      retryButton = ButterKnife.findById(noConnection, R.id.no_connection_retry);
-      retryButton.setOnClickListener(v -> presenter.refresh());
-    } else {
-      noConnection.setVisibility(View.VISIBLE);
+  @Override public void changeStateView(@MultiStateView.ViewState int state) {
+    stateView.setViewState(state);
+    if (state == MultiStateView.VIEW_STATE_ERROR) {
+      ButterKnife.findById(stateView.getView(state), R.id.no_connection_retry)
+          .setOnClickListener(v -> presenter.onRefresh());
     }
   }
 
-  @Override public void showLoadMoreError() {
-    wrapper.showLoadFailed();
+  @Override public boolean isRefreshing() {
+    return swipeRefreshLayout.isRefreshing();
+  }
+
+  @Override public void showRefreshErrorAndComplete() {
+    swipeRefreshLayout.setRefreshing(false);
   }
 
   @Override public void clickItem(Topic topic, int position) {

@@ -21,7 +21,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
       super.onScrolled(recyclerView, dx, dy);
 
-      if (handler == null || !handler.canLoadMore() || currentType != ITEM_TYPE_NO_VIEW) {
+      if ((handler == null) || !handler.canLoadMore() || (currentType != ITEM_TYPE_NO_VIEW)) {
         return;
       }
 
@@ -33,7 +33,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return;
       }
 
-      if ((totalItemCount - visibleItemCount) <= firstVisibleItem
+      if (((totalItemCount - visibleItemCount) <= firstVisibleItem)
           && !recyclerView.isComputingLayout()) {
         recyclerView.post(() -> {
           showLoadMore();
@@ -98,11 +98,11 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
   @Override public int getItemCount() {
     int itemCount = innerAdapter.getItemCount();
-    return currentType == ITEM_TYPE_NO_VIEW ? itemCount : itemCount + 1;
+    return (currentType == ITEM_TYPE_NO_VIEW) ? itemCount : (itemCount + 1);
   }
 
   @Override public int getItemViewType(int position) {
-    if (currentType != ITEM_TYPE_NO_VIEW && position == getItemCount() - 1) {
+    if ((currentType != ITEM_TYPE_NO_VIEW) && (position == (getItemCount() - 1))) {
       return currentType;
     } else {
       return innerAdapter.getItemViewType(position);
@@ -132,7 +132,8 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
   }
 
-  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+  @SuppressWarnings("unchecked") @Override
+  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof LoadMoreViewHolder) {
 
     } else if (holder instanceof LoadFailedViewHolder) {

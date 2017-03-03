@@ -12,5 +12,5 @@ public interface ILoginView {
 
   void hideLoginDialog();
 
-  void closeActivity(int resultCode);
+  void closeActivity();
 }

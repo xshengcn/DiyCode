@@ -30,12 +30,18 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
   private final int imgMaxWidth;
   private final TopicAndReplies topicAndReplies;
   private HtmlUtils.ClickCallback callBack;
+  private OnHeaderClickListener onHeaderClickListener;
 
   @Inject public TopicDetailAdapter(Context context) {
     this.context = context;
     int margin = DensityUtil.dp2px(context, 16 * 2);
     imgMaxWidth = DensityUtil.getScreenWidth(context) - margin;
     topicAndReplies = new TopicAndReplies();
+    topicAndReplies.replies = new ArrayList<>();
+  }
+
+  public void setOnHeaderClickListener(OnHeaderClickListener onHeaderClickListener) {
+    this.onHeaderClickListener = onHeaderClickListener;
   }
 
   public void setContentCallBack(HtmlUtils.ClickCallback callBack) {
@@ -55,9 +61,6 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
   }
 
   public void addReplies(List<TopicReply> replies) {
-    if (topicAndReplies.replies == null) {
-      topicAndReplies.replies = new ArrayList<>();
-    }
     topicAndReplies.replies.addAll(replies);
   }
 
@@ -106,11 +109,22 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
       holder.date.setText(DateUtils.computePastTime(reply.createdAt));
     }
 
+    holder.avatar.setOnClickListener(v -> {
+      if (onHeaderClickListener != null) {
+        onHeaderClickListener.clickHead(reply.user.login);
+      }
+    });
+
     HtmlUtils.parseHtmlAndSetText(context, reply.bodyHtml, holder.body, imgMaxWidth, callBack);
   }
 
   private void bindHeaderViewHolder(HeaderViewHolder holder, TopicContent detail) {
     Glide.with(context).load(detail.user.avatarUrl).into(holder.avatar);
+    holder.avatar.setOnClickListener(v -> {
+      if (onHeaderClickListener != null) {
+        onHeaderClickListener.clickHead(detail.user.login);
+      }
+    });
     holder.name.setText(detail.user.login);
     holder.node.setText(detail.nodeName);
     if (detail.repliedAt != null) {
@@ -124,6 +138,11 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     holder.replyCount.setVisibility(detail.repliesCount == 0 ? View.GONE : View.VISIBLE);
     holder.replyCount.setText("共收到" + detail.repliesCount + "条回复");
+
+    holder.thumbUp.setImageResource(
+        detail.liked ? R.drawable.ic_thumb_up_selected : R.drawable.ic_thumb_up_normal);
+    holder.favorite.setImageResource(
+        detail.favorited ? R.drawable.ic_favorite_selected : R.drawable.ic_favorite_normal);
   }
 
   @Override public int getItemCount() {
@@ -134,6 +153,10 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     } else {
       return topicAndReplies.replies == null ? 1 : 1 + topicAndReplies.replies.size();
     }
+  }
+
+  public void clear() {
+
   }
 
   static class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -172,5 +195,9 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
       super(view);
       ButterKnife.bind(this, view);
     }
+  }
+
+  public interface OnHeaderClickListener {
+    void clickHead(String user);
   }
 }

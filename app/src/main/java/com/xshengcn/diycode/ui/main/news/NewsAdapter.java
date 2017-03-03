@@ -99,6 +99,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     this.onItemClickListener = onItemClickListener;
   }
 
+  public void clear() {
+    newses.clear();
+  }
+
   public interface OnItemClickListener {
 
     void clickItem(News news, int position);

@@ -25,7 +25,7 @@ public class ImageSpanTarget extends SimpleTarget<Bitmap> {
     if (textView != null) {
       URLDrawable drawable = drawableReference.get();
       BitmapDrawable bd = new BitmapDrawable(textView.getResources(), resource);
-      final double aspectRatio = 1.0 * bd.getIntrinsicWidth() / bd.getIntrinsicHeight();
+      final double aspectRatio = (1.0 * bd.getIntrinsicWidth()) / bd.getIntrinsicHeight();
 
       final int width = Math.min(imgMaxWidth, bd.getIntrinsicWidth());
       final int height = (int) (width / aspectRatio);

@@ -7,9 +7,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.xshengcn.diycode.ui.main.MainActivity"
+    tools:openDrawer="left"
     >
 
   <android.support.design.widget.CoordinatorLayout
+      android:id="@+id/coordinator_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
@@ -45,6 +47,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
+
   </android.support.design.widget.CoordinatorLayout>
 
   <android.support.design.widget.NavigationView
@@ -56,5 +59,47 @@
       app:headerLayout="@layout/nav_header_main"
       app:menu="@menu/activity_main_drawer"
       />
+
+
+  <com.github.clans.fab.FloatingActionMenu
+      android:id="@+id/fab_menu"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      android:gravity="right|bottom"
+      android:padding="@dimen/spacing"
+      app:menu_animationDelayPerItem="50"
+      app:menu_colorNormal="@color/colorAccent"
+      app:menu_colorPressed="@color/colorAccent"
+      app:menu_colorRipple="@color/touch_effect"
+      app:menu_labels_colorNormal="@android:color/white"
+      app:menu_labels_colorPressed="@android:color/white"
+      app:menu_labels_colorRipple="@color/touch_effect"
+      app:menu_labels_margin="@dimen/spacing_xsmall"
+      app:menu_labels_textColor="@color/colorTextSecondary"
+      app:menu_labels_textSize="@dimen/dimenTextSecondary"
+      >
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_create_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fab_add"
+        app:fab_label="发布话题"
+        app:fab_size="mini"
+        />
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_create_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fab_add"
+        app:fab_label="分享链接"
+        app:fab_size="mini"
+        />
+
+
+  </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.v4.widget.DrawerLayout>

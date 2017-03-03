@@ -8,9 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +41,7 @@ public class SearchActivity extends BaseActivity {
     searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
     searchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
+    ImeUtils.showImeForced(this);
 
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override public boolean onQueryTextSubmit(String query) {
@@ -55,11 +54,15 @@ public class SearchActivity extends BaseActivity {
         return false;
       }
     });
-
   }
 
-  @Override public void onEnterAnimationComplete() {
-    super.onEnterAnimationComplete();
-    ImeUtils.showIme(searchView);
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        ImeUtils.hideIme(searchView);
+        super.onBackPressed();
+        break;
+    }
+    return super.onOptionsItemSelected(item);
   }
 }

@@ -6,6 +6,13 @@
   <dimen name="spacing">16dp</dimen>
   <dimen name="spacing_large">24dp</dimen>
 
+  <!-- text -->
+  <dimen name="dimenTextPrimary">22sp</dimen>
+  <dimen name="dimenTextSecondary">15sp</dimen>
+  <dimen name="dimenTextTertiary">13sp</dimen>
+  <dimen name="dimenTextQuaternary">12sp</dimen>
+
+
   <dimen name="nav_header_height">180dp</dimen>
 
   <!-- Default screen margins, per the Android Design guidelines. -->

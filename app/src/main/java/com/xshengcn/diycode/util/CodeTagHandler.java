@@ -13,13 +13,13 @@ public class CodeTagHandler implements Html.TagHandler {
   public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
     if (tag.equalsIgnoreCase("code")) {
       if (opening) {
-        output.setSpan(new CodeTypefaceSpan(""), output.length(), output.length(),
+        output.setSpan(new CodeTypefaceSpan(), output.length(), output.length(),
             Spannable.SPAN_MARK_MARK);
       } else {
         CodeTypefaceSpan obj = getLast(output, CodeTypefaceSpan.class);
         int where = output.getSpanStart(obj);
 
-        output.setSpan(new CodeTypefaceSpan(""), where, output.length(),
+        output.setSpan(new CodeTypefaceSpan(), where, output.length(),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         output.setSpan(new StyleSpan(Typeface.ITALIC), where, output.length(),
             Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -43,8 +43,8 @@ public class CodeTagHandler implements Html.TagHandler {
 
   class CodeTypefaceSpan extends TypefaceSpan {
 
-    public CodeTypefaceSpan(String family) {
-      super(family);
+    public CodeTypefaceSpan() {
+      super("");
     }
   }
 }

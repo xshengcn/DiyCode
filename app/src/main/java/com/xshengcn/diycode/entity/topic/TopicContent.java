@@ -26,4 +26,7 @@ public class TopicContent {
   @SerializedName("hits") public int hits;
   @SerializedName("likes_count") public int likesCount;
   @SerializedName("suggested_at") public String suggestedAt;
+  @SerializedName("followed") public boolean followed;
+  @SerializedName("liked") public boolean liked;
+  @SerializedName("favorited") public boolean favorited;
 }

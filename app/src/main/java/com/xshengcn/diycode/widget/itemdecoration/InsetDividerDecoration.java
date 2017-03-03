@@ -64,7 +64,7 @@ public class InsetDividerDecoration extends RecyclerView.ItemDecoration {
         }
         lines[i * 4] = inset + lm.getDecoratedLeft(child);
         lines[(i * 4) + 2] = lm.getDecoratedRight(child);
-        int y = lm.getDecoratedBottom(child) + (int) child.getTranslationY() - height;
+        int y = lm.getDecoratedBottom(child) + (int) child.getTranslationY();
         lines[(i * 4) + 1] = y;
         lines[(i * 4) + 3] = y;
         hasDividers = true;

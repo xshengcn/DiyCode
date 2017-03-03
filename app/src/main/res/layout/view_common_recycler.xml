@@ -5,14 +5,12 @@
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/recycler_View"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="#F0F0F0"
       android:clipToPadding="false"
       app:layoutManager="LinearLayoutManager"
       />

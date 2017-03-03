@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+      android:id="@+id/action_ruby"
+      android:title="Ruby"
+      app:showAsAction="ifRoom|collapseActionView"/>
+
+  <item
+      android:id="@+id/action_html_erb"
+      android:title="HTML/ERB"
+      app:showAsAction="always"/>
+
+  <item
+      android:id="@+id/action_css_scss"
+      android:title="CSS/SCSS"
+      app:showAsAction="ifRoom|collapseActionView"/>
+
+  <item
+      android:id="@+id/action_javascript"
+      android:title="JavaScript"
+      app:showAsAction="always"/>
+
+  <item
+      android:id="@+id/action_yaml"
+      android:title="YAML"
+      app:showAsAction="ifRoom|collapseActionView"/>
+
+  <item
+      android:id="@+id/action_coffeescript"
+      android:title="CoffeeScript"
+      app:showAsAction="always"/>
+
+  <item
+      android:id="@+id/action_nginx_redis"
+      android:title="Nginx/Redis"
+      app:showAsAction="ifRoom|collapseActionView"/>
+
+  <item
+      android:id="@+id/action_python"
+      android:title="Python"
+      app:showAsAction="always"/>
+
+  <item
+      android:id="@+id/action_php"
+      android:title="PHP"
+      app:showAsAction="ifRoom|collapseActionView"/>
+
+  <item
+      android:id="@+id/action_java"
+      android:title="Java"
+      app:showAsAction="always"/>
+
+  <item
+      android:id="@+id/action_erlang"
+      android:title="Erlang"
+      app:showAsAction="always"/>
+
+  <item
+      android:id="@+id/action_shell_bash"
+      android:title="Shell/Bash"
+      app:showAsAction="always"/>
+
+
+</menu>

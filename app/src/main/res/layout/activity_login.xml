@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.login.LoginActivity"
+    tools:context=".ui.view.activity.LoginActivity"
     >
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
-      android:layout_height="?actionBarSize"
+      android:layout_height="?attr/actionBarSize"
       />
 
   <ImageView
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email_username"
-        android:inputType="textEmailAddress"
+        android:inputType="textVisiblePassword"
         />
 
   </android.support.design.widget.TextInputLayout>
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         />
 
   </android.support.design.widget.TextInputLayout>

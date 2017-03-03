@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.ui.main.topic;
 
+import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.entity.topic.Topic;
 import java.util.List;
 
@@ -7,13 +8,15 @@ public interface ITopicView {
 
   void showTopics(List<Topic> topics, boolean clean);
 
-  void showNoMore();
+  void showLoadMoreFailed();
 
-  int getTopicCount();
+  void showLoadNoMore();
 
-  void showProgressBar();
+  int getItemOffset();
 
-  void showNoConnection();
+  void changeStateView(@MultiStateView.ViewState int state);
 
-  void showLoadMoreError();
+  boolean isRefreshing();
+
+  void showRefreshErrorAndComplete();
 }

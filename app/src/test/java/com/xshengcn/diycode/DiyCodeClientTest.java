@@ -1,6 +1,5 @@
 package com.xshengcn.diycode;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.xshengcn.diycode.api.DiyCodeClient;
 import com.xshengcn.diycode.entity.Token;
 import com.xshengcn.diycode.entity.topic.Topic;
@@ -16,6 +15,7 @@ import javax.net.ssl.X509TrustManager;
 import okhttp3.OkHttpClient;
 import org.junit.Before;
 import org.junit.Test;
+import retrofit2.HttpException;
 
 public class DiyCodeClientTest {
 

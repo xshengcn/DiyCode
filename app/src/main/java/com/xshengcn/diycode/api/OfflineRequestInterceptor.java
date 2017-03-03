@@ -2,7 +2,6 @@ package com.xshengcn.diycode.api;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import com.xshengcn.diycode.DiyCodePrefs;
 import com.xshengcn.diycode.entity.Token;
 import java.io.IOException;

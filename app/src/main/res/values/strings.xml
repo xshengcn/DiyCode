@@ -3,20 +3,33 @@
 
   <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
   <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-  <string name="menu_search">search</string>
-  <string name="menu_notice">notice</string>
-  <string name="menu_more">more</string>
-  <string name="email_username">Email / Username</string>
-  <string name="password">Password</string>
-  <string name="login">login</string>
-  <string name="username_not_empty">Username can not be empty</string>
-  <string name="password_not_empty">Password can not be empty</string>
-  <string name="tips_login">Please wait...</string>
+
+  <string name="menu_search">搜索</string>
+  <string name="menu_notice">通知</string>
+  <string name="email_username">邮箱 / 用户名</string>
+  <string name="password">密码</string>
+  <string name="login">登陆</string>
+  <string name="username_not_empty">用户名不能为空</string>
+  <string name="password_not_empty">密码不能为空</string>
+  <string name="tips_login">正在登录…</string>
   <string name="tips_error">error</string>
-  <string name="bt_retry">RETRY</string>
-  <string name="bt_ignore">IGNOR</string>
+  <string name="bt_retry">重试</string>
+  <string name="bt_ignore">忽略</string>
   <string name="no_connection">No Connection</string>
   <string name="no_connection_msg">We could not establish a connection with our servers. Please try again when you are connected to the internet.</string>
+  <string name="favorites">我的收藏</string>
+  <string name="user_favorites">%s的收藏</string>
+  <string name="topics">我的帖子</string>
+  <string name="user_topics">%s的帖子</string>
+  <string name="relies">我的评论</string>
+  <string name="user_replies">%s的评论</string>
+  <string name="share">分享</string>
+  <string name="preview">预览</string>
+  <string name="insert_link">插入链接</string>
+  <string name="link_can_not_be_empty">链接不能为空</string>
+  <string name="link_title_can_not_be_empty">链接标题不能为空</string>
+  <string name="link">链接</string>
+  <string name="link_title">链接标题</string>
 
   <string-array name="main_tabs">
     <item>topics</item>

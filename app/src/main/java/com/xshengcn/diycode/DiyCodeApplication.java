@@ -2,9 +2,9 @@ package com.xshengcn.diycode;
 
 import android.app.Application;
 import com.squareup.leakcanary.LeakCanary;
-import com.xshengcn.diycode.injector.component.ApplicationComponent;
-import com.xshengcn.diycode.injector.component.DaggerApplicationComponent;
-import com.xshengcn.diycode.injector.module.ApplicationModule;
+import com.xshengcn.diycode.injection.component.ApplicationComponent;
+import com.xshengcn.diycode.injection.component.DaggerApplicationComponent;
+import com.xshengcn.diycode.injection.module.ApplicationModule;
 
 public class DiyCodeApplication extends Application {
 

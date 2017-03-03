@@ -7,12 +7,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import butterknife.BindColor;
 import butterknife.BindDimen;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.customtabs.CustomTabActivityHelper;
 import com.xshengcn.diycode.entity.topic.Topic;
@@ -34,12 +39,16 @@ public class TopicDetailActivity extends BaseActivity
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.appbar_layout) AppBarLayout appbarLayout;
   @BindView(R.id.recycler_View) RecyclerView recyclerView;
+  @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+  @BindView(R.id.fab) FloatingActionButton fab;
+  @BindView(R.id.state_view) MultiStateView stateView;
   @BindColor(R.color.colorDivider) int colorDivider;
+  @BindColor(android.R.color.white) int color;
+  @BindString(R.string.share) String share;
   @BindDimen(R.dimen.divider) int divider;
 
   @Inject TopicDetailPresenter presenter;
   @Inject TopicDetailAdapter adapter;
-  @BindColor(android.R.color.white) int color;
   private LoadMoreWrapper wrapper;
   private Topic topic;
 
@@ -51,7 +60,7 @@ public class TopicDetailActivity extends BaseActivity
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_common_recycler);
+    setContentView(R.layout.activity_topic_detail);
     ButterKnife.bind(this);
     getComponent().inject(this);
 
@@ -62,43 +71,76 @@ public class TopicDetailActivity extends BaseActivity
     recyclerView.addItemDecoration(
         new InsetDividerDecoration(TopicDetailAdapter.ViewHolder.class, divider, 0, colorDivider));
     adapter.setContentCallBack(this);
+    adapter.setOnHeaderClickListener(user -> presenter.clickUserHeader(this, user));
     wrapper = new LoadMoreWrapper(this, adapter);
     recyclerView.setAdapter(wrapper);
-
+    swipeRefreshLayout.setOnRefreshListener(presenter::onRefresh);
+    fab.setOnClickListener(v -> presenter.clickReply(this));
     presenter.onAttach(this);
   }
 
-  @Override public int getTopicId() {
-    return topic.id;
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        super.onBackPressed();
+        break;
+    }
+    return super.onOptionsItemSelected(item);
   }
+
+  @Override protected void onDestroy() {
+    presenter.onDetach();
+    super.onDestroy();
+  }
+
+  @Override public Topic getTopic() {
+    return topic;
+  }
+
 
   @Override public void showTopicAndReplies(TopicAndReplies topicAndReplies) {
-    int start = adapter.getItemCount();
+    stateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+    wrapper.hideFooter();
+    if (swipeRefreshLayout.isRefreshing()) {
+      swipeRefreshLayout.setRefreshing(false);
+    }
+    adapter.getTopicAndReplies().replies.clear();
     adapter.setTopicContent(topicAndReplies.content);
     adapter.addReplies(topicAndReplies.replies);
-    wrapper.notifyItemRangeInserted(start, adapter.getItemCount());
-
-    if (adapter.getTopicAndReplies().replies.size()
-        == adapter.getTopicAndReplies().content.repliesCount) {
-      wrapper.showNoMore();
-    }
+    wrapper.notifyDataSetChanged();
   }
 
-  @Override public int getReplyOffset() {
+  @Override public int getItemOffset() {
     return adapter.getTopicAndReplies().replies.size();
   }
 
-  @Override public void addReplies(List<TopicReply> topicReplies) {
+  @Override public void showMoreReplies(List<TopicReply> topicReplies) {
     wrapper.hideFooter();
     int start = adapter.getItemCount();
     adapter.addReplies(topicReplies);
     wrapper.notifyItemRangeInserted(start, topicReplies.size());
-
-    if (adapter.getTopicAndReplies().replies.size()
-        == adapter.getTopicAndReplies().content.repliesCount) {
-      wrapper.showNoMore();
-    }
   }
+
+  @Override public void showLoadMoreFailed() {
+    wrapper.showLoadFailed();
+  }
+
+  @Override public void showLoadNoMore() {
+    wrapper.showNoMore();
+  }
+
+  @Override public void changeStateView(@MultiStateView.ViewState int state) {
+    stateView.setViewState(state);
+  }
+
+  @Override public boolean isRefreshing() {
+    return swipeRefreshLayout.isRefreshing();
+  }
+
+  @Override public void showRefreshErrorAndComplete() {
+
+  }
+
 
   @Override public void clickUrl(String url) {
     if (url.startsWith("#reply")) {
@@ -116,8 +158,12 @@ public class TopicDetailActivity extends BaseActivity
       builder.setToolbarColor(color);
       builder.setShowTitle(true);
 
-      CustomTabActivityHelper.openCustomTab(this, builder.build(), Uri.parse(url),
-          (activity, uri) -> openUri(activity, uri));
+      try {
+        CustomTabActivityHelper.openCustomTab(this, builder.build(), Uri.parse(url),
+            (activity, uri) -> openUri(activity, uri));
+      }catch (Exception e) {
+        
+      }
     }
   }
 
@@ -133,7 +179,8 @@ public class TopicDetailActivity extends BaseActivity
 
   @Override public boolean canLoadMore() {
     TopicAndReplies details = adapter.getTopicAndReplies();
-    return details.content.repliesCount > details.replies.size();
+    return details.content.repliesCount > details.replies.size()
+        && !swipeRefreshLayout.isRefreshing();
   }
 
   @Override public void loadMore() {

@@ -109,10 +109,10 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     items.add(news);
   }
 
-  public static interface OnUrlClickListener {
+  public interface OnUrlClickListener {
   }
 
-  public static interface OnImageClickListener {
+  public interface OnImageClickListener {
   }
 
   private static class ClickableURLSpan extends ClickableSpan {

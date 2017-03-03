@@ -9,7 +9,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.ui.BaseActivity;
+import com.xshengcn.diycode.util.TextWatcherAdapter;
 import javax.inject.Inject;
 
 public class LoginActivity extends BaseActivity implements ILoginView {
@@ -30,7 +30,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
   @BindView(R.id.login) Button login;
   @BindView(R.id.usernameWrapper) TextInputLayout usernameWrapper;
   @BindView(R.id.passwordWrapper) TextInputLayout passwordWrapper;
-
   @BindString(R.string.username_not_empty) String usernameNotEmpty;
   @BindString(R.string.password_not_empty) String passwordNotEmpty;
   @BindString(R.string.tips_login) String tips_login;
@@ -58,15 +57,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     login.setOnClickListener(view -> login(view));
 
-    username.addTextChangedListener(new TextWatcher() {
-      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-      }
-
-      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-      }
-
+    username.addTextChangedListener(new TextWatcherAdapter() {
       @Override public void afterTextChanged(Editable s) {
         if (TextUtils.isEmpty(s)) {
           usernameWrapper.setError(usernameNotEmpty);
@@ -76,15 +67,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
       }
     });
 
-    password.addTextChangedListener(new TextWatcher() {
-      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-      }
-
-      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-      }
-
+    password.addTextChangedListener(new TextWatcherAdapter() {
       @Override public void afterTextChanged(Editable s) {
         if (TextUtils.isEmpty(s)) {
           passwordWrapper.setError(passwordNotEmpty);
@@ -98,7 +81,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home:
-        closeActivity(RESULT_CANCELED);
+        super.onBackPressed();
         break;
     }
     return super.onOptionsItemSelected(item);
@@ -140,8 +123,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
   }
 
-  @Override public void closeActivity(int resultCode) {
-    setResult(resultCode);
+  @Override public void closeActivity() {
     finish();
   }
 }
