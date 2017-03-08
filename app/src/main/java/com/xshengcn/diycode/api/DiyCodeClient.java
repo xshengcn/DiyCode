@@ -10,15 +10,22 @@ import com.xshengcn.diycode.entity.news.News;
 import com.xshengcn.diycode.entity.news.NewsReply;
 import com.xshengcn.diycode.entity.topic.Topic;
 import com.xshengcn.diycode.entity.topic.TopicContent;
+import com.xshengcn.diycode.entity.topic.TopicNode;
+import com.xshengcn.diycode.entity.topic.TopicNodeCategory;
 import com.xshengcn.diycode.entity.topic.TopicReply;
 import com.xshengcn.diycode.entity.user.Notification;
 import com.xshengcn.diycode.entity.user.NotificationUnread;
 import com.xshengcn.diycode.entity.user.UserDetail;
 import com.xshengcn.diycode.entity.user.UserReply;
 import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -50,7 +57,11 @@ public class DiyCodeClient {
   }
 
   public Observable<List<Topic>> getTopics(int offset) {
-    return service.getTopics(null, 61, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+    return service.getTopics(null, null, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+  }
+
+  public Observable<Topic> createTopic(int nodeId, String title, String body) {
+    return service.createTopic(nodeId, title, body).subscribeOn(Schedulers.io());
   }
 
   public Observable<List<News>> getAllNewses(Integer offset) {
@@ -107,5 +118,41 @@ public class DiyCodeClient {
     return service.uploadPhoto(
         MultipartBody.Part.createFormData("file", file.getName(), requestFile))
         .subscribeOn(Schedulers.io());
+  }
+
+  public Observable<Map<TopicNodeCategory, List<TopicNode>>> getTopicNodes() {
+    return service.getTopicNodes()
+        .subscribeOn(Schedulers.io())
+        .map(this::getTopicNodeCategoryListMap);
+  }
+
+  @android.support.annotation.NonNull
+  private Map<TopicNodeCategory, List<TopicNode>> getTopicNodeCategoryListMap(
+      @NonNull List<TopicNode> topicNodes) {
+    LinkedHashMap<TopicNodeCategory, List<TopicNode>> map = new LinkedHashMap<>();
+    topicNodes.sort((o1, o2) -> {
+      int x = o1.sectionId;
+      int y = o2.sectionId;
+      return (x < y) ? -1 : ((x == y) ? 0 : 1);
+    });
+    for (TopicNode topicNode : topicNodes) {
+      TopicNodeCategory category =
+          new TopicNodeCategory(topicNode.sectionId, topicNode.sectionName);
+      if (map.containsKey(category)) {
+        map.get(category).add(topicNode);
+      } else {
+        List<TopicNode> nodes = new ArrayList<>();
+        nodes.add(topicNode);
+        map.put(category, nodes);
+      }
+    }
+    for (TopicNodeCategory category : map.keySet()) {
+      map.get(category).sort((o1, o2) -> {
+        int x = o1.sort;
+        int y = o2.sort;
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
+      });
+    }
+    return map;
   }
 }

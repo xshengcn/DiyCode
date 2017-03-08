@@ -1,9 +1,11 @@
 package com.xshengcn.diycode.util;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
+import android.text.TextPaint;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import org.xml.sax.XMLReader;
@@ -21,7 +23,7 @@ public class CodeTagHandler implements Html.TagHandler {
 
         output.setSpan(new CodeTypefaceSpan(), where, output.length(),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        output.setSpan(new StyleSpan(Typeface.ITALIC), where, output.length(),
+        output.setSpan(new StyleSpan(Typeface.NORMAL), where, output.length(),
             Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
       }
     }
@@ -46,5 +48,11 @@ public class CodeTagHandler implements Html.TagHandler {
     public CodeTypefaceSpan() {
       super("");
     }
+
+    @Override public void updateDrawState(TextPaint ds) {
+      super.updateDrawState(ds);
+      ds.setColor(Color.parseColor("#999999"));
+    }
   }
+
 }

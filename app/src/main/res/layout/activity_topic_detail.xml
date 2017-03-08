@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <include layout="@layout/view_common_appbar"/>
+    <include layout="@layout/view_common_appbar" />
 
-  <com.kennyc.view.MultiStateView
-      android:id="@+id/state_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#F0F0F0"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      app:msv_emptyView="@layout/view_empty"
-      app:msv_errorView="@layout/view_no_connection"
-      app:msv_loadingView="@layout/view_progress"
-      app:msv_viewState="content"
-      >
-    <include layout="@layout/view_common_recycler"/>
-  </com.kennyc.view.MultiStateView>
+    <com.kennyc.view.MultiStateView
+        android:id="@+id/state_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/content_background"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:msv_emptyView="@layout/view_empty"
+        app:msv_errorView="@layout/view_no_connection"
+        app:msv_loadingView="@layout/view_progress"
+        app:msv_viewState="content">
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|end"
-      android:layout_margin="@dimen/spacing"
-      app:srcCompat="@drawable/ic_pencil_white_24dp"
-      />
+        <include layout="@layout/view_common_recycler" />
+    </com.kennyc.view.MultiStateView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        app:layout_behavior="com.xshengcn.diycode.widget.ScrollAwareFABBehavior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_menu_reply_white" />
 
 </android.support.design.widget.CoordinatorLayout>

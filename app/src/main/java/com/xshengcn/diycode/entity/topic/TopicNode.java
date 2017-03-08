@@ -13,4 +13,8 @@ public class TopicNode {
   @SerializedName("sort") public int sort;
   @SerializedName("section_name") public String sectionName;
   @SerializedName("updated_at") public Date updatedAt;
+
+  @Override public String toString() {
+    return name;
+  }
 }

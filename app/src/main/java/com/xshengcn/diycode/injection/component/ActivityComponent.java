@@ -3,15 +3,16 @@ package com.xshengcn.diycode.injection.component;
 import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.injection.module.ActivityModule;
 import com.xshengcn.diycode.injection.module.FragmentModule;
-import com.xshengcn.diycode.ui.login.LoginActivity;
-import com.xshengcn.diycode.ui.main.MainActivity;
-import com.xshengcn.diycode.ui.newsdetail.NewsDetailActivity;
-import com.xshengcn.diycode.ui.notification.NotificationActivity;
-import com.xshengcn.diycode.ui.reply.ReplyActivity;
-import com.xshengcn.diycode.ui.topicdetail.TopicDetailActivity;
-import com.xshengcn.diycode.ui.userfavorite.UserFavoriteActivity;
-import com.xshengcn.diycode.ui.userreply.UserReplyActivity;
-import com.xshengcn.diycode.ui.usertopic.UserTopicActivity;
+import com.xshengcn.diycode.ui.activity.LoginActivity;
+import com.xshengcn.diycode.ui.activity.MainActivity;
+import com.xshengcn.diycode.ui.activity.NewsDetailActivity;
+import com.xshengcn.diycode.ui.activity.NotificationActivity;
+import com.xshengcn.diycode.ui.activity.ReplyActivity;
+import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
+import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
+import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
+import com.xshengcn.diycode.ui.activity.UserReplyActivity;
+import com.xshengcn.diycode.ui.activity.UserTopicActivity;
 import dagger.Subcomponent;
 
 @PreActivity @Subcomponent(modules = ActivityModule.class) public interface ActivityComponent {
@@ -35,4 +36,6 @@ import dagger.Subcomponent;
   void inject(UserReplyActivity activity);
 
   void inject(ReplyActivity activity);
+
+  void inject(TopicCreatorActivity activity);
 }

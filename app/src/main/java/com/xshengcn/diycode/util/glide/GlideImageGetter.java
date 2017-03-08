@@ -16,7 +16,7 @@ public class GlideImageGetter implements Html.ImageGetter {
 
   public GlideImageGetter(Context context, TextView tvContent, int imgMaxWidth) {
     this.context = context;
-    this.tvContent = new WeakReference<TextView>(tvContent);
+    this.tvContent = new WeakReference<>(tvContent);
     this.imgMaxWidth = imgMaxWidth;
   }
 

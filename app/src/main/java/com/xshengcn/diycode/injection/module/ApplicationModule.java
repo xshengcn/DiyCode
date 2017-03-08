@@ -8,7 +8,6 @@ import com.xshengcn.diycode.DiyCodePrefs;
 import com.xshengcn.diycode.api.DiyCodeClient;
 import com.xshengcn.diycode.api.OfflineRequestInterceptor;
 import com.xshengcn.diycode.api.ResponseInterceptor;
-import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.util.RxBus;
 import dagger.Module;
 import dagger.Provides;
@@ -75,7 +74,4 @@ import okhttp3.logging.HttpLoggingInterceptor;
     return new RxBus();
   }
 
-  @Singleton @Provides public ActivityNavigator providerActivityNavigator() {
-    return new ActivityNavigator();
-  }
 }

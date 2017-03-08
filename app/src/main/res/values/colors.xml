@@ -10,6 +10,9 @@
   <color name="colorTextQuaternary">#C8C8CE</color>
   <color name="touch_effect">#9CCC</color>
   <color name="fab_menu">#A8FFFFFF</color>
-  <color name="colorDivider">#F0F0F0</color>
+
+  <color name="content_background">#F0F0F0</color>
+  <color name="colorDivider">@color/content_background</color>
+
 
 </resources>

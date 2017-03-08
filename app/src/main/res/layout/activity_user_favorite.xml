@@ -13,7 +13,7 @@
       android:id="@+id/state_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="#F0F0F0"
+      android:background="@color/content_background"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       app:msv_emptyView="@layout/view_empty"
       app:msv_errorView="@layout/view_no_connection"

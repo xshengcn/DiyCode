@@ -2,46 +2,84 @@ package com.xshengcn.diycode.ui;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import com.xshengcn.diycode.ui.login.LoginActivity;
-import com.xshengcn.diycode.ui.notification.NotificationActivity;
-import com.xshengcn.diycode.ui.reply.ReplyActivity;
-import com.xshengcn.diycode.ui.search.SearchActivity;
-import com.xshengcn.diycode.ui.user.UserActivity;
-import com.xshengcn.diycode.ui.userfavorite.UserFavoriteActivity;
-import com.xshengcn.diycode.ui.userreply.UserReplyActivity;
-import com.xshengcn.diycode.ui.usertopic.UserTopicActivity;
 
+import com.xshengcn.diycode.DiyCodePrefs;
+import com.xshengcn.diycode.ui.activity.LoginActivity;
+import com.xshengcn.diycode.ui.activity.NotificationActivity;
+import com.xshengcn.diycode.ui.activity.ReplyActivity;
+import com.xshengcn.diycode.ui.activity.SearchActivity;
+import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
+import com.xshengcn.diycode.ui.activity.UserActivity;
+import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
+import com.xshengcn.diycode.ui.activity.UserReplyActivity;
+import com.xshengcn.diycode.ui.activity.UserTopicActivity;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public final class ActivityNavigator {
 
-  public void showUserReplies(@NonNull Activity activity, @NonNull String user) {
-    UserReplyActivity.start(activity, user);
-  }
+    private final DiyCodePrefs prefs;
 
-  public void showUserFavorites(@NonNull Activity activity, @NonNull String user) {
-    UserFavoriteActivity.start(activity, user);
-  }
+    @Inject
+    public ActivityNavigator(DiyCodePrefs prefs) {
+        this.prefs = prefs;
+    }
 
-  public void showUserTopics(@NonNull Activity activity, @NonNull String user) {
-    UserTopicActivity.start(activity, user);
-  }
+    public void showUserReplies(@NonNull Activity activity) {
+        if (prefs.getToken() == null) {
+            showLogin(activity);
+            return;
+        }
+        UserReplyActivity.start(activity, prefs.getUser().login);
+    }
 
-  public void showUser(@NonNull Activity activity) {
-    UserActivity.start(activity);
-  }
+    public void showUserFavorites(@NonNull Activity activity) {
+        if (prefs.getToken() == null) {
+            showLogin(activity);
+            return;
+        }
+        UserFavoriteActivity.start(activity, prefs.getUser().login);
+    }
 
-  public void showLogin(@NonNull Activity activity) {
-    LoginActivity.start(activity);
-  }
+    public void showUserTopics(@NonNull Activity activity) {
+        if (prefs.getToken() == null) {
+            showLogin(activity);
+            return;
+        }
+        UserTopicActivity.start(activity, prefs.getUser().login);
+    }
 
-  public void showSearch(@NonNull Activity activity) {
-    SearchActivity.start(activity);
-  }
+    public void showUser(@NonNull Activity activity) {
+        if (prefs.getToken() == null) {
+            showLogin(activity);
+            return;
+        }
+        UserActivity.start(activity);
+    }
 
-  public void showNotification(@NonNull Activity activity) {
-    NotificationActivity.start(activity);
-  }
+    public void showLogin(@NonNull Activity activity) {
+        LoginActivity.start(activity);
+    }
 
-  public void showReply(@NonNull Activity activity, @NonNull String title, @NonNull int id) {
-    ReplyActivity.start(activity, title, id);
-  }
+    public void showSearch(@NonNull Activity activity) {
+        SearchActivity.start(activity);
+    }
+
+    public void showNotification(@NonNull Activity activity) {
+        if (prefs.getToken() == null) {
+            showLogin(activity);
+            return;
+        }
+        NotificationActivity.start(activity);
+    }
+
+    public void showReply(@NonNull Activity activity, @NonNull String title, @NonNull int id) {
+        ReplyActivity.start(activity, title, id);
+    }
+
+    public void showCreateTopic(@NonNull Activity activity) {
+        TopicCreatorActivity.start(activity);
+    }
 }

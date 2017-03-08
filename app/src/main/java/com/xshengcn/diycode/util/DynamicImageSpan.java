@@ -12,7 +12,7 @@ public class DynamicImageSpan extends DynamicDrawableSpan {
   private final Context context;
   private final WeakReference<Bitmap> bitmapWeakReference;
   public DynamicImageSpan(Context context, Bitmap bitmap) {
-    this.bitmapWeakReference = new WeakReference<Bitmap>(bitmap);
+    this.bitmapWeakReference = new WeakReference<>(bitmap);
     this.context = context;
   }
 

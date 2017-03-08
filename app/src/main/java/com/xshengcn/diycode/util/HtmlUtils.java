@@ -45,6 +45,7 @@ public class HtmlUtils {
           spanned.getSpanStart(imageSpan), spanned.getSpanEnd(imageSpan),
           Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
     textView.setMovementMethod(LinkMovementMethod.getInstance());
 
     textView.setText(trimTrailingWhitespace(style));

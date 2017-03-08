@@ -19,7 +19,7 @@
         android:value="GlideModule"/>
 
     <activity
-        android:name=".ui.main.MainActivity"
+        android:name=".ui.activity.MainActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar.Main">
       <intent-filter>
@@ -30,67 +30,69 @@
     </activity>
 
     <activity
-        android:name=".ui.search.SearchActivity"
+        android:name=".ui.activity.SearchActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.notification.NotificationActivity"
+        android:name=".ui.activity.NotificationActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.newsdetail.NewsDetailActivity"
+        android:name=".ui.activity.NewsDetailActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.topicdetail.TopicDetailActivity"
+        android:name=".ui.activity.TopicDetailActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
 
     <activity
-        android:name=".ui.login.LoginActivity"
+        android:name=".ui.activity.LoginActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.user.UserActivity"
+        android:name=".ui.activity.UserActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar.Main"/>
 
     <activity
-        android:name=".ui.usertopic.UserTopicActivity"
+        android:name=".ui.activity.UserTopicActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.userfavorite.UserFavoriteActivity"
+        android:name=".ui.activity.UserFavoriteActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.userreply.UserReplyActivity"
+        android:name=".ui.activity.UserReplyActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
 
     <activity
-        android:name=".ui.photo.PhotoViewerActivity"
+        android:name=".ui.activity.PhotoViewerActivity"
         android:theme="@style/AppTheme.NoActionBar.Photo"/>
 
     <activity
-        android:name=".ui.topiccreate.TopicCreatorActivity"
-        android:windowSoftInputMode="adjustResize"/>
-
-    <activity
-        android:name=".ui.reply.ReplyActivity"
+        android:name=".ui.activity.TopicCreatorActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"
         android:windowSoftInputMode="adjustResize"/>
 
     <activity
-        android:name=".ui.markdown.MarkdownPreviewActivity"
+        android:name=".ui.activity.ReplyActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="adjustResize"/>
+
+    <activity
+        android:name=".ui.activity.MarkdownPreviewActivity"
         android:label="@string/preview"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>

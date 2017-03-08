@@ -9,6 +9,7 @@ import com.xshengcn.diycode.entity.news.NewsReply;
 import com.xshengcn.diycode.entity.news.Node;
 import com.xshengcn.diycode.entity.topic.Topic;
 import com.xshengcn.diycode.entity.topic.TopicContent;
+import com.xshengcn.diycode.entity.topic.TopicNode;
 import com.xshengcn.diycode.entity.topic.TopicReply;
 import com.xshengcn.diycode.entity.user.Notification;
 import com.xshengcn.diycode.entity.user.NotificationUnread;
@@ -64,6 +65,9 @@ public interface DiyCodeService {
   @GET("topics.json") Observable<List<Topic>> getTopics(@TopicType @Query("type") String type,
       @Query("node_id") Integer nodeId, @Query("offset") Integer offset,
       @Query("limit") Integer limit);
+
+  @POST("topics.json") @FormUrlEncoded Observable<Topic> createTopic(
+      @Field("node_id") Integer nodeId, @Field("title") String title, @Field("body") String body);
 
   @GET("topics/{id}.json") Observable<TopicContent> getTopicDetail(@Path("id") Integer id);
 
@@ -123,6 +127,11 @@ public interface DiyCodeService {
 
   @Multipart @POST("photos.json") Observable<ImageResult> uploadPhoto(
       @Part MultipartBody.Part file);
+
+  /**
+   * 获取话题node列表
+   */
+  @GET("nodes.json") Observable<List<TopicNode>> getTopicNodes();
 
   @Retention(RetentionPolicy.SOURCE)
   @StringDef({ TOPIC_LAST_ACTIVED, TOPIC_RECENT, TOPIC_NO_REPLY, TOPIC_POPULAR, TOPIC_EXCELLENT })
