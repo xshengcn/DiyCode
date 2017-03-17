@@ -2,6 +2,8 @@ package com.xshengcn.diycode.injection.component;
 
 import com.xshengcn.diycode.injection.PreFragment;
 import com.xshengcn.diycode.injection.module.FragmentModule;
+import com.xshengcn.diycode.ui.fragment.ProjectFragment;
+import com.xshengcn.diycode.ui.fragment.SiteFragment;
 import com.xshengcn.diycode.ui.fragment.TopicFragment;
 import com.xshengcn.diycode.ui.fragment.NewsFragment;
 import dagger.Subcomponent;
@@ -12,4 +14,7 @@ import dagger.Subcomponent;
 
   void inject(TopicFragment topicFragment);
 
+  void inject(ProjectFragment projectFragment);
+
+  void inject(SiteFragment siteFragment);
 }

@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.user.Notification;
+import com.xshengcn.diycode.model.user.Notification;
 import com.xshengcn.diycode.ui.iview.INotificationView;
 import com.xshengcn.diycode.ui.adapter.NotificationAdapter;
 import com.xshengcn.diycode.ui.presenter.NotificationPresenter;
@@ -50,7 +50,7 @@ public class NotificationActivity extends BaseActivity implements INotificationV
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_user_topic);
+    setContentView(R.layout.activity_user_notification);
     ButterKnife.bind(this);
     getComponent().inject(this);
 

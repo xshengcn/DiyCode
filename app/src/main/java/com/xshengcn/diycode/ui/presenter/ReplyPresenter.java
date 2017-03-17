@@ -2,8 +2,8 @@ package com.xshengcn.diycode.ui.presenter;
 
 import android.content.Context;
 import android.net.Uri;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.ImageResult;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.model.ImageResult;
 import com.xshengcn.diycode.ui.iview.IReplyView;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -20,17 +20,17 @@ import javax.inject.Inject;
 
 public class ReplyPresenter extends BasePresenter<IReplyView> {
 
-  private final DiyCodeClient client;
+  private final DataManager dataManager;
   private final Context context;
 
-  @Inject public ReplyPresenter(DiyCodeClient client, Context context) {
-    this.client = client;
+  @Inject public ReplyPresenter(DataManager dataManager, Context context) {
+    this.dataManager = dataManager;
     this.context = context;
   }
 
   public void sendReply() {
     final IReplyView view = getView();
-    client.sendReply(view.getId(), view.getBody()).subscribe(new Observer<Object>() {
+    dataManager.sendReply(view.getId(), view.getBody()).subscribe(new Observer<Object>() {
       @Override public void onSubscribe(Disposable d) {
 
       }
@@ -59,7 +59,7 @@ public class ReplyPresenter extends BasePresenter<IReplyView> {
     Disposable d = cacheImageFromContentResolver(data).flatMap(
         new Function<String, ObservableSource<ImageResult>>() {
           @Override public ObservableSource<ImageResult> apply(@NonNull String s) throws Exception {
-            return client.uploadPhoto(s);
+            return dataManager.uploadPhoto(s);
           }
         })
         .subscribeOn(Schedulers.io())
@@ -75,7 +75,7 @@ public class ReplyPresenter extends BasePresenter<IReplyView> {
   }
 
   private void handleImageUpload(ImageResult result) {
-    getView().insertImage(String.format("![](%s)", result.imageUrl));
+    getView().insertImage(result);
   }
 
   private void handleImageUploadError(Throwable throwable) {

@@ -9,7 +9,6 @@ import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.util.ViewUtils;
 
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
   public static final int ITEM_TYPE_LOAD_FAILED_VIEW = Integer.MAX_VALUE - 1;
   public static final int ITEM_TYPE_NO_MORE_VIEW = Integer.MAX_VALUE - 2;
   public static final int ITEM_TYPE_LOAD_MORE_VIEW = Integer.MAX_VALUE - 3;
@@ -40,6 +39,29 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
           handler.loadMore();
         });
       }
+    }
+  };
+
+  private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
+    @Override public void onChanged() {
+
+      LoadMoreWrapper.this.notifyDataSetChanged();
+    }
+
+    @Override public void onItemRangeChanged(int positionStart, int itemCount) {
+      LoadMoreWrapper.this.notifyItemRangeChanged(positionStart, itemCount);
+    }
+
+    @Override public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+      LoadMoreWrapper.this.notifyItemRangeChanged(positionStart, itemCount, payload);
+    }
+
+    @Override public void onItemRangeInserted(int positionStart, int itemCount) {
+      LoadMoreWrapper.this.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @Override public void onItemRangeRemoved(int positionStart, int itemCount) {
+      LoadMoreWrapper.this.notifyItemRangeRemoved(positionStart, itemCount);
     }
   };
 
@@ -112,6 +134,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
   @Override public void onAttachedToRecyclerView(RecyclerView recyclerView) {
     super.onAttachedToRecyclerView(recyclerView);
     recyclerView.addOnScrollListener(scrollListener);
+    innerAdapter.registerAdapterDataObserver(observer);
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -147,6 +170,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
   @Override public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
     recyclerView.removeOnScrollListener(scrollListener);
+    innerAdapter.unregisterAdapterDataObserver(observer);
     super.onDetachedFromRecyclerView(recyclerView);
   }
 

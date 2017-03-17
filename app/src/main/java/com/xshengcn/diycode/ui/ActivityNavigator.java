@@ -1,85 +1,102 @@
 package com.xshengcn.diycode.ui;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
-
+import android.support.v7.app.AppCompatActivity;
 import com.xshengcn.diycode.DiyCodePrefs;
+import com.xshengcn.diycode.model.topic.Topic;
+import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
 import com.xshengcn.diycode.ui.activity.ReplyActivity;
 import com.xshengcn.diycode.ui.activity.SearchActivity;
+import com.xshengcn.diycode.ui.activity.SiteActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
+import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.UserActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserTopicActivity;
-
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
-public final class ActivityNavigator {
+@PreActivity public final class ActivityNavigator {
 
-    private final DiyCodePrefs prefs;
+  private final DiyCodePrefs prefs;
+  private final AppCompatActivity activity;
 
-    @Inject
-    public ActivityNavigator(DiyCodePrefs prefs) {
-        this.prefs = prefs;
+  @Inject public ActivityNavigator(DiyCodePrefs prefs, AppCompatActivity activity) {
+    this.prefs = prefs;
+    this.activity = activity;
+  }
+
+  public void showUserReplies() {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    UserReplyActivity.start(activity, prefs.getUser().login);
+  }
 
-    public void showUserReplies(@NonNull Activity activity) {
-        if (prefs.getToken() == null) {
-            showLogin(activity);
-            return;
-        }
-        UserReplyActivity.start(activity, prefs.getUser().login);
+  public void showUserFavorites() {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    UserFavoriteActivity.start(activity, prefs.getUser().login);
+  }
 
-    public void showUserFavorites(@NonNull Activity activity) {
-        if (prefs.getToken() == null) {
-            showLogin(activity);
-            return;
-        }
-        UserFavoriteActivity.start(activity, prefs.getUser().login);
+  public void showUserTopics() {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    UserTopicActivity.start(activity, prefs.getUser().login);
+  }
 
-    public void showUserTopics(@NonNull Activity activity) {
-        if (prefs.getToken() == null) {
-            showLogin(activity);
-            return;
-        }
-        UserTopicActivity.start(activity, prefs.getUser().login);
+  public void showUser() {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    UserActivity.start(activity);
+  }
 
-    public void showUser(@NonNull Activity activity) {
-        if (prefs.getToken() == null) {
-            showLogin(activity);
-            return;
-        }
-        UserActivity.start(activity);
-    }
+  public void showLogin() {
+    LoginActivity.start(activity);
+  }
 
-    public void showLogin(@NonNull Activity activity) {
-        LoginActivity.start(activity);
-    }
+  public void showSearch() {
+    SearchActivity.start(activity);
+  }
 
-    public void showSearch(@NonNull Activity activity) {
-        SearchActivity.start(activity);
+  public void showNotification() {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    NotificationActivity.start(activity);
+  }
 
-    public void showNotification(@NonNull Activity activity) {
-        if (prefs.getToken() == null) {
-            showLogin(activity);
-            return;
-        }
-        NotificationActivity.start(activity);
+  public void showReply(@NonNull String title, @NonNull int id) {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    ReplyActivity.start(activity, title, id);
+  }
 
-    public void showReply(@NonNull Activity activity, @NonNull String title, @NonNull int id) {
-        ReplyActivity.start(activity, title, id);
+  public void showCreateTopic() {
+    if (prefs.getToken() == null) {
+      showLogin();
+      return;
     }
+    TopicCreatorActivity.start(activity);
+  }
 
-    public void showCreateTopic(@NonNull Activity activity) {
-        TopicCreatorActivity.start(activity);
-    }
+  public void showSite() {
+    SiteActivity.start(activity);
+  }
+
+  public void showTopicDetail(@NonNull Topic topic) {
+    TopicDetailActivity.start(activity, topic);
+  }
 }

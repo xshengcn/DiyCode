@@ -3,8 +3,8 @@ package com.xshengcn.diycode.ui.presenter;
 import android.text.TextUtils;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.topic.Topic;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.model.topic.Topic;
 import com.xshengcn.diycode.ui.iview.ITopicView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,15 +14,14 @@ import javax.inject.Inject;
 
 public class TopicPresenter extends BasePresenter<ITopicView> {
 
-  private final DiyCodeClient client;
+  private final DataManager dataManager;
 
-  @Inject public TopicPresenter(DiyCodeClient client) {
-    this.client = client;
+  @Inject public TopicPresenter(DataManager dataManager) {
+    this.dataManager = dataManager;
   }
 
   @Override public void onAttach(ITopicView view) {
     super.onAttach(view);
-    onRefresh();
   }
 
   public void onRefresh() {
@@ -48,9 +47,9 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
   private Observable<List<Topic>> getTopicDisposable(int offset) {
     String s = getView().getUser();
     if (TextUtils.isEmpty(s)) {
-      return client.getTopics(offset);
+      return dataManager.getTopics(offset);
     } else {
-      return client.getUserTopics(s, offset);
+      return dataManager.getUserTopics(s, offset);
     }
   }
 
@@ -74,7 +73,7 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
     }
 
     view.showTopics(topics, clean);
-    if (topics.size() < DiyCodeClient.PAGE_LIMIT) {
+    if (topics.size() < DataManager.PAGE_LIMIT) {
       view.showLoadNoMore();
     }
   }

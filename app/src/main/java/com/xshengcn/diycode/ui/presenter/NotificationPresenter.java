@@ -2,8 +2,8 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.DiyCodePrefs;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.user.Notification;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.model.user.Notification;
 import com.xshengcn.diycode.ui.iview.INotificationView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -12,11 +12,11 @@ import javax.inject.Inject;
 
 public class NotificationPresenter extends BasePresenter<INotificationView> {
 
-  private final DiyCodeClient client;
+  private final DataManager dataManager;
   private final DiyCodePrefs prefs;
 
-  @Inject public NotificationPresenter(DiyCodeClient client, DiyCodePrefs prefs) {
-    this.client = client;
+  @Inject public NotificationPresenter(DataManager dataManager, DiyCodePrefs prefs) {
+    this.dataManager = dataManager;
     this.prefs = prefs;
   }
 
@@ -40,7 +40,7 @@ public class NotificationPresenter extends BasePresenter<INotificationView> {
   private void loadUserTopics(boolean clean) {
     final INotificationView view = getView();
     int offset = clean ? 0 : view.getItemOffset();
-    Disposable disposable = client.getNotifications(offset)
+    Disposable disposable = dataManager.getNotifications(offset)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(notifications -> handleNext(notifications, clean), this::handleError);
     addDisposable(disposable);
@@ -55,7 +55,7 @@ public class NotificationPresenter extends BasePresenter<INotificationView> {
     }
 
     view.showNotifications(notifications, clean);
-    if (notifications.size() < DiyCodeClient.PAGE_LIMIT) {
+    if (notifications.size() < DataManager.PAGE_LIMIT) {
       view.showNoMoreNotification();
     }
   }

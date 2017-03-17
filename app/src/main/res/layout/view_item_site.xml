@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@android:color/white"
+    android:foreground="@drawable/selector_subtle"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/spacing_small"
+    android:paddingLeft="@dimen/spacing"
+    android:paddingRight="@dimen/spacing_small"
+    android:paddingTop="@dimen/spacing_small"
+    android:stateListAnimator="@animator/comment_selection"
+    >
+
+  <ImageView
+      android:id="@+id/avatar"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      tools:src="@mipmap/ic_launcher"
+      />
+
+  <TextView
+      android:id="@+id/name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/spacing"
+      android:layout_toRightOf="@+id/avatar"
+      android:maxLines="1"
+      android:text="Hacker News"
+      android:textColor="@color/colorTextSecondary"
+      android:textSize="@dimen/dimenTextSecondary"
+      />
+
+</LinearLayout>

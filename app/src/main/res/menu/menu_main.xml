@@ -9,9 +9,9 @@
       app:showAsAction="ifRoom|collapseActionView"/>
 
   <item
-      android:id="@+id/action_notice"
-      android:icon="@drawable/ic_menu_notice"
-      android:title="@string/menu_notice"
+      android:id="@+id/action_notification"
+      android:icon="@drawable/ic_menu_notification"
+      android:title="@string/menu_notification"
       app:showAsAction="always"/>
 
 

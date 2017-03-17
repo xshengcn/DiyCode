@@ -8,6 +8,7 @@ import com.xshengcn.diycode.ui.activity.MainActivity;
 import com.xshengcn.diycode.ui.activity.NewsDetailActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
 import com.xshengcn.diycode.ui.activity.ReplyActivity;
+import com.xshengcn.diycode.ui.activity.SiteActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
@@ -19,23 +20,25 @@ import dagger.Subcomponent;
 
   FragmentComponent plus(FragmentModule module);
 
-  void inject(MainActivity activity);
+  void inject(MainActivity mainActivity);
 
-  void inject(NewsDetailActivity activity);
+  void inject(NewsDetailActivity newsDetailActivity);
 
-  void inject(LoginActivity activity);
+  void inject(LoginActivity loginActivity);
 
-  void inject(UserTopicActivity activity);
+  void inject(UserTopicActivity userTopicActivity);
 
-  void inject(UserFavoriteActivity activity);
+  void inject(UserFavoriteActivity userFavoriteActivity);
 
-  void inject(TopicDetailActivity activity);
+  void inject(TopicDetailActivity topicDetailActivity);
 
-  void inject(NotificationActivity activity);
+  void inject(NotificationActivity notificationActivity);
 
-  void inject(UserReplyActivity activity);
+  void inject(UserReplyActivity userReplyActivity);
 
-  void inject(ReplyActivity activity);
+  void inject(ReplyActivity replyActivity);
 
-  void inject(TopicCreatorActivity activity);
+  void inject(TopicCreatorActivity topicCreatorActivity);
+
+  void inject(SiteActivity siteActivity);
 }

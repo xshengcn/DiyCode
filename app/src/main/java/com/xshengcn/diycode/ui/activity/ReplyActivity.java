@@ -27,8 +27,10 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 import com.xshengcn.diycode.R;
+import com.xshengcn.diycode.model.ImageResult;
 import com.xshengcn.diycode.ui.iview.IReplyView;
 import com.xshengcn.diycode.ui.presenter.ReplyPresenter;
+import com.xshengcn.diycode.util.MarkdownUtils;
 import com.xshengcn.diycode.util.TextWatcherAdapter;
 import javax.inject.Inject;
 
@@ -166,13 +168,8 @@ public class ReplyActivity extends BaseActivity
       linkWrapper.setError(linkNotEmpty);
     } else {
       linkDialog.dismiss();
-      String linkHolder = "[%s](%s)";
-      int index = editText.getSelectionStart();
-      String insert = String.format(linkHolder, editLinkTitle.getText().toString().trim(),
+      MarkdownUtils.addLink(editText, editLinkTitle.getText().toString().trim(),
           editLink.getText().toString().trim());
-      Editable editable = editText.getText();
-      editable.insert(index, insert);
-      editText.setSelection(index + insert.length());
     }
   }
 
@@ -180,8 +177,7 @@ public class ReplyActivity extends BaseActivity
     MarkdownPreviewActivity.start(ReplyActivity.this, editText.getText().toString());
   }
 
-  @OnTextChanged(R.id.edit_text)
-  void onEditTextTextChanged(CharSequence sequence) {
+  @OnTextChanged(R.id.edit_text) void onEditTextTextChanged(CharSequence sequence) {
     boolean enable = TextUtils.getTrimmedLength(sequence) > 0;
     if (menuEnable != enable) {
       menuEnable = enable;
@@ -202,11 +198,11 @@ public class ReplyActivity extends BaseActivity
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_send, menu);
-    MenuItem send =  menu.findItem(R.id.action_send);
+    MenuItem send = menu.findItem(R.id.action_send);
     send.setEnabled(menuEnable);
     if (menuEnable) {
       send.getIcon().setAlpha(255);
-    }else {
+    } else {
       send.getIcon().setAlpha(55);
     }
 
@@ -223,10 +219,6 @@ public class ReplyActivity extends BaseActivity
         break;
     }
     return super.onOptionsItemSelected(item);
-  }
-
-  @Override public void insertImage(String format) {
-    editText.append(format);
   }
 
   @Override public void showUploadDialog() {
@@ -252,6 +244,10 @@ public class ReplyActivity extends BaseActivity
 
   @Override public String getBody() {
     return editText.getText().toString().trim();
+  }
+
+  @Override public void insertImage(ImageResult result) {
+    MarkdownUtils.addImage(editText, "", result.imageUrl);
   }
 
   String codeHolder = "\n```%s\n\n```\n";
@@ -299,12 +295,8 @@ public class ReplyActivity extends BaseActivity
         s = "java";
         break;
     }
-    // 随便定位一下光标， 懒
-    int index = editText.getSelectionStart();
-    Editable editable = editText.getText();
-    editable.insert(index, String.format(codeHolder, s));
-    editText.setSelection(index + s.length() + 5);
-    //ImeUtils.showIme(editText);
+
+    MarkdownUtils.addCode(editText, s);
     return false;
   }
 }

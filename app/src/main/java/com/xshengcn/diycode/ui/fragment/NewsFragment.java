@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.customtabs.CustomTabActivityHelper;
-import com.xshengcn.diycode.entity.news.News;
+import com.xshengcn.diycode.model.news.News;
 import com.xshengcn.diycode.ui.iview.INewsView;
 import com.xshengcn.diycode.ui.adapter.NewsAdapter;
 import com.xshengcn.diycode.ui.presenter.NewsPresenter;
@@ -29,6 +29,9 @@ import javax.inject.Inject;
 
 public class NewsFragment extends BaseFragment
     implements INewsView, NewsAdapter.OnItemClickListener, LoadMoreHandler {
+  private static final String BUNDLE_NEWS = "NewsFragment.news";
+
+  //private static final String BUNDLE_DATA = "NewsFragment.data";
 
   @BindView(R.id.recycler_View) RecyclerView recyclerView;
   @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -64,6 +67,7 @@ public class NewsFragment extends BaseFragment
     wrapper = new LoadMoreWrapper(this, adapter);
     recyclerView.setAdapter(wrapper);
     presenter.onAttach(this);
+    presenter.onRefresh();
   }
 
   @Override public void onDestroyView() {
@@ -104,11 +108,11 @@ public class NewsFragment extends BaseFragment
     if (clean) {
       adapter.clear();
       adapter.addNewses(newses);
-      wrapper.notifyDataSetChanged();
+      adapter.notifyDataSetChanged();
     } else {
       int start = adapter.getItemCount();
       adapter.addNewses(newses);
-      wrapper.notifyItemRangeInserted(start, newses.size());
+      adapter.notifyItemRangeInserted(start, newses.size());
     }
   }
 

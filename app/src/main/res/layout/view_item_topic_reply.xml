@@ -44,28 +44,6 @@
           tools:text="李嘉图"
           />
 
-      <View
-          android:id="@+id/split_point"
-          android:layout_width="3dp"
-          android:layout_height="3dp"
-          android:layout_centerVertical="true"
-          android:layout_marginLeft="@dimen/spacing_small"
-          android:layout_toRightOf="@+id/name"
-          android:background="@drawable/split_point"
-          />
-
-      <TextView
-          android:id="@+id/node"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:layout_marginLeft="@dimen/spacing_small"
-          android:layout_toRightOf="@+id/split_point"
-          android:textColor="@color/colorTextQuaternary"
-          android:textSize="@dimen/dimenTextTertiary"
-          tools:text="Android"
-          />
-
 
     </RelativeLayout>
 

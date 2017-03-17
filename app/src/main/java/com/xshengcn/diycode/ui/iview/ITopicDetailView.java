@@ -1,9 +1,9 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.entity.topic.Topic;
-import com.xshengcn.diycode.entity.topic.TopicAndReplies;
-import com.xshengcn.diycode.entity.topic.TopicReply;
+import com.xshengcn.diycode.model.topic.Topic;
+import com.xshengcn.diycode.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.model.topic.TopicReply;
 import java.util.List;
 
 public interface ITopicDetailView {

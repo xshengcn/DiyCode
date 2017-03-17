@@ -96,6 +96,14 @@
         android:label="@string/preview"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar"/>
+
+    <activity
+        android:name=".ui.activity.SiteActivity"
+        android:label="@string/site"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"/>
+
+    <receiver android:name=".receiver.ActionBroadcastReceiver" />
   </application>
 
 </manifest>

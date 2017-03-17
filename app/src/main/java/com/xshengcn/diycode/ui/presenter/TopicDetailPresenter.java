@@ -2,11 +2,10 @@ package com.xshengcn.diycode.ui.presenter;
 
 import android.app.Activity;
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.topic.TopicAndReplies;
-import com.xshengcn.diycode.entity.topic.TopicContent;
-import com.xshengcn.diycode.entity.topic.TopicReply;
-import com.xshengcn.diycode.ui.ActivityNavigator;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.model.topic.TopicContent;
+import com.xshengcn.diycode.model.topic.TopicReply;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,12 +15,12 @@ import javax.inject.Inject;
 
 public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
-  private final DiyCodeClient client;
-  private final ActivityNavigator navigator;
+  private final DataManager dataManager;
 
-  @Inject public TopicDetailPresenter(DiyCodeClient client, ActivityNavigator navigator) {
-    this.client = client;
-    this.navigator = navigator;
+
+  @Inject public TopicDetailPresenter(DataManager dataManager) {
+    this.dataManager = dataManager;
+
   }
 
   @Override public void onAttach(ITopicDetailView view) {
@@ -39,9 +38,9 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
   public void loadTopicAndReplies() {
 
-    Observable<TopicContent> topicObservable = client.getTopicDetail(getView().getTopic().id);
+    Observable<TopicContent> topicObservable = dataManager.getTopicDetail(getView().getTopic().id);
     Observable<List<TopicReply>> reliesObservable =
-        client.getTopicReplies(getView().getTopic().id, 0);
+        dataManager.getTopicReplies(getView().getTopic().id, 0);
 
     Disposable disposable = Observable.zip(topicObservable, reliesObservable, TopicAndReplies::new)
         .observeOn(AndroidSchedulers.mainThread())
@@ -53,7 +52,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     final ITopicDetailView view = getView();
     view.showTopicAndReplies(topicAndReplies);
     if (topicAndReplies.replies.isEmpty()
-        || topicAndReplies.replies.size() < DiyCodeClient.PAGE_LIMIT) {
+        || topicAndReplies.replies.size() < DataManager.PAGE_LIMIT) {
       view.showLoadNoMore();
     }
   }
@@ -69,7 +68,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
   public void loadMoreReplies() {
     final ITopicDetailView view = getView();
-    Disposable disposable = client.getTopicReplies(view.getTopic().id, view.getItemOffset())
+    Disposable disposable = dataManager.getTopicReplies(view.getTopic().id, view.getItemOffset())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::loadMoreRepliesNext, this::loadMoreRepliesError);
     addDisposable(disposable);
@@ -84,7 +83,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     final ITopicDetailView view = getView();
     if (replies == null || replies.isEmpty()) {
       view.showLoadNoMore();
-    } else if (replies.size() < DiyCodeClient.PAGE_LIMIT) {
+    } else if (replies.size() < DataManager.PAGE_LIMIT) {
       view.showMoreReplies(replies);
       view.showLoadNoMore();
     } else {
@@ -100,7 +99,5 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
   }
 
-  public void clickReply(Activity activity) {
-    navigator.showReply(activity, getView().getTopic().title, getView().getTopic().id);
-  }
+
 }

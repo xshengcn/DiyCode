@@ -1,7 +1,7 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.entity.news.News;
+import com.xshengcn.diycode.model.news.News;
 import java.util.List;
 
 public interface INewsView {

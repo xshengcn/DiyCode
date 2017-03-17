@@ -13,11 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.topic.Topic;
+import com.xshengcn.diycode.model.topic.Topic;
+import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.adapter.TopicAdapter;
 import com.xshengcn.diycode.ui.iview.ITopicView;
 import com.xshengcn.diycode.ui.presenter.TopicPresenter;
-import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.widget.itemdecoration.OffsetDecoration;
 import com.xshengcn.diycode.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.widget.recyclerview.LoadMoreWrapper;
@@ -28,7 +28,7 @@ public class TopicFragment extends BaseFragment
     implements ITopicView, TopicAdapter.OnItemClickListener, LoadMoreHandler {
 
   private static final String ARGS_USER = "TopicFragment.user";
-
+  private static final String BUNDLE_TOPICS = "TopicFragment.topics";
   @BindView(R.id.recycler_View) RecyclerView recyclerView;
   @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.state_view) MultiStateView stateView;
@@ -36,6 +36,7 @@ public class TopicFragment extends BaseFragment
   @BindDimen(R.dimen.spacing_xsmall) int space;
   @Inject TopicAdapter adapter;
   @Inject TopicPresenter presenter;
+  @Inject ActivityNavigator navigator;
   private LoadMoreWrapper wrapper;
 
   /**
@@ -70,8 +71,8 @@ public class TopicFragment extends BaseFragment
     adapter.setOnItemClickListener(this);
     wrapper = new LoadMoreWrapper(this, adapter);
     recyclerView.setAdapter(wrapper);
-
     presenter.onAttach(this);
+    presenter.onRefresh();
   }
 
   @Override public void onDestroyView() {
@@ -133,7 +134,7 @@ public class TopicFragment extends BaseFragment
   }
 
   @Override public void clickItem(Topic topic, int position) {
-    TopicDetailActivity.start(getActivity(), topic);
+    navigator.showTopicDetail(topic);
   }
 
   @Override public void clickThumbUp(Topic topic, int position) {

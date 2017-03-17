@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+      android:id="@+id/nav_topic"
+      android:icon="@drawable/ic_menu_topic"
+      android:title="@string/topics"/>
+  <item
+      android:id="@+id/nav_favorite"
+      android:icon="@drawable/ic_menu_collection"
+      android:title="@string/favorites"/>
+  <item
+      android:id="@+id/nav_reply"
+      android:icon="@drawable/ic_menu_reply"
+      android:title="@string/relies"/>
+  <item
+      android:id="@+id/nav_manage"
+      android:icon="@drawable/ic_menu_share"
+      android:title="我的分享"/>
+
+</menu>

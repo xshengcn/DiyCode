@@ -5,7 +5,7 @@
   <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
   <string name="menu_search">搜索</string>
-  <string name="menu_notice">通知</string>
+  <string name="menu_notification">通知</string>
   <string name="email_username">邮箱 / 用户名</string>
   <string name="password">密码</string>
   <string name="login">登陆</string>
@@ -30,11 +30,12 @@
   <string name="link_title_can_not_be_empty">链接标题不能为空</string>
   <string name="link">链接</string>
   <string name="link_title">链接标题</string>
+  <string name="site">酷站</string>
 
   <string-array name="main_tabs">
     <item>topics</item>
     <item>news</item>
-    <item>sites</item>
+    <item>project</item>
   </string-array>
 
 </resources>

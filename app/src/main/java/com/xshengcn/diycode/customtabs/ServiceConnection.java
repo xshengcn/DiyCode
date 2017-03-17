@@ -31,9 +31,9 @@ public class ServiceConnection extends CustomTabsServiceConnection {
     mConnectionCallback = new WeakReference<>(connectionCallback);
   }
 
-  @Override public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+  @Override public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient dataManager) {
     ServiceConnectionCallback connectionCallback = mConnectionCallback.get();
-    if (connectionCallback != null) connectionCallback.onServiceConnected(client);
+    if (connectionCallback != null) connectionCallback.onServiceConnected(dataManager);
   }
 
   @Override public void onServiceDisconnected(ComponentName name) {

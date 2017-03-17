@@ -5,9 +5,9 @@ import android.net.ConnectivityManager;
 import com.xshengcn.diycode.BuildConfig;
 import com.xshengcn.diycode.DiyCodeApplication;
 import com.xshengcn.diycode.DiyCodePrefs;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.api.OfflineRequestInterceptor;
-import com.xshengcn.diycode.api.ResponseInterceptor;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.data.remote.OfflineRequestInterceptor;
+import com.xshengcn.diycode.data.remote.ResponseInterceptor;
 import com.xshengcn.diycode.util.RxBus;
 import dagger.Module;
 import dagger.Provides;
@@ -41,8 +41,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
     return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
   }
 
-  @Singleton @Provides public DiyCodeClient providerDiyCodeClient(OkHttpClient okHttpClient) {
-    return new DiyCodeClient(okHttpClient);
+  @Singleton @Provides public DataManager providerDiyCodeClient(OkHttpClient okHttpClient) {
+    return new DataManager(okHttpClient);
   }
 
   @Singleton @Provides public OkHttpClient providerHttpClient(Context context, DiyCodePrefs prefs,

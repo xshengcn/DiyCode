@@ -11,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindString;
@@ -21,9 +20,10 @@ import butterknife.ButterKnife;
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.customtabs.CustomTabActivityHelper;
-import com.xshengcn.diycode.entity.topic.Topic;
-import com.xshengcn.diycode.entity.topic.TopicAndReplies;
-import com.xshengcn.diycode.entity.topic.TopicReply;
+import com.xshengcn.diycode.model.topic.Topic;
+import com.xshengcn.diycode.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.model.topic.TopicReply;
+import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
 import com.xshengcn.diycode.ui.adapter.TopicDetailAdapter;
 import com.xshengcn.diycode.ui.presenter.TopicDetailPresenter;
@@ -51,6 +51,8 @@ public class TopicDetailActivity extends BaseActivity
 
   @Inject TopicDetailPresenter presenter;
   @Inject TopicDetailAdapter adapter;
+  @Inject ActivityNavigator navigator;
+
   private LoadMoreWrapper wrapper;
   private Topic topic;
 
@@ -86,18 +88,9 @@ public class TopicDetailActivity extends BaseActivity
     wrapper = new LoadMoreWrapper(this, adapter);
     recyclerView.setAdapter(wrapper);
     swipeRefreshLayout.setOnRefreshListener(presenter::onRefresh);
-    fab.setOnClickListener(v -> presenter.clickReply(this));
+    fab.setOnClickListener(v -> navigator.showReply(getTopic().title, getTopic().id));
     recyclerView.addOnScrollListener(scrollListener);
     presenter.onAttach(this);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        super.onBackPressed();
-        break;
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override protected void onDestroy() {

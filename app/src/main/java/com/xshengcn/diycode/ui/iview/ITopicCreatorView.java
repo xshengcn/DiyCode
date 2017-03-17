@@ -1,7 +1,7 @@
 package com.xshengcn.diycode.ui.iview;
 
-import com.xshengcn.diycode.entity.topic.TopicNode;
-import com.xshengcn.diycode.entity.topic.TopicNodeCategory;
+import com.xshengcn.diycode.model.topic.TopicNode;
+import com.xshengcn.diycode.model.topic.TopicNodeCategory;
 import java.util.List;
 import java.util.Map;
 

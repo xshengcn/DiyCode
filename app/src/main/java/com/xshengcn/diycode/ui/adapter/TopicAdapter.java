@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.topic.Topic;
+import com.xshengcn.diycode.model.topic.Topic;
 import com.xshengcn.diycode.util.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> {
 
-  private final List<Topic> topics;
+  private final ArrayList<Topic> topics;
   private final Context context;
 
   private OnItemClickListener onItemClickListener;
@@ -76,6 +76,10 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
 
   public void clear() {
     topics.clear();
+  }
+
+  public ArrayList<Topic> getTopics() {
+    return topics;
   }
 
   public interface OnItemClickListener {

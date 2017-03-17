@@ -1,7 +1,8 @@
 package com.xshengcn.diycode.ui.iview;
 
+import com.xshengcn.diycode.model.ImageResult;
+
 public interface IReplyView {
-  void insertImage(String format);
 
   void showUploadDialog();
 
@@ -12,4 +13,6 @@ public interface IReplyView {
   int getId();
 
   String getBody();
+
+  void insertImage(ImageResult result);
 }

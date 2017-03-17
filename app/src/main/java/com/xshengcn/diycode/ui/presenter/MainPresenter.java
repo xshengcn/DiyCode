@@ -1,11 +1,9 @@
 package com.xshengcn.diycode.ui.presenter;
 
-import android.app.Activity;
-
 import com.xshengcn.diycode.DiyCodePrefs;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.api.event.UserDetailUpdate;
-import com.xshengcn.diycode.api.event.UserLogin;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.data.event.UserDetailUpdate;
+import com.xshengcn.diycode.data.event.UserLogin;
 import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.iview.IMainView;
 import com.xshengcn.diycode.util.RxBus;
@@ -18,15 +16,15 @@ import javax.inject.Inject;
 public class MainPresenter extends BasePresenter<IMainView> {
 
     private final DiyCodePrefs prefs;
-    private final DiyCodeClient client;
+    private final DataManager dataManager;
     private final RxBus rxBus;
     private final ActivityNavigator navigator;
 
     @Inject
-    public MainPresenter(DiyCodePrefs prefs, DiyCodeClient client, RxBus rxBus,
+    public MainPresenter(DiyCodePrefs prefs, DataManager dataManager, RxBus rxBus,
                          ActivityNavigator navigator) {
         this.prefs = prefs;
-        this.client = client;
+        this.dataManager = dataManager;
         this.rxBus = rxBus;
         this.navigator = navigator;
     }
@@ -54,7 +52,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     private void loadNotificationCount() {
         if (prefs.getToken() != null) {
             final IMainView view = getView();
-            Disposable disposable = client.getNotificationsUnreadCount()
+            Disposable disposable = dataManager.getNotificationsUnreadCount()
                     .map(unread -> unread.count > 0)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(b -> view.showNotificationMenuBadge(b), throwable -> {
@@ -69,33 +67,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
         }
     }
 
-    public void clickHeader(Activity activity) {
-        navigator.showUser(activity);
-    }
 
-    public void clickSearch(Activity activity) {
-        navigator.showSearch(activity);
-    }
-
-    public void clickNotification(Activity activity) {
-        navigator.showNotification(activity);
-    }
-
-    public void clickUserTopic(Activity activity) {
-        navigator.showUserTopics(activity);
-    }
-
-
-    public void clickUserFavorite(Activity activity) {
-        navigator.showUserFavorites(activity);
-    }
-
-    public void clickUserReply(Activity activity) {
-        navigator.showUserReplies(activity);
-    }
-
-    public void clickCreateTopic(Activity activity) {
-        navigator.showCreateTopic(activity);
-    }
 }
 

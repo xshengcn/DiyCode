@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.DiyCodePrefs;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.topic.Topic;
+import com.xshengcn.diycode.model.topic.Topic;
 import com.xshengcn.diycode.ui.adapter.TopicAdapter;
 import com.xshengcn.diycode.ui.iview.IUserFavoriteView;
 import com.xshengcn.diycode.ui.presenter.UserFavoritePresenter;

@@ -25,17 +25,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.user.UserDetail;
+import com.xshengcn.diycode.model.user.UserDetail;
+import com.xshengcn.diycode.ui.ActivityNavigator;
+import com.xshengcn.diycode.ui.fragment.NewsFragment;
+import com.xshengcn.diycode.ui.fragment.ProjectFragment;
 import com.xshengcn.diycode.ui.fragment.TopicFragment;
 import com.xshengcn.diycode.ui.iview.IMainView;
 import com.xshengcn.diycode.ui.presenter.MainPresenter;
-import com.xshengcn.diycode.ui.fragment.NewsFragment;
 import com.xshengcn.diycode.util.glide.CircleTransform;
 import com.xshengcn.diycode.widget.FabDialog;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
@@ -54,6 +58,7 @@ public class MainActivity extends BaseActivity
   @BindView(R.id.email) @Nullable TextView email;
 
   @Inject MainPresenter presenter;
+  @Inject ActivityNavigator navigator;
   @BindView(R.id.fab_menu) FloatingActionButton fabMenu;
   @BindView(R.id.coordinator_layout) CoordinatorLayout coordinatorLayout;
 
@@ -77,6 +82,7 @@ public class MainActivity extends BaseActivity
     ButterKnife.bind(this);
     setupActionBar();
 
+    viewPager.setOffscreenPageLimit(2);
     viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), this));
     tabLayout.setTabMode(TabLayout.MODE_FIXED);
     tabLayout.setupWithViewPager(viewPager);
@@ -95,6 +101,10 @@ public class MainActivity extends BaseActivity
     presenter.onAttach(this);
   }
 
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+  }
+
   private void clickNavHeader(View view) {
     drawerLayout.closeDrawers();
     disposable.clear();
@@ -102,7 +112,7 @@ public class MainActivity extends BaseActivity
         .subscribeOn(Schedulers.single())
         .delay(300, TimeUnit.MILLISECONDS)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(s -> presenter.clickHeader(this)));
+        .subscribe(s -> navigator.showUser()));
   }
 
   private void clickFabMenu(View view) {
@@ -130,7 +140,7 @@ public class MainActivity extends BaseActivity
   private boolean onNavigationItemSelected(MenuItem menuItem) {
     drawerLayout.closeDrawers();
     disposable.clear();
-    disposable.add(Observable.just(menuItem)
+    disposable.add(Observable.just(menuItem.getItemId())
         .subscribeOn(Schedulers.single())
         .delay(300, TimeUnit.MILLISECONDS)
         .observeOn(AndroidSchedulers.mainThread())
@@ -138,16 +148,19 @@ public class MainActivity extends BaseActivity
     return true;
   }
 
-  private void clickNavMenu(MenuItem menuItem) {
-    switch (menuItem.getItemId()) {
+  private void clickNavMenu(int id) {
+    switch (id) {
       case R.id.nav_topic:
-        presenter.clickUserTopic(MainActivity.this);
+        navigator.showUserTopics();
         break;
       case R.id.nav_favorite:
-        presenter.clickUserFavorite(MainActivity.this);
+        navigator.showUserFavorites();
         break;
       case R.id.nav_reply:
-        presenter.clickUserReply(MainActivity.this);
+        navigator.showUserReplies();
+        break;
+      case R.id.nav_site:
+        navigator.showSite();
         break;
     }
   }
@@ -166,7 +179,7 @@ public class MainActivity extends BaseActivity
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
     if (hasNotification) {
-      menu.findItem(R.id.action_notice).setIcon(R.drawable.ic_menu_notice_red);
+      menu.findItem(R.id.action_notification).setIcon(R.drawable.ic_menu_notification_red);
     }
     return super.onCreateOptionsMenu(menu);
   }
@@ -174,10 +187,10 @@ public class MainActivity extends BaseActivity
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_search:
-        presenter.clickSearch(this);
+        navigator.showSearch();
         break;
-      case R.id.action_notice:
-        presenter.clickNotification(this);
+      case R.id.action_notification:
+        navigator.showNotification();
         break;
     }
     return super.onOptionsItemSelected(item);
@@ -212,24 +225,27 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void clickTopicButton() {
-    presenter.clickCreateTopic(this);
+    navigator.showCreateTopic();
   }
 
   public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private final String[] titles;
+    private final List<Fragment> fragments;
 
     public MainPagerAdapter(FragmentManager fm, Context context) {
       super(fm);
       titles = context.getResources().getStringArray(R.array.main_tabs);
+      fragments = new ArrayList<>();
+      fragments.add(TopicFragment.newInstance(null));
+      fragments.add(NewsFragment.newInstance());
+      fragments.add(ProjectFragment.newInstance());
     }
 
     @Override public Fragment getItem(int position) {
-      if (position == 0) {
-        return TopicFragment.newInstance(null);
-      }
-      return NewsFragment.newInstance();
+      return fragments.get(position);
     }
+
 
     @Override public int getCount() {
       return titles.length;

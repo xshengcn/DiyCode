@@ -2,8 +2,8 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.DiyCodePrefs;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.topic.Topic;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.model.topic.Topic;
 import com.xshengcn.diycode.ui.iview.IUserFavoriteView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -12,11 +12,11 @@ import javax.inject.Inject;
 
 public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
 
-  private final DiyCodeClient client;
+  private final DataManager dataManager;
   private final DiyCodePrefs prefs;
 
-  @Inject public UserFavoritePresenter(DiyCodeClient client, DiyCodePrefs prefs) {
-    this.client = client;
+  @Inject public UserFavoritePresenter(DataManager dataManager, DiyCodePrefs prefs) {
+    this.dataManager = dataManager;
     this.prefs = prefs;
   }
 
@@ -40,7 +40,7 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
   private void loadUserTopics(boolean clean) {
     final IUserFavoriteView view = getView();
     int offset = clean ? 0 : view.getItemOffset();
-    Disposable disposable = client.getUserFavorites(view.getUserLogin(), offset)
+    Disposable disposable = dataManager.getUserFavorites(view.getUserLogin(), offset)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(topics -> handleNext(topics, clean), this::handleError);
     addDisposable(disposable);
@@ -55,7 +55,7 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
     }
 
     view.showTopics(topics, clean);
-    if (topics.size() < DiyCodeClient.PAGE_LIMIT) {
+    if (topics.size() < DataManager.PAGE_LIMIT) {
       view.showNoMoreTopic();
     }
   }

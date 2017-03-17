@@ -12,15 +12,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.topic.TopicAndReplies;
-import com.xshengcn.diycode.entity.topic.TopicContent;
-import com.xshengcn.diycode.entity.topic.TopicReply;
+import com.xshengcn.diycode.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.model.topic.TopicContent;
+import com.xshengcn.diycode.model.topic.TopicReply;
 import com.xshengcn.diycode.util.DateUtils;
 import com.xshengcn.diycode.util.DensityUtil;
 import com.xshengcn.diycode.util.HtmlUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 public class TopicDetailAdapter extends RecyclerView.Adapter {
 
@@ -101,7 +102,6 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
   private void bindItemViewHolder(ViewHolder holder, TopicReply reply, int position) {
     Glide.with(context).load(reply.user.avatarUrl).into(holder.avatar);
     holder.name.setText(reply.user.login);
-    holder.node.setText("Android");
     holder.floor.setText(position + "楼");
     if (reply.updatedAt != null) {
       holder.date.setText(DateUtils.computePastTime(reply.updatedAt));
@@ -135,6 +135,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     holder.title.setText(detail.title);
 
     HtmlUtils.parseHtmlAndSetText(context, detail.bodyHtml, holder.body, imgMaxWidth, callBack);
+
+    //holder.body.setHtml(detail.bodyHtml, new GlideImageGetter(context, holder.body, imgMaxWidth));
 
     holder.replyCount.setVisibility(detail.repliesCount == 0 ? View.GONE : View.VISIBLE);
     holder.replyCount.setText("共收到" + detail.repliesCount + "条回复");
@@ -182,8 +184,6 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
   public static class ViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.avatar) ImageView avatar;
     @BindView(R.id.name) TextView name;
-    @BindView(R.id.split_point) View splitPoint;
-    @BindView(R.id.node) TextView node;
     @BindView(R.id.name_group) RelativeLayout nameGroup;
     @BindView(R.id.floor) TextView floor;
     @BindView(R.id.split_point_small) View splitPointSmall;

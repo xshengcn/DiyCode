@@ -1,7 +1,7 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.entity.user.Notification;
+import com.xshengcn.diycode.model.user.Notification;
 import java.util.List;
 
 public interface INotificationView {

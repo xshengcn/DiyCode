@@ -23,9 +23,9 @@ public interface ServiceConnectionCallback {
   /**
    * Called when the service is connected.
    *
-   * @param client a CustomTabsClient
+   * @param dataManager a CustomTabsClient
    */
-  void onServiceConnected(CustomTabsClient client);
+  void onServiceConnected(CustomTabsClient dataManager);
 
   /**
    * Called when the service is disconnected.

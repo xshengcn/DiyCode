@@ -46,7 +46,7 @@ public class CodeTagHandler implements Html.TagHandler {
   class CodeTypefaceSpan extends TypefaceSpan {
 
     public CodeTypefaceSpan() {
-      super("");
+      super("monospace");
     }
 
     @Override public void updateDrawState(TextPaint ds) {

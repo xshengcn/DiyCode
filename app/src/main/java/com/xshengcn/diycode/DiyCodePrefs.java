@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import com.google.gson.Gson;
-import com.xshengcn.diycode.api.event.UserDetailUpdate;
-import com.xshengcn.diycode.api.event.UserLogin;
-import com.xshengcn.diycode.entity.Token;
-import com.xshengcn.diycode.entity.user.UserDetail;
+import com.xshengcn.diycode.data.event.UserDetailUpdate;
+import com.xshengcn.diycode.data.event.UserLogin;
+import com.xshengcn.diycode.model.Token;
+import com.xshengcn.diycode.model.user.UserDetail;
 import com.xshengcn.diycode.util.RxBus;
 import javax.inject.Inject;
 

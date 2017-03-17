@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.entity.news.News;
+import com.xshengcn.diycode.model.news.News;
 import com.xshengcn.diycode.util.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,12 @@ import okhttp3.HttpUrl;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-  private final List<News> newses;
+  private final ArrayList<News> newses;
   private OnItemClickListener onItemClickListener;
+  private final Context context;
 
-  @Inject public NewsAdapter() {
+  @Inject public NewsAdapter(Context context) {
+    this.context = context;
     newses = new ArrayList<>();
   }
 
@@ -71,7 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     //            holder.lastReply.setText(news.lastReplyUserLogin);
     //        }
 
-    Glide.with(holder.itemView.getContext()).load(news.user.avatarUrl).into(holder.avatar);
+    Glide.with(context).load(news.user.avatarUrl).into(holder.avatar);
     holder.itemView.setOnClickListener(v -> {
       if (onItemClickListener != null) onItemClickListener.clickItem(news, position);
     });
@@ -101,6 +104,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
   public void clear() {
     newses.clear();
+  }
+
+  public ArrayList<News> getNewses() {
+    return newses;
   }
 
   public interface OnItemClickListener {

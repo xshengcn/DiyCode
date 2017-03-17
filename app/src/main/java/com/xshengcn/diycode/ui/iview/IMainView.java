@@ -1,6 +1,6 @@
 package com.xshengcn.diycode.ui.iview;
 
-import com.xshengcn.diycode.entity.user.UserDetail;
+import com.xshengcn.diycode.model.user.UserDetail;
 
 public interface IMainView {
 

@@ -1,8 +1,8 @@
 package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.api.DiyCodeClient;
-import com.xshengcn.diycode.entity.news.News;
+import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.model.news.News;
 import com.xshengcn.diycode.ui.iview.INewsView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -11,15 +11,14 @@ import javax.inject.Inject;
 
 public class NewsPresenter extends BasePresenter<INewsView> {
 
-  private final DiyCodeClient client;
+  private final DataManager dataManager;
 
-  @Inject public NewsPresenter(DiyCodeClient client) {
-    this.client = client;
+  @Inject public NewsPresenter(DataManager dataManager) {
+    this.dataManager = dataManager;
   }
 
   @Override public void onAttach(INewsView view) {
     super.onAttach(view);
-    onRefresh();
   }
 
   public void onRefresh() {
@@ -37,7 +36,7 @@ public class NewsPresenter extends BasePresenter<INewsView> {
   private void loadTopics(boolean clean) {
     final INewsView view = getView();
     int offset = clean ? 0 : view.getItemOffset();
-    Disposable disposable = client.getAllNewses(offset)
+    Disposable disposable = dataManager.getAllNewses(offset)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(topics -> handleOnNext(topics, clean), this::handleOnError);
     addDisposable(disposable);
@@ -62,7 +61,7 @@ public class NewsPresenter extends BasePresenter<INewsView> {
     }
 
     view.showNewes(newses, clean);
-    if (newses.size() < DiyCodeClient.PAGE_LIMIT) {
+    if (newses.size() < DataManager.PAGE_LIMIT) {
       view.showLoadNoMore();
     }
   }
