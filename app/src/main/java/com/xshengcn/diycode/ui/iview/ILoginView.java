@@ -2,15 +2,15 @@ package com.xshengcn.diycode.ui.iview;
 
 public interface ILoginView {
 
-  String getUsername();
+    String getUsername();
 
-  String getPassword();
+    String getPassword();
 
-  void showError(String errorDescription);
+    void showError(String errorDescription);
 
-  void showLoginDialog();
+    void showLoginDialog();
 
-  void hideLoginDialog();
+    void hideLoginDialog();
 
-  void closeActivity();
+    void closeActivity();
 }

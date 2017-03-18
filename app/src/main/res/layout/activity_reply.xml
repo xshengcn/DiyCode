@@ -3,94 +3,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/content_background"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <include
-      layout="@layout/view_common_appbar"
-      android:id="@+id/appbar_layout"
-      />
+    <include
+        android:id="@+id/appbar_layout"
+        layout="@layout/view_common_appbar" />
 
 
-  <TextView
-      android:id="@+id/title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/appbar_layout"
-      android:layout_margin="@dimen/spacing"
-      android:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物"
-      android:textColor="@color/colorTextPrimary"
-      android:textSize="@dimen/dimenTextSecondary"
-      android:textStyle="bold"
-      />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar_layout"
+        android:layout_margin="@dimen/spacing"
+        android:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/dimenTextSecondary"
+        android:textStyle="bold" />
 
-  <EditText
-      android:id="@+id/edit_text"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@+id/title"
-      android:layout_weight="1"
-      android:background="@android:color/white"
-      android:gravity="start"
-      android:hint="输入回复内容"
-      android:scrollbars="vertical"
-      android:overScrollMode="always"
-      android:padding="@dimen/spacing"
-      android:textColor="@color/colorTextSecondary"
-      android:textSize="@dimen/dimenTextSecondary"
-      />
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:gravity="start"
+        android:hint="输入回复内容"
+        android:overScrollMode="always"
+        android:padding="@dimen/spacing"
+        android:scrollbars="vertical"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="@dimen/dimenTextSecondary" />
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/colorDivider"
-      />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="?actionBarSize"
-      android:layout_alignParentBottom="true"
-      android:background="@android:color/white"
-      android:gravity="center_vertical|end"
-      android:paddingLeft="@dimen/spacing"
-      android:paddingRight="@dimen/spacing"
-      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:gravity="center_vertical|end"
+        android:paddingLeft="@dimen/spacing"
+        android:paddingRight="@dimen/spacing">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_image_gray"
-        />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_image_gray" />
 
-    <ImageView
-        android:id="@+id/code"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_code_gray"
-        />
+        <ImageView
+            android:id="@+id/code"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_code_gray" />
 
-    <ImageView
-        android:id="@+id/link"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:src="@drawable/ic_link_gray"
-        />
+        <ImageView
+            android:id="@+id/link"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_link_gray" />
 
-    <ImageView
-        android:id="@+id/pre_view"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:src="@drawable/ic_preview_gray"
-        />
+        <ImageView
+            android:id="@+id/pre_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_preview_gray" />
 
-  </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

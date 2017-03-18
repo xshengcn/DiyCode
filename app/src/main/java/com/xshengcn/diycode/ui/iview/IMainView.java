@@ -1,11 +1,11 @@
 package com.xshengcn.diycode.ui.iview;
 
-import com.xshengcn.diycode.model.user.UserDetail;
+import com.xshengcn.diycode.data.model.user.UserDetail;
 
 public interface IMainView {
 
-  void setupNavigationView(UserDetail user);
+    void setupNavigationView(UserDetail user);
 
-  void showNotificationMenuBadge(Boolean showBadge);
+    void showNotificationMenuBadge(Boolean showBadge);
 
 }

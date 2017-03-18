@@ -7,59 +7,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.xshengcn.diycode.ui.activity.MainActivity"
-    >
+    tools:context="com.xshengcn.diycode.ui.activity.MainActivity">
 
 
-  <android.support.design.widget.CoordinatorLayout
-      android:id="@+id/coordinator_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      >
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_layout"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        >
+        android:layout_height="match_parent">
 
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          app:layout_scrollFlags="scroll|enterAlways|snap"
-          app:popupTheme="@style/AppTheme.PopupOverlay"
-          />
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-      <android.support.design.widget.TabLayout
-          android:id="@+id/tab_layout"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/tab_height"
-          app:tabIndicatorColor="?colorAccent"
-          />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                app:tabIndicatorColor="?colorAccent" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/view_pager"
-        app:layout_anchorGravity="bottom|end"
-        android:layout_margin="@dimen/spacing"
-        android:src="@drawable/fab_add_white"
-        app:layout_behavior="com.xshengcn.diycode.widget.ScrollAwareFABBehavior"
-        />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!--<android.support.design.widget.BottomNavigationView-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing"
+            android:src="@drawable/fab_add_white"
+            app:layout_anchor="@id/view_pager"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_behavior="com.xshengcn.diycode.ui.widget.ScrollAwareFABBehavior" />
+
+        <!--<android.support.design.widget.BottomNavigationView-->
         <!--android:background="@android:color/white"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
@@ -70,18 +63,17 @@
         <!--app:menu="@menu/bottom_navigation_items"-->
         <!--/>-->
 
-  </android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 
-  <android.support.design.widget.NavigationView
-      android:id="@+id/nav_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="start"
-      android:fitsSystemWindows="true"
-      app:headerLayout="@layout/nav_header_main"
-      app:menu="@menu/activity_main_drawer"
-      />
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
 
 
 </android.support.v4.widget.DrawerLayout>

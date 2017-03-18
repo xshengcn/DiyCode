@@ -1,100 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
-  <android.support.design.widget.AppBarLayout
-      android:id="@+id/appbar_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:fitsSystemWindows="true"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      >
-
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:id="@+id/toolbar_layout"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#284fbb"
         android:fitsSystemWindows="true"
-        app:contentScrim="?attr/colorPrimary"
-        app:expandedTitleMarginEnd="64dp"
-        app:expandedTitleMarginStart="48dp"
-        app:expandedTitleTextAppearance="@style/toolbar_expanded_title"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        >
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="?android:actionBarSize"
-          android:layout_marginTop="?android:actionBarSize"
-          >
-
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_default_header"
-            />
-
-        <Button
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/avatar"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorAccent"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="4dp"
-            android:text="关注"
-            android:textColor="@android:color/white"
-            />
+            android:background="#284fbb"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleTextAppearance="@style/toolbar_expanded_title"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-      </RelativeLayout>
 
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          app:layout_collapseMode="pin"
-          app:popupTheme="@style/AppTheme.PopupOverlay"
-          />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?android:actionBarSize"
+                android:layout_marginTop="?android:actionBarSize">
 
-    </android.support.design.widget.CollapsingToolbarLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_default_header" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/avatar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorAccent"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    android:text="关注"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:layout_gravity="bottom"
+            android:background="@android:color/black"
+            app:tabIndicatorColor="?colorAccent" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tab_height"
-        android:layout_gravity="bottom"
-        android:background="@android:color/black"
-        app:tabIndicatorColor="?colorAccent"
-        />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-  </android.support.design.widget.AppBarLayout>
-
-
-  <android.support.v4.widget.NestedScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1000dp"
-        />
-  </android.support.v4.widget.NestedScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1000dp" />
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

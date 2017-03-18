@@ -1,24 +1,25 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.model.topic.Topic;
+import com.xshengcn.diycode.data.model.topic.Topic;
+
 import java.util.List;
 
 public interface ITopicView {
 
-  String getUser();
+    String getUser();
 
-  void showTopics(List<Topic> topics, boolean clean);
+    void showTopics(List<Topic> topics, boolean clean);
 
-  void showLoadMoreFailed();
+    void showLoadMoreFailed();
 
-  void showLoadNoMore();
+    void showLoadNoMore();
 
-  int getItemOffset();
+    int getItemOffset();
 
-  void changeStateView(@MultiStateView.ViewState int state);
+    void changeStateView(@MultiStateView.ViewState int state);
 
-  boolean isRefreshing();
+    boolean isRefreshing();
 
-  void showRefreshErrorAndComplete();
+    void showRefreshErrorAndComplete();
 }

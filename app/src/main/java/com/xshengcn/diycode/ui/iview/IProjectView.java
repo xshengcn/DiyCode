@@ -1,22 +1,23 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.model.project.Project;
+import com.xshengcn.diycode.data.model.project.Project;
+
 import java.util.List;
 
 public interface IProjectView {
 
-  void showProjects(List<Project> projects, boolean clean);
+    void showProjects(List<Project> projects, boolean clean);
 
-  void showLoadMoreFailed();
+    void showLoadMoreFailed();
 
-  void showLoadNoMore();
+    void showLoadNoMore();
 
-  int getItemOffset();
+    int getItemOffset();
 
-  void changeStateView(@MultiStateView.ViewState int state);
+    void changeStateView(@MultiStateView.ViewState int state);
 
-  boolean isRefreshing();
+    boolean isRefreshing();
 
-  void showRefreshErrorAndComplete();
+    void showRefreshErrorAndComplete();
 }

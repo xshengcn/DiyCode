@@ -1,14 +1,16 @@
 package com.xshengcn.diycode.injection.module;
 
 import android.support.v4.app.Fragment;
+
 import dagger.Module;
 
-@Module public class FragmentModule {
+@Module
+public class FragmentModule {
 
-  private final Fragment fragment;
+    private final Fragment mFragment;
 
-  public FragmentModule(Fragment fragment) {
-    this.fragment = fragment;
-  }
+    public FragmentModule(Fragment fragment) {
+        this.mFragment = fragment;
+    }
 
 }

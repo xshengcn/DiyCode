@@ -8,52 +8,48 @@
     android:paddingBottom="@dimen/spacing_small"
     android:paddingLeft="@dimen/spacing"
     android:paddingRight="@dimen/spacing"
-    android:paddingTop="@dimen/spacing_small"
-    >
+    android:paddingTop="@dimen/spacing_small">
 
-  <include
-      android:id="@+id/item_header"
-      layout="@layout/view_common_item_header" />
+    <include
+        android:id="@+id/item_header"
+        layout="@layout/view_common_item_header" />
 
-  <TextView
-      android:id="@+id/title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/item_header"
-      android:layout_marginTop="@dimen/spacing_small"
-      android:textColor="@color/colorTextPrimary"
-      android:textSize="@dimen/dimenTextSecondary"
-      android:textStyle="bold"
-      tools:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物"
-      />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_header"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/dimenTextSecondary"
+        android:textStyle="bold"
+        tools:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物" />
 
 
-  <ImageView
-      android:id="@+id/favorite"
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_alignParentRight="true"
-      android:layout_below="@+id/title"
-      android:layout_marginBottom="@dimen/spacing_small"
-      android:layout_marginRight="@dimen/spacing"
-      android:layout_marginTop="@dimen/spacing"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:padding="2dp"
-      android:src="@drawable/ic_favorite_normal"
-      />
+    <ImageView
+        android:id="@+id/favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:layout_marginRight="@dimen/spacing"
+        android:layout_marginTop="@dimen/spacing"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="2dp"
+        android:src="@drawable/ic_favorite_normal" />
 
-  <ImageView
-      android:id="@+id/thumb_up"
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_below="@+id/title"
-      android:layout_marginBottom="@dimen/spacing_small"
-      android:layout_marginRight="@dimen/spacing"
-      android:layout_marginTop="@dimen/spacing"
-      android:layout_toLeftOf="@+id/favorite"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:padding="2dp"
-      android:src="@drawable/ic_thumb_up_normal"
-      />
+    <ImageView
+        android:id="@+id/thumb_up"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:layout_marginRight="@dimen/spacing"
+        android:layout_marginTop="@dimen/spacing"
+        android:layout_toLeftOf="@+id/favorite"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="2dp"
+        android:src="@drawable/ic_thumb_up_normal" />
 
 </RelativeLayout>

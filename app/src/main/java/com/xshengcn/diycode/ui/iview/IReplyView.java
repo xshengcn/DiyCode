@@ -1,18 +1,18 @@
 package com.xshengcn.diycode.ui.iview;
 
-import com.xshengcn.diycode.model.ImageResult;
+import com.xshengcn.diycode.data.model.ImageResult;
 
 public interface IReplyView {
 
-  void showUploadDialog();
+    void showUploadDialog();
 
-  void hideUploadDialog();
+    void hideUploadDialog();
 
-  void showUploadImageFailed();
+    void showUploadImageFailed();
 
-  int getId();
+    int getId();
 
-  String getBody();
+    String getBody();
 
-  void insertImage(ImageResult result);
+    void insertImage(ImageResult result);
 }

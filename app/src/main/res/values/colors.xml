@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">@android:color/white</color>
-  <color name="colorPrimaryDark">@android:color/darker_gray</color>
-  <color name="colorAccent">#DB3937</color>
+    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimaryDark">@android:color/darker_gray</color>
+    <color name="colorAccent">#DB3937</color>
 
-  <color name="colorTextPrimary">#4D4D4D</color>
-  <color name="colorTextSecondary">#535263</color>
-  <color name="colorTextTertiary">#999999</color>
-  <color name="colorTextQuaternary">#C8C8CE</color>
-  <color name="touch_effect">#9CCC</color>
-  <color name="fab_menu">#A8FFFFFF</color>
+    <color name="colorTextPrimary">#4D4D4D</color>
+    <color name="colorTextSecondary">#535263</color>
+    <color name="colorTextTertiary">#999999</color>
+    <color name="colorTextQuaternary">#C8C8CE</color>
+    <color name="touch_effect">#9CCC</color>
+    <color name="fab_menu">#A8FFFFFF</color>
 
-  <color name="content_background">#F0F0F0</color>
-  <color name="colorDivider">@color/content_background</color>
+    <color name="content_background">#F0F0F0</color>
+    <color name="colorDivider">@color/content_background</color>
 
 
 </resources>

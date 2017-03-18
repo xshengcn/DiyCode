@@ -5,15 +5,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 public class URLDrawable extends BitmapDrawable {
-  private Drawable drawable;
+    private Drawable mDrawable;
 
-  @Override public void draw(Canvas canvas) {
-    if (drawable != null) {
-      drawable.draw(canvas);
+    @Override
+    public void draw(Canvas canvas) {
+        if (mDrawable != null) {
+            mDrawable.draw(canvas);
+        }
     }
-  }
 
-  public void setDrawable(Drawable drawable) {
-    this.drawable = drawable;
-  }
+    public void setDrawable(Drawable drawable) {
+        this.mDrawable = drawable;
+    }
 }

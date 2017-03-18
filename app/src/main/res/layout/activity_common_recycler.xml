@@ -4,24 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <android.support.design.widget.AppBarLayout
-      android:id="@+id/appbar_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:title=""
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
-  </android.support.design.widget.AppBarLayout>
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-  <include layout="@layout/view_common_recycler"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:title=""
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/view_common_recycler" />
 
 
 </android.support.design.widget.CoordinatorLayout>

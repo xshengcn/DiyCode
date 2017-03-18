@@ -14,117 +14,140 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.ui.iview.ILoginView;
 import com.xshengcn.diycode.ui.presenter.LoginPresenter;
 import com.xshengcn.diycode.util.TextWatcherAdapter;
+
 import javax.inject.Inject;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity implements ILoginView {
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.username) EditText username;
-  @BindView(R.id.password) EditText password;
-  @BindView(R.id.login) Button login;
-  @BindView(R.id.usernameWrapper) TextInputLayout usernameWrapper;
-  @BindView(R.id.passwordWrapper) TextInputLayout passwordWrapper;
-  @BindString(R.string.username_not_empty) String usernameNotEmpty;
-  @BindString(R.string.password_not_empty) String passwordNotEmpty;
-  @BindString(R.string.tips_login) String tips_login;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.username)
+    EditText mUsername;
+    @BindView(R.id.usernameWrapper)
+    TextInputLayout mUsernameWrapper;
+    @BindView(R.id.password)
+    EditText mPassword;
+    @BindView(R.id.passwordWrapper)
+    TextInputLayout mPasswordWrapper;
+    @BindView(R.id.btn_login)
+    Button mBtnLogin;
 
-  @Inject LoginPresenter presenter;
+    @BindString(R.string.username_not_empty)
+    String mUsernameNotEmpty;
+    @BindString(R.string.password_not_empty)
+    String mPasswordNotEmpty;
+    @BindString(R.string.tips_login)
+    String mTipsLogin;
 
-  private ProgressDialog loginDialog;
+    @Inject
+    LoginPresenter mPresenter;
+    private ProgressDialog mLoginDialog;
 
-  public static void start(Activity activity) {
-    activity.startActivity(new Intent(activity, LoginActivity.class));
-  }
+    public static void start(Activity activity) {
+        activity.startActivity(new Intent(activity, LoginActivity.class));
+    }
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_login);
-    getComponent().inject(this);
-    ButterKnife.bind(this);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        getComponent().inject(this);
+        ButterKnife.bind(this);
 
-    presenter.onAttach(this);
+        mPresenter.onAttach(this);
 
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setTitle("");
-    getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    login.setOnClickListener(this::login);
+        mBtnLogin.setOnClickListener(this::login);
 
-    username.addTextChangedListener(new TextWatcherAdapter() {
-      @Override public void afterTextChanged(Editable s) {
-        if (TextUtils.isEmpty(s)) {
-          usernameWrapper.setError(usernameNotEmpty);
-        } else {
-          usernameWrapper.setErrorEnabled(false);
+        mUsername.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    mUsernameWrapper.setError(mUsernameNotEmpty);
+                } else {
+                    mUsernameWrapper.setErrorEnabled(false);
+                }
+            }
+        });
+
+        mPassword.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    mPasswordWrapper.setError(mPasswordNotEmpty);
+                } else {
+                    mPasswordWrapper.setErrorEnabled(false);
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
         }
-      }
-    });
+        return super.onOptionsItemSelected(item);
+    }
 
-    password.addTextChangedListener(new TextWatcherAdapter() {
-      @Override public void afterTextChanged(Editable s) {
-        if (TextUtils.isEmpty(s)) {
-          passwordWrapper.setError(passwordNotEmpty);
+    private void login(View view) {
+        if (TextUtils.isEmpty(getUsername())) {
+            mUsernameWrapper.setError(mUsernameNotEmpty);
+        } else if (TextUtils.isEmpty(getPassword())) {
+            mPasswordWrapper.setError(mPasswordNotEmpty);
         } else {
-          passwordWrapper.setErrorEnabled(false);
+            mPresenter.login();
         }
-      }
-    });
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        super.onBackPressed();
-        break;
     }
-    return super.onOptionsItemSelected(item);
-  }
 
-  private void login(View view) {
-    if (TextUtils.isEmpty(getUsername())) {
-      usernameWrapper.setError(usernameNotEmpty);
-    } else if (TextUtils.isEmpty(getPassword())) {
-      passwordWrapper.setError(passwordNotEmpty);
-    } else {
-      presenter.login();
+    @Override
+    public String getUsername() {
+        return mUsername.getText().toString();
     }
-  }
 
-  @Override public String getUsername() {
-    return username.getText().toString();
-  }
-
-  @Override public String getPassword() {
-    return password.getText().toString();
-  }
-
-  @Override public void showError(String errorDescription) {
-    Toast.makeText(this, errorDescription, Toast.LENGTH_SHORT).show();
-  }
-
-  @Override public void showLoginDialog() {
-    if (loginDialog == null) {
-      loginDialog = new ProgressDialog(this);
-      loginDialog.setMessage(tips_login);
+    @Override
+    public String getPassword() {
+        return mPassword.getText().toString();
     }
-    loginDialog.show();
-  }
 
-  @Override public void hideLoginDialog() {
-    if (loginDialog != null) {
-      loginDialog.dismiss();
+    @Override
+    public void showError(String errorDescription) {
+        Toast.makeText(this, errorDescription, Toast.LENGTH_SHORT).show();
     }
-  }
 
-  @Override public void closeActivity() {
-    finish();
-  }
+    @Override
+    public void showLoginDialog() {
+        if (mLoginDialog == null) {
+            mLoginDialog = new ProgressDialog(this);
+            mLoginDialog.setMessage(mTipsLogin);
+        }
+        mLoginDialog.show();
+    }
+
+    @Override
+    public void hideLoginDialog() {
+        if (mLoginDialog != null) {
+            mLoginDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void closeActivity() {
+        finish();
+    }
 }

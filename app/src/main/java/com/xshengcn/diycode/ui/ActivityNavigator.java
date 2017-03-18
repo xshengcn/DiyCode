@@ -2,8 +2,9 @@ package com.xshengcn.diycode.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import com.xshengcn.diycode.DiyCodePrefs;
-import com.xshengcn.diycode.model.topic.Topic;
+
+import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
@@ -16,87 +17,95 @@ import com.xshengcn.diycode.ui.activity.UserActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserTopicActivity;
+import com.xshengcn.diycode.util.BrowserUtil;
+
 import javax.inject.Inject;
 
-@PreActivity public final class ActivityNavigator {
+@PreActivity
+public final class ActivityNavigator {
 
-  private final DiyCodePrefs prefs;
-  private final AppCompatActivity activity;
+    private final DiyCodePrefs mPrefs;
+    private final AppCompatActivity mActivity;
 
-  @Inject public ActivityNavigator(DiyCodePrefs prefs, AppCompatActivity activity) {
-    this.prefs = prefs;
-    this.activity = activity;
-  }
-
-  public void showUserReplies() {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    @Inject
+    public ActivityNavigator(DiyCodePrefs prefs, AppCompatActivity activity) {
+        this.mPrefs = prefs;
+        this.mActivity = activity;
     }
-    UserReplyActivity.start(activity, prefs.getUser().login);
-  }
 
-  public void showUserFavorites() {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    public void showUserReplies() {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        UserReplyActivity.start(mActivity, mPrefs.getUser().login);
     }
-    UserFavoriteActivity.start(activity, prefs.getUser().login);
-  }
 
-  public void showUserTopics() {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    public void showUserFavorites() {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        UserFavoriteActivity.start(mActivity, mPrefs.getUser().login);
     }
-    UserTopicActivity.start(activity, prefs.getUser().login);
-  }
 
-  public void showUser() {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    public void showUserTopics() {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        UserTopicActivity.start(mActivity, mPrefs.getUser().login);
     }
-    UserActivity.start(activity);
-  }
 
-  public void showLogin() {
-    LoginActivity.start(activity);
-  }
-
-  public void showSearch() {
-    SearchActivity.start(activity);
-  }
-
-  public void showNotification() {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    public void showUser() {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        UserActivity.start(mActivity);
     }
-    NotificationActivity.start(activity);
-  }
 
-  public void showReply(@NonNull String title, @NonNull int id) {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    public void showLogin() {
+        LoginActivity.start(mActivity);
     }
-    ReplyActivity.start(activity, title, id);
-  }
 
-  public void showCreateTopic() {
-    if (prefs.getToken() == null) {
-      showLogin();
-      return;
+    public void showSearch() {
+        SearchActivity.start(mActivity);
     }
-    TopicCreatorActivity.start(activity);
-  }
 
-  public void showSite() {
-    SiteActivity.start(activity);
-  }
+    public void showNotification() {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        NotificationActivity.start(mActivity);
+    }
 
-  public void showTopicDetail(@NonNull Topic topic) {
-    TopicDetailActivity.start(activity, topic);
-  }
+    public void showReply(@NonNull String title, @NonNull int id) {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        ReplyActivity.start(mActivity, title, id);
+    }
+
+    public void showCreateTopic() {
+        if (mPrefs.getToken() == null) {
+            showLogin();
+            return;
+        }
+        TopicCreatorActivity.start(mActivity);
+    }
+
+    public void showSite() {
+        SiteActivity.start(mActivity);
+    }
+
+    public void showTopicDetail(@NonNull Topic topic) {
+        TopicDetailActivity.start(mActivity, topic);
+    }
+
+    public void showWeb(@NonNull String url) {
+        BrowserUtil.openUrl(mActivity, url);
+    }
 }

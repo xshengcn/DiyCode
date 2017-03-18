@@ -2,31 +2,35 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.ui.iview.INewsDetailView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class NewsDetailPresenter extends BasePresenter<INewsDetailView> {
 
-  private final DataManager dataManager;
+    private final DataManager mDataManager;
 
-  @Inject public NewsDetailPresenter(DataManager dataManager) {
-    this.dataManager = dataManager;
-  }
+    @Inject
+    public NewsDetailPresenter(DataManager dataManager) {
+        this.mDataManager = dataManager;
+    }
 
-  @Override public void onAttach(INewsDetailView view) {
-    super.onAttach(view);
+    @Override
+    public void onAttach(INewsDetailView view) {
+        super.onAttach(view);
 
-    getReplies(0);
-  }
+        getReplies(0);
+    }
 
-  private void getReplies(int offset) {
-    dataManager.getNewsReplies(getView().getNewsId(), offset)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(replies -> getView().showReplies(replies),
-            throwable -> handleThrowable(throwable));
-  }
+    private void getReplies(int offset) {
+        mDataManager.getNewsReplies(getView().getNewsId(), offset)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(replies -> getView().showReplies(replies),
+                        throwable -> handleThrowable(throwable));
+    }
 
-  private void handleThrowable(Throwable throwable) {
+    private void handleThrowable(Throwable throwable) {
 
-  }
+    }
 }

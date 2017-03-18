@@ -2,18 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <item
-      android:id="@+id/action_search"
-      android:icon="@drawable/ic_menu_search"
-      android:title="@string/menu_search"
-      app:showAsAction="ifRoom|collapseActionView"/>
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_menu_search"
+        android:title="@string/menu_search"
+        app:showAsAction="ifRoom|collapseActionView" />
 
-  <item
-      android:id="@+id/action_notification"
-      android:icon="@drawable/ic_menu_notification"
-      android:title="@string/menu_notification"
-      app:showAsAction="always"/>
-
+    <item
+        android:id="@+id/action_notification"
+        android:icon="@drawable/ic_menu_notification"
+        android:title="@string/menu_notification"
+        app:showAsAction="always" />
 
 
 </menu>

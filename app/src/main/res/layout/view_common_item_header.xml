@@ -1,64 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
-  <ImageView
-      android:id="@+id/avatar"
-      android:layout_width="28dp"
-      android:layout_height="28dp"
-      android:layout_centerVertical="true"
-      tools:src="@mipmap/ic_launcher"
-      />
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_centerVertical="true"
+        tools:src="@mipmap/ic_launcher" />
 
-  <TextView
-      android:id="@+id/name"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/spacing_small"
-      android:layout_toRightOf="@id/avatar"
-      android:textColor="@color/colorTextSecondary"
-      android:textSize="@dimen/dimenTextTertiary"
-      tools:text="李嘉图"
-      />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@id/avatar"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="@dimen/dimenTextTertiary"
+        tools:text="李嘉图" />
 
-  <View
-      android:id="@+id/split_point"
-      android:layout_width="3dp"
-      android:layout_height="3dp"
-      android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/spacing_small"
-      android:layout_toRightOf="@+id/name"
-      android:background="@drawable/split_point"
-      />
+    <View
+        android:id="@+id/split_point"
+        android:layout_width="3dp"
+        android:layout_height="3dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@+id/name"
+        android:background="@drawable/split_point" />
 
-  <TextView
-      android:id="@+id/node"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/spacing_small"
-      android:layout_toRightOf="@+id/split_point"
-      android:textColor="@color/colorTextQuaternary"
-      android:textSize="@dimen/dimenTextTertiary"
-      tools:text="Android"
-      />
+    <TextView
+        android:id="@+id/node"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@+id/split_point"
+        android:textColor="@color/colorTextQuaternary"
+        android:textSize="@dimen/dimenTextTertiary"
+        tools:text="Android" />
 
-  <TextView
-      android:id="@+id/date"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:textColor="@color/colorTextQuaternary"
-      android:textSize="@dimen/dimenTextTertiary"
-      tools:text="24分钟前"
-      />
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorTextQuaternary"
+        android:textSize="@dimen/dimenTextTertiary"
+        tools:text="24分钟前" />
 
 </RelativeLayout>

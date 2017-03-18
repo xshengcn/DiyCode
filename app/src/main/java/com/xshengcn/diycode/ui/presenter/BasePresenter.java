@@ -1,42 +1,43 @@
 package com.xshengcn.diycode.ui.presenter;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 public abstract class BasePresenter<T> {
 
-  private final CompositeDisposable disposables = new CompositeDisposable();
-  private Reference<T> reference;
+    private final CompositeDisposable mDisposable = new CompositeDisposable();
+    private Reference<T> mReference;
 
-  public void onAttach(T view) {
-    reference = new WeakReference<>(view);
-  }
-
-  protected void addDisposable(Disposable s) {
-    disposables.add(s);
-  }
-
-  public CompositeDisposable getDisposables() {
-    return disposables;
-  }
-
-  public void onDetach() {
-
-    disposables.clear();
-
-    if (reference != null) {
-      reference.clear();
-      reference = null;
+    public void onAttach(T view) {
+        mReference = new WeakReference<>(view);
     }
-  }
 
-  protected T getView() {
-    T t = reference.get();
-    if (t == null) {
-      throw new NullPointerException("must attach to presenter");
+    protected void addDisposable(Disposable s) {
+        mDisposable.add(s);
     }
-    return reference.get();
-  }
+
+    public CompositeDisposable getDisposable() {
+        return mDisposable;
+    }
+
+    public void onDetach() {
+
+        mDisposable.clear();
+
+        if (mReference != null) {
+            mReference.clear();
+            mReference = null;
+        }
+    }
+
+    protected T getView() {
+        T t = mReference.get();
+        if (t == null) {
+            throw new NullPointerException("must attach to presenter");
+        }
+        return mReference.get();
+    }
 }

@@ -4,149 +4,134 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <include layout="@layout/view_common_appbar" />
+    <include layout="@layout/view_common_appbar" />
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="56dp"
-      android:background="@android:color/white"
-      android:gravity="center"
-      android:orientation="horizontal"
-      android:paddingLeft="@dimen/spacing"
-      android:paddingRight="@dimen/spacing"
-      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/spacing"
+        android:paddingRight="@dimen/spacing">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacing"
+            android:text="选择节点"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/dimenTextSecondary" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/topic_node_category"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/topic_node"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/colorDivider" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/spacing"
-        android:text="选择节点"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:hint="请输入标题"
+        android:minHeight="56dp"
+        android:overScrollMode="always"
+        android:paddingBottom="@dimen/spacing_small"
+        android:paddingLeft="@dimen/spacing"
+        android:paddingRight="@dimen/spacing"
+        android:paddingTop="@dimen/spacing_small"
+        android:scrollbars="vertical"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/dimenTextSecondary"
-        />
+        android:textStyle="bold" />
 
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/topic_node_category"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/colorDivider" />
+
+    <EditText
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:ellipsize="end"
-        />
+        android:background="@android:color/white"
+        android:gravity="start"
+        android:hint="请输入内容"
+        android:overScrollMode="always"
+        android:paddingBottom="@dimen/spacing_small"
+        android:paddingLeft="@dimen/spacing"
+        android:paddingRight="@dimen/spacing"
+        android:paddingTop="@dimen/spacing_small"
+        android:scrollbars="vertical"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="@dimen/dimenTextSecondary" />
 
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/topic_node"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/colorDivider" />
 
-  </LinearLayout>
+    <LinearLayout
+        android:id="@+id/edit_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:gravity="center_vertical|end"
+        android:paddingLeft="@dimen/spacing"
+        android:paddingRight="@dimen/spacing">
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider"
-      android:background="@color/colorDivider"
-      />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_image_gray" />
 
-  <EditText
-      android:id="@+id/title"
-      android:textStyle="bold"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@android:color/white"
-      android:gravity="center_vertical"
-      android:scrollbars="vertical"
-      android:overScrollMode="always"
-      android:hint="请输入标题"
-      android:minHeight="56dp"
-      android:paddingBottom="@dimen/spacing_small"
-      android:paddingLeft="@dimen/spacing"
-      android:paddingRight="@dimen/spacing"
-      android:paddingTop="@dimen/spacing_small"
-      android:textColor="@color/colorTextPrimary"
-      android:textSize="@dimen/dimenTextSecondary"
-      />
+        <ImageView
+            android:id="@+id/code"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_code_gray" />
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider"
-      android:background="@color/colorDivider"
-      />
+        <ImageView
+            android:id="@+id/link"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_link_gray" />
 
-  <EditText
-      android:id="@+id/body"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:background="@android:color/white"
-      android:gravity="start"
-      android:hint="请输入内容"
-      android:scrollbars="vertical"
-      android:overScrollMode="always"
-      android:paddingBottom="@dimen/spacing_small"
-      android:paddingLeft="@dimen/spacing"
-      android:paddingRight="@dimen/spacing"
-      android:paddingTop="@dimen/spacing_small"
-      android:textColor="@color/colorTextSecondary"
-      android:textSize="@dimen/dimenTextSecondary"
-      />
+        <ImageView
+            android:id="@+id/pre_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_preview_gray" />
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider"
-      android:background="@color/colorDivider"
-      />
-
-  <LinearLayout
-      android:id="@+id/edit_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?actionBarSize"
-      android:layout_alignParentBottom="true"
-      android:background="@android:color/white"
-      android:gravity="center_vertical|end"
-      android:paddingLeft="@dimen/spacing"
-      android:paddingRight="@dimen/spacing"
-      >
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_image_gray"
-        />
-
-    <ImageView
-        android:id="@+id/code"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_code_gray"
-        />
-
-    <ImageView
-        android:id="@+id/link"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_link_gray"
-        />
-
-    <ImageView
-        android:id="@+id/pre_view"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_preview_gray"
-        />
-
-  </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

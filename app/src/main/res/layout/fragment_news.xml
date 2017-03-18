@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kennyc.view.MultiStateView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kennyc.view.MultiStateView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/state_view"
     android:layout_width="match_parent"
@@ -10,8 +9,8 @@
     app:msv_emptyView="@layout/view_empty"
     app:msv_errorView="@layout/view_no_connection"
     app:msv_loadingView="@layout/view_progress"
-    app:msv_viewState="content"
-    >
-  <include layout="@layout/view_common_recycler"/>
+    app:msv_viewState="content">
+
+    <include layout="@layout/view_common_recycler" />
 </com.kennyc.view.MultiStateView>
 

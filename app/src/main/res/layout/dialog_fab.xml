@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBFFFFFF"
-    >
+    android:background="#BBFFFFFF">
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_menu"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/spacing"
-      android:layout_marginRight="@dimen/spacing"
-      android:src="@drawable/fab_add_white"
-      app:fabSize="normal"
-      app:layout_constraintBottom_toTopOf="parent"
-      app:layout_constraintRight_toLeftOf="parent"
-      />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing"
+        android:layout_marginRight="@dimen/spacing"
+        android:src="@drawable/fab_add_white"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="parent" />
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_share_news"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/spacing"
-      android:layout_marginRight="24dp"
-      android:backgroundTint="@android:color/white"
-      android:src="@drawable/fab_share_news"
-      app:borderWidth="0dp"
-      app:fabSize="mini"
-      app:layout_constraintBottom_toTopOf="@id/fab_menu"
-      app:layout_constraintRight_toLeftOf="parent"
-      />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_share_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing"
+        android:layout_marginRight="24dp"
+        android:backgroundTint="@android:color/white"
+        android:src="@drawable/fab_share_news"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@id/fab_menu"
+        app:layout_constraintRight_toLeftOf="parent"
+        tools:targetApi="lollipop" />
 
-  <TextView
-      android:id="@+id/text_share_news"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="24dp"
-      android:background="@drawable/fab_text"
-      android:elevation="4dp"
-      android:foreground="@drawable/selector_subtle"
-      android:text="分享链接"
-      app:layout_constraintBottom_toBottomOf="@+id/fab_share_news"
-      app:layout_constraintRight_toLeftOf="@+id/fab_share_news"
-      app:layout_constraintTop_toTopOf="@+id/fab_share_news"
-      />
+    <TextView
+        android:id="@+id/text_share_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/fab_text"
+        android:elevation="4dp"
+        android:foreground="@drawable/selector_subtle"
+        android:text="分享链接"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_share_news"
+        app:layout_constraintRight_toLeftOf="@+id/fab_share_news"
+        app:layout_constraintTop_toTopOf="@+id/fab_share_news"
+        tools:targetApi="lollipop" />
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_create_topic"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/spacing"
-      android:layout_marginRight="24dp"
-      android:backgroundTint="@android:color/white"
-      android:src="@drawable/fab_create_topic"
-      app:borderWidth="0dp"
-      app:fabSize="mini"
-      app:layout_constraintBottom_toTopOf="@+id/fab_share_news"
-      app:layout_constraintRight_toLeftOf="parent"
-      />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_create_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing"
+        android:layout_marginRight="24dp"
+        android:backgroundTint="@android:color/white"
+        android:src="@drawable/fab_create_topic"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fab_share_news"
+        app:layout_constraintRight_toLeftOf="parent"
+        tools:targetApi="lollipop" />
 
-  <TextView
-      android:id="@+id/text_create_topic"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="24dp"
-      android:background="@drawable/fab_text"
-      android:elevation="4dp"
-      android:foreground="@drawable/selector_subtle"
-      android:text="创建话题"
-      app:layout_constraintBottom_toBottomOf="@+id/fab_create_topic"
-      app:layout_constraintRight_toLeftOf="@+id/fab_create_topic"
-      app:layout_constraintTop_toTopOf="@+id/fab_create_topic"
-      />
+    <TextView
+        android:id="@+id/text_create_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/fab_text"
+        android:elevation="4dp"
+        android:foreground="@drawable/selector_subtle"
+        android:text="创建话题"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_create_topic"
+        app:layout_constraintRight_toLeftOf="@+id/fab_create_topic"
+        app:layout_constraintTop_toTopOf="@+id/fab_create_topic"
+        tools:targetApi="lollipop" />
 
 </android.support.constraint.ConstraintLayout>

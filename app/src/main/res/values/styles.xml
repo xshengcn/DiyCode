@@ -1,47 +1,47 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppThemeBase" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <!-- Base application theme. -->
+    <style name="AppThemeBase" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
-  </style>
+    </style>
 
-  <style name="AppTheme" parent="AppThemeBase" />
+    <style name="AppTheme" parent="AppThemeBase" />
 
-  <style name="AppTheme.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-  <style name="AppTheme.NoActionBar.Main"/>
+    <style name="AppTheme.NoActionBar.Main" />
 
-  <style name="AppTheme.NoActionBar.Photo"/>
+    <style name="AppTheme.NoActionBar.Photo" />
 
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
-  <style name="AppTheme.DarkAppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.DarkAppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-  <style name="toolbar_expanded_title">
-    <item name="android:textSize">0sp</item>
-    <item name="android:textColor">@android:color/transparent</item>
-  </style>
+    <style name="toolbar_expanded_title">
+        <item name="android:textSize">0sp</item>
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
 
-  <style name="FabDialog" parent="@android:style/Animation.Dialog">
-    <item name="android:windowFrame">@null</item>
-    <item name="android:windowNoTitle">true</item>
-    <!-- 设置背景色 透明-->
-    <item name="android:windowBackground">@android:color/transparent</item>
-    <!-- 设置是否显示背景 -->
-    <item name="android:backgroundDimEnabled">true</item>
-    <!-- 设置背景透明度 0 全透明 1 全不透明-->
-    <item name="android:backgroundDimAmount">0</item>
-    <!-- 设置点击空白消失 -->
-    <item name="android:windowCloseOnTouchOutside">true</item>
-  </style>
+    <style name="FabDialog" parent="@android:style/Animation.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 设置背景色 透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 设置是否显示背景 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 设置背景透明度 0 全透明 1 全不透明-->
+        <item name="android:backgroundDimAmount">0</item>
+        <!-- 设置点击空白消失 -->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 </resources>

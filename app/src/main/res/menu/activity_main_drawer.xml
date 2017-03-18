@@ -2,42 +2,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-  <group
-      android:id="@+id/drawer_group1"
-      android:checkableBehavior="none">
-    <item
-        android:id="@+id/nav_topic"
-        android:icon="@drawable/ic_menu_topic"
-        android:title="@string/topics"/>
-    <item
-        android:id="@+id/nav_favorite"
-        android:icon="@drawable/ic_menu_collection"
-        android:title="@string/favorites"/>
-    <item
-        android:id="@+id/nav_reply"
-        android:icon="@drawable/ic_menu_reply"
-        android:title="@string/relies"/>
-    <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_menu_share"
-        android:title="我的分享"/>
-  </group>
+    <group
+        android:id="@+id/drawer_group1"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_topic"
+            android:icon="@drawable/ic_menu_topic"
+            android:title="@string/topics" />
+        <item
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/ic_menu_collection"
+            android:title="@string/favorites" />
+        <item
+            android:id="@+id/nav_reply"
+            android:icon="@drawable/ic_menu_reply"
+            android:title="@string/relies" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_share"
+            android:title="我的分享" />
+    </group>
 
-  <group
-      android:id="@+id/drawer_group2"
-      android:checkableBehavior="none">
-    <item
-        android:icon="@drawable/ic_menu_site"
-        android:id="@+id/nav_site"
-        android:title="酷站"/>
-    <item
-        android:id="@+id/nav_share"
-        android:icon="@drawable/ic_menu_about"
-        android:title="关于我们"/>
-    <item
-        android:id="@+id/nav_send"
-        android:icon="@drawable/ic_menu_setting"
-        android:title="软件设置"/>
-  </group>
+    <group
+        android:id="@+id/drawer_group2"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_site"
+            android:icon="@drawable/ic_menu_site"
+            android:title="酷站" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_about"
+            android:title="关于我们" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_setting"
+            android:title="软件设置" />
+    </group>
 
 </menu>

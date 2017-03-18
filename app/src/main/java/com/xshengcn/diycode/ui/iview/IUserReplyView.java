@@ -1,25 +1,26 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.model.user.UserReply;
+import com.xshengcn.diycode.data.model.user.UserReply;
+
 import java.util.List;
 
 public interface IUserReplyView {
 
-  String getUser();
+    String getUser();
 
-  int getItemOffset();
+    int getItemOffset();
 
-  boolean isRefreshing();
+    boolean isRefreshing();
 
-  void showRefreshErrorAndComplete();
+    void showRefreshErrorAndComplete();
 
-  void showLoadMoreFailed();
+    void showLoadMoreFailed();
 
-  void showUserReplies(List<UserReply> replies, boolean clean);
+    void showUserReplies(List<UserReply> replies, boolean clean);
 
-  void showNoMoreTopic();
+    void showNoMoreTopic();
 
-  void changeStateView(@MultiStateView.ViewState int state);
+    void changeStateView(@MultiStateView.ViewState int state);
 
 }

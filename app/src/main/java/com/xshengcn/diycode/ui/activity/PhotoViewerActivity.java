@@ -3,6 +3,7 @@ package com.xshengcn.diycode.ui.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,112 +12,128 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.xshengcn.diycode.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PhotoViewerActivity extends BaseActivity {
 
-  private static final int UI_ANIMATION_DELAY = 300;
-  private static final String EXTRA_IMAGE_SOURCE = "PhotoViewerActivity.source";
-  private final Runnable showActionbarRunnable = () -> getSupportActionBar().show();
-  @BindView(R.id.image_view) ImageView imageView;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  PhotoViewAttacher attacher;
-  private boolean visible;
-  private Handler handler = new Handler();
+    private static final int UI_ANIMATION_DELAY = 300;
+    private static final String EXTRA_IMAGE_SOURCE = "PhotoViewerActivity.source";
+    @BindView(R.id.image_view)
+    ImageView imageView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
-  public static void start(Activity activity, String source) {
-    Intent intent = new Intent(activity, PhotoViewerActivity.class);
-    intent.putExtra(EXTRA_IMAGE_SOURCE, source);
-    activity.startActivity(intent);
-  }
+    private final Runnable mRunnable = () -> getSupportActionBar().show();
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_photo_viewer);
-    ButterKnife.bind(this);
+    private PhotoViewAttacher mPhotoViewAttacher;
+    private boolean mVisible;
+    private Handler mHandler = new Handler();
 
-    setSupportActionBar(toolbar);
-    if (getSupportActionBar() != null) {
-      getSupportActionBar().setTitle("");
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    public static void start(Activity activity, String source) {
+        Intent intent = new Intent(activity, PhotoViewerActivity.class);
+        intent.putExtra(EXTRA_IMAGE_SOURCE, source);
+        activity.startActivity(intent);
     }
 
-    String source = getIntent().getStringExtra(EXTRA_IMAGE_SOURCE);
-    if (!TextUtils.isEmpty(source)) {
-      if (!source.endsWith("gif")) {
-        attacher = new PhotoViewAttacher(imageView);
-        attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-          @Override public void onPhotoTap(View view, float x, float y) {
-            toggle();
-          }
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_photo_viewer);
+        ButterKnife.bind(this);
 
-          @Override public void onOutsidePhotoTap() {
-            toggle();
-          }
-        });
-        Glide.with(this)
-            .load(source)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(new ImageViewTarget<GlideDrawable>(imageView) {
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-              @Override protected void setResource(GlideDrawable resource) {
-                imageView.setImageDrawable(resource);
-                attacher.update();
-              }
-            });
-      } else {
-        Glide.with(this).load(source).into(imageView);
-      }
+        String source = getIntent().getStringExtra(EXTRA_IMAGE_SOURCE);
+        if (!TextUtils.isEmpty(source)) {
+            if (!source.endsWith("gif")) {
+                mPhotoViewAttacher = new PhotoViewAttacher(imageView);
+                mPhotoViewAttacher.setOnPhotoTapListener(
+                        new PhotoViewAttacher.OnPhotoTapListener() {
+                            @Override
+                            public void onPhotoTap(View view, float x, float y) {
+                                toggle();
+                            }
+
+                            @Override
+                            public void onOutsidePhotoTap() {
+                                toggle();
+                            }
+                        });
+                Glide.with(this)
+                        .load(source)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(new ImageViewTarget<GlideDrawable>(imageView) {
+
+                            @Override
+                            protected void setResource(GlideDrawable resource) {
+                                imageView.setImageDrawable(resource);
+                                mPhotoViewAttacher.update();
+                            }
+                        });
+            } else {
+                Glide.with(this).load(source).into(imageView);
+            }
+        }
     }
-  }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    switch (id) {
-      case android.R.id.home:
-        super.onBackPressed();
-        break;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
-    return super.onOptionsItemSelected(item);
-  }
 
-  private void toggle() {
-    if (visible) {
-      hide();
-    } else {
-      show();
+    private void toggle() {
+        if (mVisible) {
+            hide();
+        } else {
+            show();
+        }
     }
-  }
 
-  @SuppressLint("InlinedApi") private void show() {
-    visible = true;
+    @SuppressLint("InlinedApi")
+    private void show() {
+        mVisible = true;
 
-    // Show the system bar
-    imageView.setSystemUiVisibility(
-        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        // Show the system bar
+        imageView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
-    handler.postDelayed(showActionbarRunnable, UI_ANIMATION_DELAY);
-  }
+        mHandler.postDelayed(mRunnable, UI_ANIMATION_DELAY);
+    }
 
-  private void hide() {
-    visible = false;
 
-    if (getSupportActionBar() != null) getSupportActionBar().hide();
+    private void hide() {
+        mVisible = false;
 
-    handler.removeCallbacks(showActionbarRunnable);
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-    imageView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-        | View.SYSTEM_UI_FLAG_FULLSCREEN
-        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-  }
+        mHandler.removeCallbacks(mRunnable);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            imageView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }
+    }
 }

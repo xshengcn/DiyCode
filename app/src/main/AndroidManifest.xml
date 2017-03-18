@@ -2,108 +2,109 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xshengcn.diycode">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-  <application
-      android:name=".DiyCodeApplication"
-      android:allowBackup="true"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:supportsRtl="true"
-      android:theme="@style/AppTheme">
+    <application
+        android:name=".DiyCodeApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
 
-    <meta-data
-        android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-        android:value="GlideModule"/>
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule" />
 
-    <activity
-        android:name=".ui.activity.MainActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar.Main">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-    <activity
-        android:name=".ui.activity.SearchActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.NotificationActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.NewsDetailActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.NewsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.TopicDetailActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar">
-    </activity>
+        <activity
+            android:name=".ui.activity.TopicDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-    <activity
-        android:name=".ui.activity.LoginActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.UserActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar.Main"/>
+        <activity
+            android:name=".ui.activity.UserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Main" />
 
-    <activity
-        android:name=".ui.activity.UserTopicActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.UserTopicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.UserFavoriteActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.UserFavoriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.UserReplyActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.UserReplyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.PhotoViewerActivity"
-        android:theme="@style/AppTheme.NoActionBar.Photo"/>
+        <activity
+            android:name=".ui.activity.PhotoViewerActivity"
+            android:theme="@style/AppTheme.NoActionBar.Photo" />
 
-    <activity
-        android:name=".ui.activity.TopicCreatorActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.activity.TopicCreatorActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
 
-    <activity
-        android:name=".ui.activity.ReplyActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.activity.ReplyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
 
-    <activity
-        android:name=".ui.activity.MarkdownPreviewActivity"
-        android:label="@string/preview"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.MarkdownPreviewActivity"
+            android:label="@string/preview"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <activity
-        android:name=".ui.activity.SiteActivity"
-        android:label="@string/site"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.SiteActivity"
+            android:label="@string/site"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-    <receiver android:name=".receiver.ActionBroadcastReceiver" />
-  </application>
+        <receiver android:name=".ui.receiver.ActionBroadcastReceiver" />
+
+
+    </application>
 
 </manifest>

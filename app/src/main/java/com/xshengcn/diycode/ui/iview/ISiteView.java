@@ -1,8 +1,9 @@
 package com.xshengcn.diycode.ui.iview;
 
-import com.xshengcn.diycode.model.site.SiteListItem;
+import com.xshengcn.diycode.data.model.site.SiteListItem;
+
 import java.util.List;
 
 public interface ISiteView {
-  void showSites(List<SiteListItem> siteListItems);
+    void showSites(List<SiteListItem> siteListItems);
 }

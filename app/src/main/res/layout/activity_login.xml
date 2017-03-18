@@ -2,71 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
 
-  <ImageView
-      android:layout_width="160dp"
-      android:layout_height="100dp"
-      android:layout_gravity="center_horizontal"
-      android:focusableInTouchMode="true"
-      android:src="@drawable/ic_logo"
-      />
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:focusableInTouchMode="true"
+        android:src="@drawable/ic_logo" />
 
-  <android.support.design.widget.TextInputLayout
-      android:id="@+id/usernameWrapper"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/spacing_large"
-      android:layout_marginRight="@dimen/spacing_large"
-      >
-
-    <EditText
-        android:id="@+id/username"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/usernameWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/email_username"
-        android:inputType="textVisiblePassword"
-        />
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large">
 
-  </android.support.design.widget.TextInputLayout>
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_username"
+            android:inputType="textVisiblePassword" />
 
-  <android.support.design.widget.TextInputLayout
-      android:id="@+id/passwordWrapper"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/spacing_large"
-      android:layout_marginRight="@dimen/spacing_large"
-      android:layout_marginTop="@dimen/spacing_small"
-      >
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/password"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        />
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_small">
 
-  </android.support.design.widget.TextInputLayout>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
-  <Button
-      android:id="@+id/login"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/spacing_large"
-      android:layout_marginRight="@dimen/spacing_large"
-      android:layout_marginTop="@dimen/spacing"
-      android:background="@drawable/btn_login"
-      android:text="@string/login"
-      android:textColor="@android:color/white"
-      />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing"
+        android:background="@drawable/btn_login"
+        android:text="@string/login"
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

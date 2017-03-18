@@ -14,31 +14,34 @@ import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserTopicActivity;
+
 import dagger.Subcomponent;
 
-@PreActivity @Subcomponent(modules = ActivityModule.class) public interface ActivityComponent {
+@PreActivity
+@Subcomponent(modules = ActivityModule.class)
+public interface ActivityComponent {
 
-  FragmentComponent plus(FragmentModule module);
+    FragmentComponent plus(FragmentModule module);
 
-  void inject(MainActivity mainActivity);
+    void inject(MainActivity mainActivity);
 
-  void inject(NewsDetailActivity newsDetailActivity);
+    void inject(NewsDetailActivity newsDetailActivity);
 
-  void inject(LoginActivity loginActivity);
+    void inject(LoginActivity loginActivity);
 
-  void inject(UserTopicActivity userTopicActivity);
+    void inject(UserTopicActivity userTopicActivity);
 
-  void inject(UserFavoriteActivity userFavoriteActivity);
+    void inject(UserFavoriteActivity userFavoriteActivity);
 
-  void inject(TopicDetailActivity topicDetailActivity);
+    void inject(TopicDetailActivity topicDetailActivity);
 
-  void inject(NotificationActivity notificationActivity);
+    void inject(NotificationActivity notificationActivity);
 
-  void inject(UserReplyActivity userReplyActivity);
+    void inject(UserReplyActivity userReplyActivity);
 
-  void inject(ReplyActivity replyActivity);
+    void inject(ReplyActivity replyActivity);
 
-  void inject(TopicCreatorActivity topicCreatorActivity);
+    void inject(TopicCreatorActivity topicCreatorActivity);
 
-  void inject(SiteActivity siteActivity);
+    void inject(SiteActivity siteActivity);
 }

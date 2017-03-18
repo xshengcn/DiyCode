@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2015 Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,25 +14,25 @@
   limitations under the License.
   -->
 
-<selector xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item android:state_activated="true">
         <objectAnimator
-            android:propertyName="translationZ"
-            android:valueTo="2dp"
             android:duration="@android:integer/config_shortAnimTime"
             android:interpolator="@android:interpolator/fast_out_slow_in"
-            tools:targetApi="lollipop"/>
+            android:propertyName="translationZ"
+            android:valueTo="2dp"
+            tools:targetApi="lollipop" />
     </item>
 
     <item>
         <objectAnimator
-            android:propertyName="translationZ"
-            android:valueTo="0dp"
             android:duration="@android:integer/config_shortAnimTime"
             android:interpolator="@android:interpolator/fast_out_slow_in"
-            tools:targetApi="lollipop"/>
+            android:propertyName="translationZ"
+            android:valueTo="0dp"
+            tools:targetApi="lollipop" />
     </item>
 
 </selector>

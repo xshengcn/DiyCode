@@ -10,5 +10,4 @@
     android:paddingRight="@dimen/spacing"
     android:singleLine="true"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    tools:text="开发者服务"
-    />
+    tools:text="开发者服务" />

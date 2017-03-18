@@ -1,25 +1,26 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.model.topic.Topic;
+import com.xshengcn.diycode.data.model.topic.Topic;
+
 import java.util.List;
 
 public interface IUserTopicView {
 
-  String getUserLogin();
+    String getUserLogin();
 
-  int getItemOffset();
+    int getItemOffset();
 
-  boolean isRefreshing();
+    boolean isRefreshing();
 
-  void showRefreshErrorAndComplete();
+    void showRefreshErrorAndComplete();
 
-  void showLoadMoreFailed();
+    void showLoadMoreFailed();
 
-  void showTopics(List<Topic> topics, boolean clean);
+    void showTopics(List<Topic> topics, boolean clean);
 
-  void showNoMoreTopic();
+    void showNoMoreTopic();
 
-  void changeStateView(@MultiStateView.ViewState int state);
+    void changeStateView(@MultiStateView.ViewState int state);
 
 }

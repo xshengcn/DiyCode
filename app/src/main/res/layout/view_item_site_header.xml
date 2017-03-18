@@ -6,7 +6,6 @@
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingLeft="@dimen/spacing"
-    android:textSize="@dimen/dimenTextSecondary"
     android:textColor="@color/colorTextSecondary"
-    />
+    android:textSize="@dimen/dimenTextSecondary" />
 
