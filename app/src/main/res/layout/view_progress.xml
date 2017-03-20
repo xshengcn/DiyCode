@@ -8,4 +8,4 @@
     android:indeterminate="true"
     android:indeterminateTint="@color/colorAccent"
     android:indeterminateTintMode="src_in"
-    tools:targetApi="lollipop" />
+    tools:targetApi="lollipop"/>

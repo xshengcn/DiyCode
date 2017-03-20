@@ -16,7 +16,9 @@
     <string name="bt_retry">重试</string>
     <string name="bt_ignore">忽略</string>
     <string name="no_connection">No Connection</string>
-    <string name="no_connection_msg">We could not establish a connection with our servers. Please try again when you are connected to the internet.</string>
+    <string name="no_connection_msg">We could not establish a connection with our servers. Please
+        try again when you are connected to the internet.
+    </string>
     <string name="favorites">我的收藏</string>
     <string name="user_favorites">%s的收藏</string>
     <string name="topics">我的帖子</string>

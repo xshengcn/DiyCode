@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/view_common_appbar" />
+    <include layout="@layout/view_common_appbar"/>
 
     <com.kennyc.view.MultiStateView
         android:id="@+id/state_view"
@@ -18,7 +19,7 @@
         app:msv_loadingView="@layout/view_progress"
         app:msv_viewState="content">
 
-        <include layout="@layout/view_common_recycler" />
+        <include layout="@layout/view_common_recycler"/>
     </com.kennyc.view.MultiStateView>
 
 </android.support.design.widget.CoordinatorLayout>

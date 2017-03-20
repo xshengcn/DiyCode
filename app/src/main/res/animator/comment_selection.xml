@@ -23,7 +23,7 @@
             android:interpolator="@android:interpolator/fast_out_slow_in"
             android:propertyName="translationZ"
             android:valueTo="2dp"
-            tools:targetApi="lollipop" />
+            tools:targetApi="lollipop"/>
     </item>
 
     <item>
@@ -32,7 +32,7 @@
             android:interpolator="@android:interpolator/fast_out_slow_in"
             android:propertyName="translationZ"
             android:valueTo="0dp"
-            tools:targetApi="lollipop" />
+            tools:targetApi="lollipop"/>
     </item>
 
 </selector>

@@ -5,6 +5,6 @@
     android:layout_height="72dp"
     android:gravity="center"
     android:text="没有更多数据"
-    android:textColor="@color/colorTextSecondary" />
+    android:textColor="@color/colorTextSecondary"/>
 
 

@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/appbar_layout"
-        layout="@layout/view_common_appbar" />
+        layout="@layout/view_common_appbar"/>
 
 
     <TextView
@@ -19,7 +19,7 @@
         android:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/dimenTextSecondary"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/edit_text"
@@ -34,12 +34,12 @@
         android:padding="@dimen/spacing"
         android:scrollbars="vertical"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="@dimen/dimenTextSecondary" />
+        android:textSize="@dimen/dimenTextSecondary"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDivider" />
+        android:background="@color/colorDivider"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_image_gray" />
+            android:src="@drawable/ic_image_gray"/>
 
         <ImageView
             android:id="@+id/code"
@@ -63,7 +63,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_code_gray" />
+            android:src="@drawable/ic_code_gray"/>
 
         <ImageView
             android:id="@+id/link"
@@ -71,7 +71,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_link_gray" />
+            android:src="@drawable/ic_link_gray"/>
 
         <ImageView
             android:id="@+id/pre_view"
@@ -79,7 +79,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_preview_gray" />
+            android:src="@drawable/ic_preview_gray"/>
 
     </LinearLayout>
 

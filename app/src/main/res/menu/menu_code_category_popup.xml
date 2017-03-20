@@ -3,51 +3,51 @@
 
     <item
         android:id="@+id/action_ruby"
-        android:title="Ruby" />
+        android:title="Ruby"/>
 
     <item
         android:id="@+id/action_html_erb"
-        android:title="HTML/ERB" />
+        android:title="HTML/ERB"/>
 
     <item
         android:id="@+id/action_css_scss"
-        android:title="CSS/SCSS" />
+        android:title="CSS/SCSS"/>
 
     <item
         android:id="@+id/action_javascript"
-        android:title="JavaScript" />
+        android:title="JavaScript"/>
 
     <item
         android:id="@+id/action_yaml"
-        android:title="YAML" />
+        android:title="YAML"/>
 
     <item
         android:id="@+id/action_coffeescript"
-        android:title="CoffeeScript" />
+        android:title="CoffeeScript"/>
 
     <item
         android:id="@+id/action_nginx_redis"
-        android:title="Nginx/Redis" />
+        android:title="Nginx/Redis"/>
 
     <item
         android:id="@+id/action_python"
-        android:title="Python" />
+        android:title="Python"/>
 
     <item
         android:id="@+id/action_php"
-        android:title="PHP" />
+        android:title="PHP"/>
 
     <item
         android:id="@+id/action_java"
-        android:title="Java" />
+        android:title="Java"/>
 
     <item
         android:id="@+id/action_erlang"
-        android:title="Erlang" />
+        android:title="Erlang"/>
 
     <item
         android:id="@+id/action_shell_bash"
-        android:title="Shell/Bash" />
+        android:title="Shell/Bash"/>
 
 
 </menu>

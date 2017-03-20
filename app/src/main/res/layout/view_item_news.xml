@@ -12,7 +12,7 @@
 
     <include
         android:id="@+id/item_header"
-        layout="@layout/view_common_item_header" />
+        layout="@layout/view_common_item_header"/>
 
     <TextView
         android:id="@+id/title"
@@ -23,7 +23,7 @@
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/dimenTextSecondary"
         android:textStyle="bold"
-        tools:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物" />
+        tools:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物"/>
 
     <TextView
         android:id="@+id/url"
@@ -36,7 +36,7 @@
         android:maxLines="1"
         android:padding="@dimen/spacing_small"
         android:textColor="@color/colorTextTertiary"
-        tools:text="weflow.io" />
+        tools:text="weflow.io"/>
 
     <ImageView
         android:id="@+id/favorite"
@@ -49,7 +49,7 @@
         android:layout_marginTop="@dimen/spacing"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="2dp"
-        android:src="@drawable/ic_favorite_normal" />
+        android:src="@drawable/ic_favorite_normal"/>
 
     <ImageView
         android:id="@+id/thumb_up"
@@ -62,6 +62,6 @@
         android:layout_toLeftOf="@+id/favorite"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="2dp"
-        android:src="@drawable/ic_thumb_up_normal" />
+        android:src="@drawable/ic_thumb_up_normal"/>
 
 </RelativeLayout>

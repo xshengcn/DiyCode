@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/link_title"
-            android:inputType="text" />
+            android:inputType="text"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/link"
-            android:inputType="text" />
+            android:inputType="text"/>
 
     </android.support.design.widget.TextInputLayout>
 

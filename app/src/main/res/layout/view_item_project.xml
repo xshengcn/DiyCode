@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
 
     <include
         android:id="@+id/item_header"
-        layout="@layout/view_common_item_header" />
+        layout="@layout/view_common_item_header"/>
 
     <TextView
         android:id="@+id/title"
@@ -24,7 +25,7 @@
         android:textSize="@dimen/dimenTextSecondary"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/item_header"
-        tools:text="@string/appbar_scrolling_view_behavior" />
+        tools:text="@string/appbar_scrolling_view_behavior"/>
 
     <TextView
         android:id="@+id/description"
@@ -35,7 +36,7 @@
         android:textSize="@dimen/dimenTextTertiary"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="weflow.io" />
+        tools:text="weflow.io"/>
 
 
 </android.support.constraint.ConstraintLayout>

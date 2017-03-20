@@ -15,7 +15,7 @@
         android:id="@+id/avatar"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        tools:src="@mipmap/ic_launcher" />
+        tools:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/name"
@@ -26,6 +26,6 @@
         android:maxLines="1"
         android:text="Hacker News"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="@dimen/dimenTextSecondary" />
+        android:textSize="@dimen/dimenTextSecondary"/>
 
 </LinearLayout>

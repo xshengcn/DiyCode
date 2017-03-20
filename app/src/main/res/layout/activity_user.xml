@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,7 +38,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_default_header" />
+                    android:src="@drawable/ic_default_header"/>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
                     android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     android:text="关注"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"/>
 
             </RelativeLayout>
 
@@ -62,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -72,7 +73,7 @@
             android:layout_height="@dimen/tab_height"
             android:layout_gravity="bottom"
             android:background="@android:color/black"
-            app:tabIndicatorColor="?colorAccent" />
+            app:tabIndicatorColor="?colorAccent"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -84,7 +85,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1000dp" />
+            android:layout_height="1000dp"/>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
