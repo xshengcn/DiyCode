@@ -18,13 +18,21 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import io.reactivex.Observable;
+import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.HttpException;
 
 public class DataManagerTest {
 
     private DataManager mDataManager;
+
+    @BeforeClass
+    public static void onlyOnce() throws Exception {
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler(
+                schedulerCallable -> Schedulers.trampoline());
+    }
 
     @Before
     public void setup() throws Exception {
@@ -73,8 +81,7 @@ public class DataManagerTest {
     @Test
     public void testGetProjects() throws Exception {
         Observable<List<Project>> observable = mDataManager.getProjects(0);
-        TestObserver<List<Project>> testObserver =
-                observable.test().await();
+        TestObserver<List<Project>> testObserver = observable.test().await();
         testObserver.assertNoErrors();
         testObserver.assertComplete();
     }

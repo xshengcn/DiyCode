@@ -5,7 +5,6 @@ import com.xshengcn.diycode.ui.iview.ITopicCreatorView;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 public class TopicCreatorPresenter extends BasePresenter<ITopicCreatorView> {

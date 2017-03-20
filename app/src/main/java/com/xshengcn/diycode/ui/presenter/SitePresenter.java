@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
 public class SitePresenter extends BasePresenter<ISiteView> {
 
     private final DataManager mDataManager;
