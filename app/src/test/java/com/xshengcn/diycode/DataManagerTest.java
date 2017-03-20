@@ -6,6 +6,7 @@ import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.topic.Topic;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.security.GeneralSecurityException;
@@ -18,7 +19,6 @@ import javax.net.ssl.X509TrustManager;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.HttpException;
 
@@ -56,7 +56,7 @@ public class DataManagerTest {
     @Test
     public void testLogin() throws Exception {
         TestObserver<Token> testObserver =
-                mDataManager.login("abcd", "2222").subscribeOn(Schedulers.single()).test().await();
+                mDataManager.login("abcd", "2222").test().await();
         testObserver.assertError(HttpException.class);
         testObserver.assertNotComplete();
     }
@@ -65,7 +65,7 @@ public class DataManagerTest {
     public void testGetTopics() throws Exception {
         Observable<List<Topic>> observable = mDataManager.getTopics(1);
         TestObserver<List<Topic>> testObserver =
-                observable.subscribeOn(Schedulers.single()).test().await();
+                observable.test().await();
         testObserver.assertNoErrors();
         testObserver.assertComplete();
     }
@@ -74,7 +74,7 @@ public class DataManagerTest {
     public void testGetProjects() throws Exception {
         Observable<List<Project>> observable = mDataManager.getProjects(0);
         TestObserver<List<Project>> testObserver =
-                observable.subscribeOn(Schedulers.single()).test().await();
+                observable.test().await();
         testObserver.assertNoErrors();
         testObserver.assertComplete();
     }

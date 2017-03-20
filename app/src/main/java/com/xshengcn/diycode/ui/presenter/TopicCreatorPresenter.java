@@ -27,7 +27,6 @@ public class TopicCreatorPresenter extends BasePresenter<ITopicCreatorView> {
     private void loadTopicNodes() {
         final ITopicCreatorView view = getView();
         Disposable disposable = mDataManager.getTopicNodes()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(map -> view.showNodes(map), throwable -> {
                 });
         addDisposable(disposable);
@@ -37,7 +36,6 @@ public class TopicCreatorPresenter extends BasePresenter<ITopicCreatorView> {
         final ITopicCreatorView view = getView();
         Disposable disposable = mDataManager
                 .createTopic(view.getNodeId(), view.getTopicTitle(), view.getTopicBody())
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable1 -> view.showProgressDialog())
                 .subscribe(topic -> {
 

@@ -46,7 +46,6 @@ public class NotificationPresenter extends BasePresenter<INotificationView> {
         final INotificationView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
         Disposable disposable = mDataManager.getNotifications(offset)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(notifications -> handleNext(notifications, clean), this::handleError);
         addDisposable(disposable);
     }

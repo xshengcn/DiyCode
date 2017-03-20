@@ -43,7 +43,6 @@ public class ProjectPresenter extends BasePresenter<IProjectView> {
         final IProjectView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
         Disposable disposable = mDataManager.getProjects(offset)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(projects -> handleOnNext(projects, clean), this::handleOnError);
         addDisposable(disposable);
     }

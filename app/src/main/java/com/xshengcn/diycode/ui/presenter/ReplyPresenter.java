@@ -73,7 +73,6 @@ public class ReplyPresenter extends BasePresenter<IReplyView> {
                     }
                 })
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(view::hideUploadDialog)
                 .subscribe(this::handleImageUpload, this::handleImageUploadError);
 

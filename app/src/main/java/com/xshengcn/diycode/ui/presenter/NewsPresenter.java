@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 public class NewsPresenter extends BasePresenter<INewsView> {
@@ -42,7 +41,6 @@ public class NewsPresenter extends BasePresenter<INewsView> {
         final INewsView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
         Disposable disposable = mDataManager.getAllNewses(offset)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(topics -> handleOnNext(topics, clean), this::handleOnError);
         addDisposable(disposable);
     }

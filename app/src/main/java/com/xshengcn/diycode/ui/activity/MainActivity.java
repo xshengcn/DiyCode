@@ -136,7 +136,6 @@ public class MainActivity extends BaseActivity
         mDisposable.add(Observable.just("")
                 .subscribeOn(Schedulers.single())
                 .delay(300, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> navigator.showUser()));
     }
 

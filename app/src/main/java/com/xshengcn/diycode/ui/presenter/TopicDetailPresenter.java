@@ -50,7 +50,6 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
         Disposable disposable =
                 Observable.zip(topicObservable, reliesObservable, TopicAndReplies::new)
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::loadTopicAndRepliesNext, this::loadTopicAndRepliesError);
         addDisposable(disposable);
     }
@@ -77,7 +76,6 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
         final ITopicDetailView view = getView();
         Disposable disposable =
                 mDataManager.getTopicReplies(view.getTopic().id, view.getItemOffset())
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::loadMoreRepliesNext, this::loadMoreRepliesError);
         addDisposable(disposable);
     }

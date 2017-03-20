@@ -6,7 +6,6 @@ import com.xshengcn.diycode.ui.iview.ILoginView;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 public class LoginPresenter extends BasePresenter<ILoginView> {
@@ -30,7 +29,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 .doOnNext(mPrefs::setToken)
                 .flatMap(token -> mDataManager.getMe())
                 .doOnNext(user -> mPrefs.setUser(user))
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userDetail -> getView().closeActivity(), throwable -> {
                 });
         addDisposable(disposable);

@@ -9,6 +9,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 
 import com.orhanobut.logger.Logger;
@@ -17,6 +19,7 @@ import com.xshengcn.diycode.util.ImeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnFocusChange;
 
 public class SearchActivity extends BaseActivity {
 
@@ -60,7 +63,15 @@ public class SearchActivity extends BaseActivity {
                 return false;
             }
         });
+
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ImeUtils.hideIme(searchView);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

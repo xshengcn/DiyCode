@@ -54,7 +54,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
             final IMainView view = getView();
             Disposable disposable = mDataManager.getNotificationsUnreadCount()
                     .map(unread -> unread.count > 0)
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(b -> view.showNotificationMenuBadge(b), throwable -> {
                     });
             addDisposable(disposable);

@@ -23,7 +23,6 @@ public class SitePresenter extends BasePresenter<ISiteView> {
     public void onAttach(ISiteView view) {
         super.onAttach(view);
         mDataManager.getSites()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleNext, this::handleError);
     }
 

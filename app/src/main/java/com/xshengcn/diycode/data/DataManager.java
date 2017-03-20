@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -62,17 +64,23 @@ public class DataManager {
         mService = retrofit.create(DiyCodeService.class);
     }
 
+    public static <T> ObservableTransformer<T, T> applySchedulers() {
+        return upstream -> upstream.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
     public Observable<Token> login(String username, String password) {
         return mService.getToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET,
-                Constants.GRANT_TYPE_PASSWORD, username, password).subscribeOn(Schedulers.io());
+                Constants.GRANT_TYPE_PASSWORD, username, password).compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getTopics(int offset) {
-        return mService.getTopics(null, null, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getTopics(null, null, offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<Topic> createTopic(int nodeId, String title, String body) {
-        return mService.createTopic(nodeId, title, body).subscribeOn(Schedulers.io());
+        return mService.createTopic(nodeId, title, body).compose(applySchedulers());
     }
 
     public Observable<List<News>> getAllNewses(Integer offset) {
@@ -80,48 +88,49 @@ public class DataManager {
     }
 
     public Observable<List<News>> getNewses(String nodeId, Integer offset) {
-        return mService.getNewses(nodeId, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getNewses(nodeId, offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<List<NewsReply>> getNewsReplies(int newsId, int offset) {
-        return mService.getNewsReplies(newsId, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getNewsReplies(newsId, offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getUserTopics(String userLogin, int offset) {
-        return mService.getUserTopics(userLogin, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getUserTopics(userLogin, offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getUserFavorites(String userLogin, int offset) {
         return mService.getUserFavorites(userLogin, offset, PAGE_LIMIT)
-                .subscribeOn(Schedulers.io());
+                .compose(applySchedulers());
     }
 
     public Observable<List<UserReply>> getUserReplies(String userLogin, int offset) {
-        return mService.getUserReplies(userLogin, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getUserReplies(userLogin, offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
     public Observable<UserDetail> getMe() {
-        return mService.getMe().subscribeOn(Schedulers.io());
+        return mService.getMe().compose(applySchedulers());
     }
 
     public Observable<NotificationUnread> getNotificationsUnreadCount() {
-        return mService.getNotificationsUnreadCount().subscribeOn(Schedulers.io());
+        return mService.getNotificationsUnreadCount().compose(applySchedulers());
     }
 
     public Observable<List<Notification>> getNotifications(int offset) {
-        return mService.getNotifications(offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getNotifications(offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<TopicContent> getTopicDetail(int id) {
-        return mService.getTopicDetail(id).subscribeOn(Schedulers.io());
+        return mService.getTopicDetail(id).compose(applySchedulers());
     }
 
     public Observable<List<TopicReply>> getTopicReplies(int topicId, int offset) {
-        return mService.getTopicReplies(topicId, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getTopicReplies(topicId, offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<TopicReply> sendReply(int id, String body) {
-        return mService.sendReply(id, body).subscribeOn(Schedulers.io());
+        return mService.sendReply(id, body).compose(applySchedulers());
     }
 
     public Observable<ImageResult> uploadPhoto(String filePath) {
@@ -129,12 +138,12 @@ public class DataManager {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         return mService.uploadPhoto(
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile))
-                .subscribeOn(Schedulers.io());
+                .compose(applySchedulers());
     }
 
     public Observable<Map<TopicNodeCategory, List<TopicNode>>> getTopicNodes() {
         return mService.getTopicNodes()
-                .subscribeOn(Schedulers.io())
+                .compose(applySchedulers())
                 .map(this::getTopicNodeCategoryListMap);
     }
 
@@ -170,11 +179,11 @@ public class DataManager {
     }
 
     public Observable<List<Project>> getProjects(int offset) {
-        return mService.getProjects(null, offset, PAGE_LIMIT).subscribeOn(Schedulers.io());
+        return mService.getProjects(null, offset, PAGE_LIMIT).compose(applySchedulers());
     }
 
     public Observable<List<SiteListItem>> getSites() {
-        return mService.getSites().subscribeOn(Schedulers.io()).map(this::getSiteListItems);
+        return mService.getSites().compose(applySchedulers()).map(this::getSiteListItems);
     }
 
     private List<SiteListItem> getSiteListItems(List<SiteCollection> siteCollections) {

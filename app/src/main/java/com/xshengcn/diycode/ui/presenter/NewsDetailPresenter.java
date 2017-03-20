@@ -5,8 +5,6 @@ import com.xshengcn.diycode.ui.iview.INewsDetailView;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
 public class NewsDetailPresenter extends BasePresenter<INewsDetailView> {
 
     private final DataManager mDataManager;
@@ -25,7 +23,6 @@ public class NewsDetailPresenter extends BasePresenter<INewsDetailView> {
 
     private void getReplies(int offset) {
         mDataManager.getNewsReplies(getView().getNewsId(), offset)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(replies -> getView().showReplies(replies),
                         throwable -> handleThrowable(throwable));
     }

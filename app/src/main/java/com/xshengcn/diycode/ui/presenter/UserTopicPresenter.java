@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 public class UserTopicPresenter extends BasePresenter<IUserTopicView> {
@@ -46,7 +45,6 @@ public class UserTopicPresenter extends BasePresenter<IUserTopicView> {
         final IUserTopicView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
         Disposable disposable = mDataManager.getUserTopics(view.getUserLogin(), offset)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(topics -> handleNext(topics, clean), this::handleError);
         addDisposable(disposable);
     }
