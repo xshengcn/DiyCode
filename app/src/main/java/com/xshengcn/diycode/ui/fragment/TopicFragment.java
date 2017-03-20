@@ -71,7 +71,7 @@ public class TopicFragment extends BaseFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_topics, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -117,9 +117,9 @@ public class TopicFragment extends BaseFragment
         int start = adapter.getItemCount();
         adapter.addTopics(topics);
         if (clean) {
-            mWrapper.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         } else {
-            mWrapper.notifyItemRangeInserted(start, topics.size());
+            adapter.notifyItemRangeInserted(start, topics.size());
         }
     }
 

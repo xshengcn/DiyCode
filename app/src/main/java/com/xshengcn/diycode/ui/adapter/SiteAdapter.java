@@ -93,6 +93,7 @@ public class SiteAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnItemClickListener {
+
         void clickItem(String url);
     }
 

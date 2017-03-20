@@ -70,7 +70,6 @@ public class NotificationActivity
         ButterKnife.bind(this);
         getComponent().inject(this);
 
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -30,6 +30,7 @@ import java.util.List;
  * Helper class for Custom Tabs.
  */
 public class CustomTabsHelper {
+
     static final String STABLE_PACKAGE = "com.android.chrome";
     static final String BETA_PACKAGE = "com.chrome.beta";
     static final String DEV_PACKAGE = "com.chrome.dev";
@@ -62,7 +63,9 @@ public class CustomTabsHelper {
      * @return The package name recommended to use for connecting to custom tabs related components.
      */
     public static String getPackageNameToUse(Context context) {
-        if (sPackageNameToUse != null) return sPackageNameToUse;
+        if (sPackageNameToUse != null) {
+            return sPackageNameToUse;
+        }
 
         PackageManager pm = context.getPackageManager();
         // Get default VIEW intent handler.

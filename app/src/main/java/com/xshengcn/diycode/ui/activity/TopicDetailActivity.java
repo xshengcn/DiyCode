@@ -37,7 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TopicDetailActivity extends BaseActivity
-        implements ITopicDetailView, HtmlUtils.ClickCallback, LoadMoreHandler {
+        implements ITopicDetailView, HtmlUtils.Callback, LoadMoreHandler {
 
     private static final String EXTRA_TOPIC = "TopicDetailActivity.topic";
     @BindView(R.id.toolbar)

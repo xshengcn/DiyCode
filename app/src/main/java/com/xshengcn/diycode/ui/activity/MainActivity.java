@@ -91,7 +91,9 @@ public class MainActivity extends BaseActivity
         @Override
         public void onDrawerStateChanged(int newState) {
             super.onDrawerStateChanged(newState);
-            if (newState == DrawerLayout.STATE_DRAGGING) mDisposable.clear();
+            if (newState == DrawerLayout.STATE_DRAGGING) {
+                mDisposable.clear();
+            }
         }
     };
 

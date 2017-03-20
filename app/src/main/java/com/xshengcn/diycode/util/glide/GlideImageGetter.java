@@ -1,6 +1,5 @@
 package com.xshengcn.diycode.util.glide;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.widget.TextView;
@@ -12,14 +11,11 @@ import com.xshengcn.diycode.R;
 import java.lang.ref.WeakReference;
 
 public class GlideImageGetter implements Html.ImageGetter {
-    private Context mContext;
-    private WeakReference<TextView> mReference;
-    private int mImgMaxWidth;
 
-    public GlideImageGetter(Context context, TextView textView, int imgMaxWidth) {
-        this.mContext = context;
+    private WeakReference<TextView> mReference;
+
+    public GlideImageGetter(TextView textView) {
         this.mReference = new WeakReference<>(textView);
-        this.mImgMaxWidth = imgMaxWidth;
     }
 
     @Override
@@ -27,13 +23,13 @@ public class GlideImageGetter implements Html.ImageGetter {
         final URLDrawable urlDrawable = new URLDrawable();
         TextView textView = mReference.get();
         if (textView != null) {
-            Glide.with(mContext)
+            Glide.with(textView.getContext())
                     .load(source)
                     .asBitmap()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
-                    .into(new ImageSpanTarget(urlDrawable, textView, mImgMaxWidth));
+                    .into(new ImageSpanTarget(urlDrawable, textView));
         }
         return urlDrawable;
     }

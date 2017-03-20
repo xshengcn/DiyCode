@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 
 public class NewsFragment extends BaseFragment
         implements INewsView, NewsAdapter.OnItemClickListener, LoadMoreHandler {
+
     private static final String BUNDLE_NEWS = "NewsFragment.news";
 
     //private static final String BUNDLE_DATA = "NewsFragment.data";
@@ -64,7 +65,7 @@ public class NewsFragment extends BaseFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
         return view;

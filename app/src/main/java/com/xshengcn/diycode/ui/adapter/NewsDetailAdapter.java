@@ -85,7 +85,7 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void bindReplyViewHolder(@NonNull ViewHolder holder, @NonNull NewsReply reply) {
 
         Spanned spanned = Html.fromHtml(reply.bodyHtml,
-                new GlideImageGetter(holder.itemView.getContext(), holder.body, mImgMaxWidth),
+                new GlideImageGetter(holder.body),
                 new CodeTagHandler());
         holder.body.setText(spanned);
         holder.body.setMovementMethod(LinkMovementMethod.getInstance());
@@ -121,9 +121,11 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public interface OnUrlClickListener {
+
     }
 
     public interface OnImageClickListener {
+
     }
 
     private static class ClickableURLSpan extends ClickableSpan {
@@ -155,6 +157,7 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.body)
         TextView body;
 
@@ -165,6 +168,7 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
         }

@@ -3,6 +3,7 @@ package com.xshengcn.diycode.data.model.site;
 import com.google.gson.annotations.SerializedName;
 
 public class Site {
+
     @SerializedName("name")
     public String name;
     @SerializedName("url")

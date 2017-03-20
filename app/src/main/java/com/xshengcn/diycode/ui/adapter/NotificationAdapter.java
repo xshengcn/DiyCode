@@ -48,7 +48,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-
     }
 
     @Override
@@ -74,6 +73,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)

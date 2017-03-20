@@ -1,11 +1,12 @@
 package com.xshengcn.diycode.data.model.common;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 public class User implements Parcelable {
+
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {

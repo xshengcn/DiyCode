@@ -19,9 +19,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
     private final DataManager mDataManager;
     private final RxBus mBus;
     private final ActivityNavigator mNavigator;
+
     @Inject
     public MainPresenter(DiyCodePrefs prefs, DataManager dataManager, RxBus rxBus,
-                         ActivityNavigator navigator) {
+            ActivityNavigator navigator) {
         this.mPrefs = prefs;
         this.mDataManager = dataManager;
         this.mBus = rxBus;

@@ -11,6 +11,7 @@ import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.util.ViewUtils;
 
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     public static final int ITEM_TYPE_LOAD_FAILED_VIEW = Integer.MAX_VALUE - 1;
     public static final int ITEM_TYPE_NO_MORE_VIEW = Integer.MAX_VALUE - 2;
     public static final int ITEM_TYPE_LOAD_MORE_VIEW = Integer.MAX_VALUE - 3;
@@ -79,7 +80,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             };
 
     public LoadMoreWrapper(@NonNull LoadMoreHandler handler,
-                           @NonNull RecyclerView.Adapter innerAdapter) {
+            @NonNull RecyclerView.Adapter innerAdapter) {
         this.mHandler = handler;
         this.mInnerAdapter = innerAdapter;
     }
@@ -175,7 +176,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (!(holder instanceof LoadMoreViewHolder)) {
+        if ((holder instanceof LoadMoreViewHolder)) {
             Logger.d("LOAD MORE");
         } else if (holder instanceof LoadFailedViewHolder) {
             Logger.d("LOAD MORE FAILED");
@@ -194,18 +195,21 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     class LoadMoreViewHolder extends RecyclerView.ViewHolder {
+
         public LoadMoreViewHolder(View itemView) {
             super(itemView);
         }
     }
 
     class LoadFailedViewHolder extends RecyclerView.ViewHolder {
+
         public LoadFailedViewHolder(View itemView) {
             super(itemView);
         }
     }
 
     class NoMoreViewHolder extends RecyclerView.ViewHolder {
+
         public NoMoreViewHolder(View itemView) {
             super(itemView);
         }

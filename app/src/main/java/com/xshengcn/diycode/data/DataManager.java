@@ -1,9 +1,10 @@
 package com.xshengcn.diycode.data;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import android.support.annotation.NonNull;
+
 import com.xshengcn.diycode.BuildConfig;
 import com.xshengcn.diycode.Constants;
 import com.xshengcn.diycode.data.model.ImageResult;

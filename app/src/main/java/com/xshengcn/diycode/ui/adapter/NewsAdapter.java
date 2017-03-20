@@ -71,15 +71,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         Glide.with(mContext).load(news.user.avatarUrl).into(holder.avatar);
         holder.itemView.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) mOnItemClickListener.clickItem(news, position);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickItem(news, position);
+            }
         });
 
         holder.thumbUp.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) mOnItemClickListener.clickThumbUp(news, position);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickThumbUp(news, position);
+            }
         });
 
         holder.favorite.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) mOnItemClickListener.clickFavorite(news, position);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickFavorite(news, position);
+            }
         });
     }
 

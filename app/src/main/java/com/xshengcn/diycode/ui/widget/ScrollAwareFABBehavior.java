@@ -24,10 +24,10 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
     @Override
     public boolean onStartNestedScroll(final CoordinatorLayout coordinatorLayout,
-                                       final FloatingActionButton child,
-                                       final View directTargetChild,
-                                       final View target,
-                                       final int nestedScrollAxes) {
+            final FloatingActionButton child,
+            final View directTargetChild,
+            final View target,
+            final int nestedScrollAxes) {
         // Ensure we react to vertical scrolling
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(
                 coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
@@ -35,10 +35,10 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
     @Override
     public void onNestedScroll(final CoordinatorLayout coordinatorLayout,
-                               final FloatingActionButton child,
-                               final View target, final int dxConsumed,
-                               final int dyConsumed, final int dxUnconsumed,
-                               final int dyUnconsumed) {
+            final FloatingActionButton child,
+            final View target, final int dxConsumed,
+            final int dyConsumed, final int dxUnconsumed,
+            final int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed,
                 dyConsumed, dxUnconsumed, dyUnconsumed);
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {

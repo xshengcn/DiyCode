@@ -42,8 +42,8 @@ public class ViewUtils {
     }
 
     private static View findOneVisibleChild(RecyclerView recyclerView, int fromIndex,
-                                            int toIndex, boolean completelyVisible,
-                                            boolean acceptPartiallyVisible) {
+            int toIndex, boolean completelyVisible,
+            boolean acceptPartiallyVisible) {
         OrientationHelper helper;
         if (recyclerView.getLayoutManager().canScrollVertically()) {
             helper = OrientationHelper.createVerticalHelper(recyclerView.getLayoutManager());

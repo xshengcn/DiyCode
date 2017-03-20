@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 
 public class ProjectFragment extends BaseFragment
         implements IProjectView, NewsAdapter.OnItemClickListener, LoadMoreHandler {
+
     private static final String BUNDLE_PROJECT = "ProjectFragment.project";
 
     //private static final String BUNDLE_DATA = "NewsFragment.data";
@@ -66,7 +67,7 @@ public class ProjectFragment extends BaseFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
         return view;

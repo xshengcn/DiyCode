@@ -17,9 +17,10 @@ package com.xshengcn.diycode.util.customtabs;
 import android.support.customtabs.CustomTabsClient;
 
 /**
- * ClickCallback for events when connecting and disconnecting from Custom Tabs Service.
+ * Callback for events when connecting and disconnecting from Custom Tabs Service.
  */
 public interface ServiceConnectionCallback {
+
     /**
      * Called when the service is connected.
      *

@@ -4,9 +4,9 @@ import com.xshengcn.diycode.DiyCodeApplication;
 import com.xshengcn.diycode.injection.module.ActivityModule;
 import com.xshengcn.diycode.injection.module.ApplicationModule;
 
-import javax.inject.Singleton;
-
 import dagger.Component;
+
+import javax.inject.Singleton;
 
 @Singleton
 @Component(modules = ApplicationModule.class)

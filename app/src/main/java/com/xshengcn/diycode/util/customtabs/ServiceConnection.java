@@ -25,6 +25,7 @@ import java.lang.ref.WeakReference;
  * ServiceConnectionCallback
  */
 public class ServiceConnection extends CustomTabsServiceConnection {
+
     // A weak reference to the ServiceConnectionCallback to avoid leaking it.
     private WeakReference<ServiceConnectionCallback> mConnectionCallback;
 
@@ -35,12 +36,16 @@ public class ServiceConnection extends CustomTabsServiceConnection {
     @Override
     public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient dataManager) {
         ServiceConnectionCallback connectionCallback = mConnectionCallback.get();
-        if (connectionCallback != null) connectionCallback.onServiceConnected(dataManager);
+        if (connectionCallback != null) {
+            connectionCallback.onServiceConnected(dataManager);
+        }
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
         ServiceConnectionCallback connectionCallback = mConnectionCallback.get();
-        if (connectionCallback != null) connectionCallback.onServiceDisconnected();
+        if (connectionCallback != null) {
+            connectionCallback.onServiceDisconnected();
+        }
     }
 }

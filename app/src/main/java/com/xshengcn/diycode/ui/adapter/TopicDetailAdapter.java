@@ -34,7 +34,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     private final Context mContext;
     private final int mImgMaxWidth;
     private final TopicAndReplies mTopicAndReplies;
-    private HtmlUtils.ClickCallback mCallback;
+    private HtmlUtils.Callback mCallback;
     private OnHeaderClickListener mOnHeaderClickListener;
 
     @Inject
@@ -50,7 +50,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         this.mOnHeaderClickListener = onHeaderClickListener;
     }
 
-    public void setContentCallBack(HtmlUtils.ClickCallback callBack) {
+    public void setContentCallBack(HtmlUtils.Callback callBack) {
         this.mCallback = callBack;
     }
 
@@ -122,8 +122,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
             }
         });
 
-        HtmlUtils.parseHtmlAndSetText(
-                mContext, reply.bodyHtml, holder.body, mImgMaxWidth, mCallback);
+        HtmlUtils.parseHtmlAndSetText(reply.bodyHtml, holder.body, mCallback);
     }
 
     private void bindHeaderViewHolder(HeaderViewHolder holder, TopicContent detail) {
@@ -142,9 +141,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         }
         holder.title.setText(detail.title);
 
-        HtmlUtils.parseHtmlAndSetText(
-                mContext, detail.bodyHtml, holder.body, mImgMaxWidth, mCallback);
-
+        HtmlUtils.parseHtmlAndSetText(detail.bodyHtml, holder.body, mCallback);
 
         holder.replyCount.setVisibility(detail.repliesCount == 0 ? View.GONE : View.VISIBLE);
         holder.replyCount.setText("共收到" + detail.repliesCount + "条回复");
@@ -171,10 +168,12 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnHeaderClickListener {
+
         void clickHead(String user);
     }
 
     static class HeaderViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.detail_content)
         RelativeLayout detailContent;
         @BindView(R.id.avatar)
@@ -207,6 +206,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)

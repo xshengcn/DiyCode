@@ -39,6 +39,7 @@ import butterknife.OnTextChanged;
 
 public class ReplyActivity extends BaseActivity
         implements IReplyView, PopupMenu.OnMenuItemClickListener {
+
     private static final String EXTRA_ID = "ReplyActivity.mId";
     private static final String EXTRA_TITLE = "ReplyActivity.title";
     private static final int PICK_IMAGE = 0;

@@ -53,7 +53,9 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
         getComponent().inject(this);
         ButterKnife.bind(this);
 
-        if (savedInstanceState == null) mNews = getIntent().getParcelableExtra(EXTRA_NEWS);
+        if (savedInstanceState == null) {
+            mNews = getIntent().getParcelableExtra(EXTRA_NEWS);
+        }
 
         toolbar.setTitle(mNews.title);
 

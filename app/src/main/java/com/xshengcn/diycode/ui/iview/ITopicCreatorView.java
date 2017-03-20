@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ITopicCreatorView {
+
     void showNodes(Map<TopicNodeCategory, List<TopicNode>> topicNodeCategoryListMap);
 
     int getNodeId();

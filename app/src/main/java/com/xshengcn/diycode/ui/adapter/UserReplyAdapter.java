@@ -92,6 +92,7 @@ public class UserReplyAdapter extends RecyclerView.Adapter<UserReplyAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)

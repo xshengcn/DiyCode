@@ -19,9 +19,10 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.xshengcn.diycode.R;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PhotoViewerActivity extends BaseActivity {
 
@@ -123,7 +124,9 @@ public class PhotoViewerActivity extends BaseActivity {
     private void hide() {
         mVisible = false;
 
-        if (getSupportActionBar() != null) getSupportActionBar().hide();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mHandler.removeCallbacks(mRunnable);
 

@@ -1,6 +1,7 @@
 package com.xshengcn.diycode.data.model.topic;
 
 import com.google.gson.annotations.SerializedName;
+
 import com.xshengcn.diycode.data.model.common.Abilities;
 import com.xshengcn.diycode.data.model.common.User;
 

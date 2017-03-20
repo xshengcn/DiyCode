@@ -1,9 +1,9 @@
 package com.xshengcn.diycode.data.model.project;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 

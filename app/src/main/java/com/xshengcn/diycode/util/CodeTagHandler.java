@@ -12,6 +12,7 @@ import android.text.style.TypefaceSpan;
 import org.xml.sax.XMLReader;
 
 public class CodeTagHandler implements Html.TagHandler {
+
     @Override
     public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
         if (tag.equalsIgnoreCase("code")) {

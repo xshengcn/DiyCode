@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.xshengcn.diycode.R;
 
 public class ActionBroadcastReceiver extends BroadcastReceiver {
+
     public static final String KEY_ACTION_SOURCE = "com.xshengcn.diycode.ACTION_SOURCE";
     public static final int ACTION_MENU_SHARE = 1;
 

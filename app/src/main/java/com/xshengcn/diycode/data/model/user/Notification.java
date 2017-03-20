@@ -1,6 +1,7 @@
 package com.xshengcn.diycode.data.model.user;
 
 import com.google.gson.annotations.SerializedName;
+
 import com.xshengcn.diycode.data.model.common.User;
 
 public class Notification {

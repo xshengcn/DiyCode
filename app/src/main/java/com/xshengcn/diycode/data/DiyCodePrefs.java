@@ -1,10 +1,11 @@
 package com.xshengcn.diycode.data;
 
+import com.google.gson.Gson;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.xshengcn.diycode.data.event.UserDetailUpdate;
 import com.xshengcn.diycode.data.event.UserLogin;
 import com.xshengcn.diycode.data.model.Token;

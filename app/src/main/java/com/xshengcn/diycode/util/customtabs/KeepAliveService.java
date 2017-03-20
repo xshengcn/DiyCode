@@ -25,6 +25,7 @@ import android.os.IBinder;
  */
 @SuppressLint("Registered")
 public class KeepAliveService extends Service {
+
     private static final Binder sBinder = new Binder();
 
     @Override

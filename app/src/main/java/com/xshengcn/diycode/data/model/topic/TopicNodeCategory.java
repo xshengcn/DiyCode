@@ -1,6 +1,7 @@
 package com.xshengcn.diycode.data.model.topic;
 
 public class TopicNodeCategory {
+
     public int selectionId;
     public String selectionName;
 

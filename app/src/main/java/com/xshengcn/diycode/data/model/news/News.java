@@ -1,9 +1,10 @@
 package com.xshengcn.diycode.data.model.news;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
 import com.xshengcn.diycode.data.model.common.User;
 
 import java.util.Date;

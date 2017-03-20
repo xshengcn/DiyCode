@@ -52,7 +52,7 @@ public class SiteFragment extends BaseFragment implements ISiteView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_site, container, false);
         ButterKnife.bind(this, view);
         return view;

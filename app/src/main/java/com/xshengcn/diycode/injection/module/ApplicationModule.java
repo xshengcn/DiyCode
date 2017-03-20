@@ -11,13 +11,14 @@ import com.xshengcn.diycode.data.remote.OfflineRequestInterceptor;
 import com.xshengcn.diycode.data.remote.ResponseInterceptor;
 import com.xshengcn.diycode.util.RxBus;
 
+import dagger.Module;
+import dagger.Provides;
+
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
-import dagger.Module;
-import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -60,7 +61,7 @@ public class ApplicationModule {
     @Singleton
     @Provides
     public OkHttpClient providerHttpClient(Context context, DiyCodePrefs prefs,
-                                           ConnectivityManager manager) {
+            ConnectivityManager manager) {
         File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 

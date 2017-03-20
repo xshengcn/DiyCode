@@ -61,15 +61,21 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) mOnItemClickListener.clickItem(topic, position);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickItem(topic, position);
+            }
         });
 
         holder.thumbUp.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) mOnItemClickListener.clickThumbUp(topic, position);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickThumbUp(topic, position);
+            }
         });
 
         holder.favorite.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) mOnItemClickListener.clickFavorite(topic, position);
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickFavorite(topic, position);
+            }
         });
     }
 
@@ -100,6 +106,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)

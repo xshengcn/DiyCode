@@ -35,7 +35,7 @@ public class InsetDividerDecoration extends RecyclerView.ItemDecoration {
     private final int mHeight;
 
     public InsetDividerDecoration(Class dividedViewHolderClass, int dividerHeight, int leftInset,
-                                  @ColorInt int dividerColor) {
+            @ColorInt int dividerColor) {
         mDividedClass = dividedViewHolderClass;
         mInset = leftInset;
         mHeight = dividerHeight;
@@ -48,7 +48,9 @@ public class InsetDividerDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
         int childCount = parent.getChildCount();
-        if (childCount < 2) return;
+        if (childCount < 2) {
+            return;
+        }
 
         RecyclerView.LayoutManager lm = parent.getLayoutManager();
         float[] lines = new float[childCount * 4];
