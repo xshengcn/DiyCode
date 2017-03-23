@@ -60,7 +60,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
         }
     }
 
-    public void checkUser() {
+    private void checkUser() {
         if (mPrefs.getUser() != null) {
             getView().setupNavigationView(mPrefs.getUser());
         }

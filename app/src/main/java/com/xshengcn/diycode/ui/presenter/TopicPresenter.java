@@ -27,6 +27,7 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
     @Override
     public void onAttach(ITopicView view) {
         super.onAttach(view);
+        loadTopics(false);
     }
 
     public void onRefresh() {
