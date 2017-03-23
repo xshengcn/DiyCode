@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
     }
 }
 
@@ -61,7 +61,8 @@ android {
     }
 }
 
-def supportVersion = "25.2.0"
+def supportVersion = "25.3.0"
+def retrofitVersion = "2.2.0"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -75,7 +76,7 @@ dependencies {
     compile("com.android.support:design:${supportVersion}") {
         force = true;
     }
-    compile 'com.android.support.constraint:constraint-layout:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile "com.android.support:customtabs:${supportVersion}"
 
     // dagger2
@@ -83,9 +84,9 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     provided 'javax.annotation:jsr250-api:1.0'
     //retrofit2
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
 
     compile 'com.google.code.gson:gson:2.8.0'
 
@@ -93,7 +94,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     // rx
-    compile 'io.reactivex.rxjava2:rxjava:2.0.6'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // butterknife
