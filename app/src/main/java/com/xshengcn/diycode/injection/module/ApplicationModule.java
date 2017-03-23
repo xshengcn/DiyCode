@@ -3,6 +3,7 @@ package com.xshengcn.diycode.injection.module;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.xshengcn.diycode.BuildConfig;
 import com.xshengcn.diycode.DiyCodeApplication;
 import com.xshengcn.diycode.data.DataManager;
@@ -75,6 +76,7 @@ public class ApplicationModule {
                 .readTimeout(60000, TimeUnit.MILLISECONDS)
                 .writeTimeout(60000, TimeUnit.MILLISECONDS)
                 .cache(cache)
+                .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(logging)
                 .addNetworkInterceptor(new ResponseInterceptor())
                 .addInterceptor(new OfflineRequestInterceptor(prefs, manager));
@@ -93,5 +95,6 @@ public class ApplicationModule {
     public RxBus providerRxBus() {
         return new RxBus();
     }
+
 
 }

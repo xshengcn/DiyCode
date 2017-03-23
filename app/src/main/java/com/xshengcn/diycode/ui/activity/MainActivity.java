@@ -188,6 +188,10 @@ public class MainActivity extends BaseActivity
             case R.id.nav_site:
                 navigator.showSite();
                 break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_about:
+                break;
         }
     }
 
@@ -289,4 +293,5 @@ public class MainActivity extends BaseActivity
             return mTitles[position];
         }
     }
+
 }

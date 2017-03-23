@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing"
             android:src="@drawable/fab_add_white"
+            app:fabSize="normal"
             app:layout_anchor="@id/view_pager"
             app:layout_anchorGravity="bottom|end"
             app:layout_behavior="com.xshengcn.diycode.ui.widget.ScrollAwareFABBehavior"
