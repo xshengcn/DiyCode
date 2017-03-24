@@ -2,7 +2,6 @@ package com.xshengcn.diycode;
 
 import android.app.Application;
 
-import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.xshengcn.diycode.injection.component.ApplicationComponent;
 import com.xshengcn.diycode.injection.component.DaggerApplicationComponent;
@@ -26,7 +25,6 @@ public class DiyCodeApplication extends Application {
             return;
         }
         LeakCanary.install(this);
-        Stetho.initializeWithDefaults(this);
     }
 
     public ApplicationComponent getComponent() {

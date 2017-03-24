@@ -55,11 +55,11 @@ public class UserReplyAdapter extends RecyclerView.Adapter<UserReplyAdapter.View
         Glide.with(mContext).load(reply.user.avatarUrl).into(holder.avatar);
         holder.name.setText(reply.user.login);
         if (reply.updatedAt != null) {
-            holder.date.setText(DateUtils.computePastTime(reply.updatedAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, reply.updatedAt));
         } else if (reply.createdAt != null) {
-            holder.date.setText(DateUtils.computePastTime(reply.createdAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, reply.createdAt));
         } else {
-            holder.date.setText(DateUtils.computePastTime(new Date()));
+            holder.date.setText(DateUtils.computePastTime(mContext, new Date()));
         }
 
         holder.splitPoint.setVisibility(View.GONE);

@@ -55,9 +55,9 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
         holder.node.setText(topic.nodeName);
         holder.title.setText(topic.title);
         if (topic.repliedAt != null) {
-            holder.date.setText(DateUtils.computePastTime(topic.repliedAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, topic.repliedAt));
         } else if (topic.createdAt != null) {
-            holder.date.setText(DateUtils.computePastTime(topic.createdAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, topic.createdAt));
         }
 
         holder.itemView.setOnClickListener(v -> {

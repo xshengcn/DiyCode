@@ -64,9 +64,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.url.setText(HttpUrl.parse(news.address).host());
 
         if (news.repliedAt != null) {
-            holder.date.setText(DateUtils.computePastTime(news.repliedAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, news.repliedAt));
         } else if (news.createdAt != null) {
-            holder.date.setText(DateUtils.computePastTime(news.createdAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, news.createdAt));
         }
 
         Glide.with(mContext).load(news.user.avatarUrl).into(holder.avatar);

@@ -18,6 +18,7 @@ import com.xshengcn.diycode.util.DateUtils;
 import com.xshengcn.diycode.util.DensityUtil;
 import com.xshengcn.diycode.util.HtmlUtils;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,11 +110,12 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     private void bindItemViewHolder(ViewHolder holder, TopicReply reply, int position) {
         Glide.with(mContext).load(reply.user.avatarUrl).into(holder.avatar);
         holder.name.setText(reply.user.login);
-        holder.floor.setText(position + "楼");
+        holder.floor.setText(
+                MessageFormat.format(mContext.getString(R.string.comment_floor), position));
         if (reply.updatedAt != null) {
-            holder.date.setText(DateUtils.computePastTime(reply.updatedAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, reply.updatedAt));
         } else if (reply.createdAt != null) {
-            holder.date.setText(DateUtils.computePastTime(reply.createdAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, reply.createdAt));
         }
 
         holder.avatar.setOnClickListener(v -> {
@@ -135,9 +137,9 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         holder.name.setText(detail.user.login);
         holder.node.setText(detail.nodeName);
         if (detail.repliedAt != null) {
-            holder.date.setText(DateUtils.computePastTime(detail.repliedAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, detail.repliedAt));
         } else if (detail.createdAt != null) {
-            holder.date.setText(DateUtils.computePastTime(detail.createdAt));
+            holder.date.setText(DateUtils.computePastTime(mContext, detail.createdAt));
         }
         holder.title.setText(detail.title);
 

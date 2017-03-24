@@ -26,9 +26,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            if ((mHandler == null)
-                    || !mHandler.canLoadMore()
-                    || (mCurrentType != ITEM_TYPE_NO_VIEW)) {
+            if (!mHandler.canLoadMore() || (mCurrentType != ITEM_TYPE_NO_VIEW)) {
                 return;
             }
 

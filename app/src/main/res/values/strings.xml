@@ -33,6 +33,13 @@
     <string name="link">链接</string>
     <string name="link_title">链接标题</string>
     <string name="site">酷站</string>
+    <string name="comment_floor">{0}楼</string>
+    <string name="just_now">刚刚</string>
+    <string name="minutes_ago">{0}分钟前</string>
+    <string name="hours_ago">{0}小时前</string>
+    <string name="days_ago">{0}天前</string>
+    <string name="months_ago">{0}月前</string>
+    <string name="years_ago">{0}年前</string>
 
     <string-array name="main_tabs">
         <item>topics</item>

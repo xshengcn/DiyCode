@@ -46,7 +46,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         Glide.with(mContext).load(project.projectCoverUrl).into(holder.avatar);
         holder.name.setText(project.category.name);
         holder.node.setText(project.subCategory.name);
-        holder.date.setText(DateUtils.computePastTime(project.lastUpdatedAt));
+        holder.date.setText(DateUtils.computePastTime(mContext, project.lastUpdatedAt));
         holder.title.setText(project.name);
         holder.description.setText(project.description);
     }

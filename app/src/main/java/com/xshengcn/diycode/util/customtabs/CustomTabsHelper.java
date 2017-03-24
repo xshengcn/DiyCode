@@ -127,15 +127,10 @@ public class CustomTabsHelper {
             }
             for (ResolveInfo resolveInfo : handlers) {
                 IntentFilter filter = resolveInfo.filter;
-//                if (filter == null) continue;
-//                if ((filter.countDataAuthorities() == 0) || (filter.countDataPaths() == 0))
-//                    continue;
-//                if (resolveInfo.activityInfo == null) continue;
-
                 if (filter != null
                         && filter.countDataAuthorities() != 0
                         && filter.countDataPaths() != 0
-                        && resolveInfo != null) {
+                        && resolveInfo.activityInfo != null) {
                     return true;
                 }
             }

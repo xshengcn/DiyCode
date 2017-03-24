@@ -37,6 +37,12 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+        }
+
         release {
             minifyEnabled true
             shrinkResources true
@@ -92,10 +98,16 @@ dependencies {
 
     // OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    debugCompile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     // rx
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    // Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+
+    compile 'com.github.chrisbanes:PhotoView:1.3.1'
+    compile 'com.github.Kennyc1012:MultiStateView:1.3.0'
 
     // butterknife
     compile 'com.jakewharton:butterknife:8.5.1'
@@ -109,14 +121,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-
-    compile 'com.github.chrisbanes:PhotoView:1.3.1'
-
-    compile 'com.github.Kennyc1012:MultiStateView:1.3.0'
-
-    compile 'com.facebook.stetho:stetho:1.4.2'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    debugCompile 'com.facebook.stetho:stetho:1.4.2'
+    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 
 }

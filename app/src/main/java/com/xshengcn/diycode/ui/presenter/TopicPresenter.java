@@ -27,14 +27,11 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
     @Override
     public void onAttach(ITopicView view) {
         super.onAttach(view);
+        view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
         loadTopics(false);
     }
 
     public void onRefresh() {
-        final ITopicView view = getView();
-        if (!view.isRefreshing()) {
-            view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
-        }
         loadTopics(true);
     }
 

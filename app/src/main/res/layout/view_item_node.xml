@@ -8,6 +8,6 @@
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingLeft="@dimen/spacing"
     android:paddingRight="@dimen/spacing"
-    android:singleLine="true"
+    android:maxLines="1"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
     tools:text="开发者服务"/>
