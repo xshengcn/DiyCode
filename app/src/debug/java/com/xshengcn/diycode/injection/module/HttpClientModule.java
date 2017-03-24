@@ -35,9 +35,6 @@ public class HttpClientModule {
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//        logging.setLevel(BuildConfig.DEBUG
-//                ? HttpLoggingInterceptor.Level.BODY
-//                : HttpLoggingInterceptor.Level.NONE);
         logging.setLevel(Level.BODY);
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
