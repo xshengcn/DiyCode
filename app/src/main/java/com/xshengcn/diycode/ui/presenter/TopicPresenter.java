@@ -28,7 +28,6 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
     public void onAttach(ITopicView view) {
         super.onAttach(view);
         view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
-        loadTopics(false);
     }
 
     public void onRefresh() {
@@ -70,12 +69,13 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
 
     private void handleOnNext(List<Topic> topics, boolean clean) {
         final ITopicView view = getView();
+        view.showTopics(topics, clean);
+
         if (view.getItemOffset() == 0 && topics.isEmpty()) {
             view.changeStateView(MultiStateView.VIEW_STATE_EMPTY);
             return;
         }
 
-        view.showTopics(topics, clean);
         if (topics.size() < DataManager.PAGE_LIMIT) {
             view.showLoadNoMore();
         }

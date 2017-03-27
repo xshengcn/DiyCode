@@ -43,8 +43,8 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    public DataManager provideDiyCodeClient(OkHttpClient okHttpClient) {
-        return new DataManager(okHttpClient);
+    public DataManager provideDiyCodeClient(OkHttpClient okHttpClient, PreferencesHelper preferencesHelper) {
+        return new DataManager(okHttpClient, preferencesHelper);
     }
 
 

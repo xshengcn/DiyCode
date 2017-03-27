@@ -24,14 +24,21 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         super.onAttach(view);
     }
 
-    public void login() {
-        Disposable disposable = mDataManager.login(getView().getUsername(), getView().getPassword())
+    public void login(String username, String password) {
+        final ILoginView view = getView();
+        view.showLoginDialog();
+        Disposable disposable = mDataManager.login(username, password)
                 .doOnNext(mPreferencesHelper::setToken)
                 .flatMap(token -> mDataManager.getMe())
                 .doOnNext(mPreferencesHelper::setUser)
-                .subscribe(userDetail -> getView().closeActivity(), throwable -> {
-                });
+                .subscribe(userDetail -> view.loginSuccess(), this::handleLoginError);
         addDisposable(disposable);
+    }
+
+    private void handleLoginError(Throwable throwable) {
+        final ILoginView view = getView();
+        view.hideLoginDialog();
+        view.loginError();
     }
 
 }

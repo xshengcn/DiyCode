@@ -19,6 +19,10 @@ import com.xshengcn.diycode.data.model.user.UserReply;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -35,10 +39,12 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.HttpException;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DataManagerTest {
 
     private DataManager mDataManager;
-    private PreferencesHelper mPreferencesHelper;
+    @Mock
+    PreferencesHelper mPreferencesHelper;
 
     @BeforeClass
     public static void onlyOnce() throws Exception {
@@ -48,6 +54,7 @@ public class DataManagerTest {
 
     @Before
     public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
         X509TrustManager trustManager;
         SSLSocketFactory sslSocketFactory;
         SSLHelper sslHelper = new SSLHelper();
@@ -63,7 +70,7 @@ public class DataManagerTest {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         OkHttpClient okHttpClient =
                 builder.sslSocketFactory(sslSocketFactory, trustManager).build();
-        mDataManager = new DataManager(okHttpClient);
+        mDataManager = new DataManager(okHttpClient, mPreferencesHelper);
     }
 
 
@@ -85,7 +92,8 @@ public class DataManagerTest {
     @Test
     public void createTopic() throws Exception {
         // 发帖失败 需要token
-        TestObserver<Topic> testObserver = mDataManager.createTopic(0, "title", "body").test()
+        TestObserver<TopicContent> testObserver = mDataManager.createTopic(0, "title", "body")
+                .test()
                 .await();
         testObserver.assertError(HttpException.class);
         testObserver.assertNotComplete();

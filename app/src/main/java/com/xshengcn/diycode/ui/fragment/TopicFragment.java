@@ -87,6 +87,8 @@ public class TopicFragment extends BaseFragment
         mWrapper = new LoadMoreWrapper(this, adapter);
         recyclerView.setAdapter(mWrapper);
         presenter.onAttach(this);
+
+        presenter.onRefresh();
     }
 
     @Override

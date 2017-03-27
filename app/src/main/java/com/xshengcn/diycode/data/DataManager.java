@@ -31,6 +31,7 @@ import com.xshengcn.diycode.data.model.user.UserReply;
 import com.xshengcn.diycode.data.remote.DiyCodeService;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,8 +55,10 @@ public class DataManager {
     public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS:SZ";
 
     private final DiyCodeService mService;
+    private final PreferencesHelper mPreferencesHelper;
 
-    public DataManager(OkHttpClient client) {
+    public DataManager(@NonNull OkHttpClient client, @NonNull PreferencesHelper preferencesHelper) {
+        mPreferencesHelper = preferencesHelper;
         Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT).create();
         Retrofit retrofit = new Retrofit.Builder().client(client)
                 .baseUrl(DiyCodeService.BASE_URL)
@@ -70,17 +73,27 @@ public class DataManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public String buildAuthorization() {
+        Token token = mPreferencesHelper.getToken();
+        if (token != null) {
+            return MessageFormat.format("{0} {1}", token.tokenType, token.accessToken);
+        }
+        return null;
+    }
+
     public Observable<Token> login(String username, String password) {
         return mService.getToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET,
                 Constants.GRANT_TYPE_PASSWORD, username, password).compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getTopics(int offset) {
-        return mService.getTopics(null, null, offset, PAGE_LIMIT).compose(applySchedulers());
+        return mService.getTopics(buildAuthorization(), null, null, offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
-    public Observable<Topic> createTopic(int nodeId, String title, String body) {
-        return mService.createTopic(nodeId, title, body).compose(applySchedulers());
+    public Observable<TopicContent> createTopic(int nodeId, String title, String body) {
+        return mService.createTopic(buildAuthorization(), nodeId, title, body)
+                .compose(applySchedulers());
     }
 
     public Observable<List<News>> getAllNewses(Integer offset) {
@@ -88,55 +101,61 @@ public class DataManager {
     }
 
     public Observable<List<News>> getNewses(String nodeId, Integer offset) {
-        return mService.getNewses(nodeId, offset, PAGE_LIMIT).compose(applySchedulers());
+        return mService.getNewses(buildAuthorization(), nodeId, offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
     public Observable<List<NewsReply>> getNewsReplies(int newsId, int offset) {
-        return mService.getNewsReplies(newsId, offset, PAGE_LIMIT).compose(applySchedulers());
+        return mService.getNewsReplies(buildAuthorization(), newsId, offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getUserTopics(String userLogin, int offset) {
-        return mService.getUserTopics(userLogin, offset, PAGE_LIMIT).compose(applySchedulers());
+        return mService.getUserTopics(buildAuthorization(), userLogin, offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getUserFavorites(String userLogin, int offset) {
-        return mService.getUserFavorites(userLogin, offset, PAGE_LIMIT)
+        return mService.getUserFavorites(buildAuthorization(), userLogin, offset, PAGE_LIMIT)
                 .compose(applySchedulers());
     }
 
     public Observable<List<UserReply>> getUserReplies(String userLogin, int offset) {
-        return mService.getUserReplies(userLogin, offset, PAGE_LIMIT)
+        return mService.getUserReplies(buildAuthorization(), userLogin, offset, PAGE_LIMIT)
                 .compose(applySchedulers());
     }
 
     public Observable<UserDetail> getMe() {
-        return mService.getMe().compose(applySchedulers());
+        return mService.getMe(buildAuthorization()).compose(applySchedulers());
     }
 
     public Observable<NotificationUnread> getNotificationsUnreadCount() {
-        return mService.getNotificationsUnreadCount().compose(applySchedulers());
+        return mService.getNotificationsUnreadCount(buildAuthorization())
+                .compose(applySchedulers());
     }
 
     public Observable<List<Notification>> getNotifications(int offset) {
-        return mService.getNotifications(offset, PAGE_LIMIT).compose(applySchedulers());
+        return mService.getNotifications(buildAuthorization(), offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
     public Observable<TopicContent> getTopicDetail(int id) {
-        return mService.getTopicDetail(id).compose(applySchedulers());
+        return mService.getTopicDetail(buildAuthorization(), id).compose(applySchedulers());
     }
 
     public Observable<List<TopicReply>> getTopicReplies(int topicId, int offset) {
-        return mService.getTopicReplies(topicId, offset, PAGE_LIMIT).compose(applySchedulers());
+        return mService.getTopicReplies(buildAuthorization(), topicId, offset, PAGE_LIMIT)
+                .compose(applySchedulers());
     }
 
     public Observable<TopicReply> sendReply(int id, String body) {
-        return mService.sendReply(id, body).compose(applySchedulers());
+        return mService.sendReply(buildAuthorization(), id, body).compose(applySchedulers());
     }
 
     public Observable<ImageResult> uploadPhoto(String filePath) {
         File file = new File(filePath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-        return mService.uploadPhoto(
+        return mService.uploadPhoto(buildAuthorization(),
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile))
                 .compose(applySchedulers());
     }

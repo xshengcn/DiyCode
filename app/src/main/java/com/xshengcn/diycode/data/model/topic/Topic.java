@@ -52,6 +52,9 @@ public class Topic implements Parcelable {
     @SerializedName("abilities")
     public Abilities abilities = null;
 
+    public Topic() {
+    }
+
     protected Topic(Parcel in) {
         id = in.readInt();
         title = in.readString();

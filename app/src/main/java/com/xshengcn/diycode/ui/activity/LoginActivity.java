@@ -96,6 +96,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
+    protected void onDestroy() {
+        mPresenter.onDetach();
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -106,29 +112,17 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     private void login(View view) {
-        if (TextUtils.isEmpty(getUsername())) {
+        String username = mUsername.getText().toString();
+        String password = mPassword.getText().toString();
+        if (TextUtils.isEmpty(username)) {
             mUsernameWrapper.setError(mUsernameNotEmpty);
-        } else if (TextUtils.isEmpty(getPassword())) {
+        } else if (TextUtils.isEmpty(password)) {
             mPasswordWrapper.setError(mPasswordNotEmpty);
         } else {
-            mPresenter.login();
+            mPresenter.login(username, password);
         }
     }
 
-    @Override
-    public String getUsername() {
-        return mUsername.getText().toString();
-    }
-
-    @Override
-    public String getPassword() {
-        return mPassword.getText().toString();
-    }
-
-    @Override
-    public void showError(String errorDescription) {
-        Toast.makeText(this, errorDescription, Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void showLoginDialog() {
@@ -147,7 +141,14 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void closeActivity() {
-        finish();
+    public void loginSuccess() {
+        hideLoginDialog();
+        this.finish();
     }
+
+    @Override
+    public void loginError() {
+        Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show();
+    }
+
 }

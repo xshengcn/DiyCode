@@ -24,6 +24,7 @@ import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -54,6 +55,7 @@ public interface DiyCodeService {
         String BODY = "body";
 
         String LOGIN = "login";
+        String AUTHORIZATION = "AUTHORIZATION";
     }
 
     /**
@@ -81,42 +83,49 @@ public interface DiyCodeService {
     Observable<List<Node>> getNewsNodes();
 
     @GET("news.json")
-    Observable<List<News>> getNewses(@Query(Params.NODE_ID) String nodeId,
+    Observable<List<News>> getNewses(@Header(Params.AUTHORIZATION) String header,
+            @Query(Params.NODE_ID) String nodeId,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("news/{id}/replies.json")
-    Observable<List<NewsReply>> getNewsReplies(@Path(Params.ID) Integer newsId,
+    Observable<List<NewsReply>> getNewsReplies(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.ID) Integer newsId,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("topics.json")
-    Observable<List<Topic>> getTopics(@Query(Params.TYPE) String type,
+    Observable<List<Topic>> getTopics(@Header(Params.AUTHORIZATION) String header,
+            @Query(Params.TYPE) String type,
             @Query(Params.NODE_ID) Integer nodeId,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @POST("topics.json")
     @FormUrlEncoded
-    Observable<Topic> createTopic(@Field(Params.NODE_ID) Integer nodeId,
+    Observable<TopicContent> createTopic(@Header(Params.AUTHORIZATION) String header,
+            @Field(Params.NODE_ID) Integer nodeId,
             @Field(Params.TITLE) String title,
             @Field(Params.BODY) String body);
 
     @GET("topics/{id}.json")
-    Observable<TopicContent> getTopicDetail(@Path(Params.ID) Integer id);
+    Observable<TopicContent> getTopicDetail(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.ID) Integer id);
 
     @GET("topics/{id}/replies.json")
-    Observable<List<TopicReply>> getTopicReplies(@Path(Params.ID) Integer id,
+    Observable<List<TopicReply>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.ID) Integer id,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @POST("topics/{id}/replies.json")
     @FormUrlEncoded
-    Observable<TopicReply> sendReply(@Path(Params.ID) Integer id,
+    Observable<TopicReply> sendReply(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.ID) Integer id,
             @Field(Params.BODY) String body);
 
     @GET("users/me.json")
-    Observable<UserDetail> getMe();
+    Observable<UserDetail> getMe(@Header(Params.AUTHORIZATION) String header);
 
     /**
      * 获取项目列表
@@ -130,23 +139,27 @@ public interface DiyCodeService {
      * 获得未读通知数量
      */
     @GET("notifications/unread_count.json")
-    Observable<NotificationUnread> getNotificationsUnreadCount();
+    Observable<NotificationUnread> getNotificationsUnreadCount(
+            @Header(Params.AUTHORIZATION) String header);
 
     /**
      * 当前用户的某个通知
      */
     @GET("notifications.json")
-    Observable<List<Notification>> getNotifications(@Query(Params.OFFSET) Integer offset,
+    Observable<List<Notification>> getNotifications(@Header(Params.AUTHORIZATION) String header,
+            @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("users/{login}.json")
-    Observable<UserDetail> getUserDetail(@Path(Params.LOGIN) String userLogin);
+    Observable<UserDetail> getUserDetail(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.LOGIN) String userLogin);
 
     /**
      * 用户收藏的话题列表
      */
     @GET("users/{login}/favorites.json")
-    Observable<List<Topic>> getUserFavorites(@Path(Params.LOGIN) String userLogin,
+    Observable<List<Topic>> getUserFavorites(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
@@ -154,7 +167,8 @@ public interface DiyCodeService {
      * 获取用户创建的话题列表
      */
     @GET("users/{login}/topics.json")
-    Observable<List<Topic>> getUserTopics(@Path(Params.LOGIN) String userLogin,
+    Observable<List<Topic>> getUserTopics(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
@@ -162,7 +176,8 @@ public interface DiyCodeService {
      * 用户的关注者列表
      */
     @GET("users/{login}/followers.json")
-    Observable<List<User>> getUserFollowers(@Path(Params.LOGIN) String userLogin,
+    Observable<List<User>> getUserFollowers(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
@@ -170,18 +185,21 @@ public interface DiyCodeService {
      * 用户正在关注的人
      */
     @GET("users/{login}/followers.json")
-    Observable<List<User>> getUserFollowing(@Path(Params.LOGIN) String userLogin,
+    Observable<List<User>> getUserFollowing(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("users/{login}/replies.json")
-    Observable<List<UserReply>> getUserReplies(@Path(Params.LOGIN) String userLogin,
+    Observable<List<UserReply>> getUserReplies(@Header(Params.AUTHORIZATION) String header,
+            @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @Multipart
     @POST("photos.json")
-    Observable<ImageResult> uploadPhoto(@Part MultipartBody.Part file);
+    Observable<ImageResult> uploadPhoto(@Header(Params.AUTHORIZATION) String header,
+            @Part MultipartBody.Part file);
 
     /**
      * 获取话题node列表
