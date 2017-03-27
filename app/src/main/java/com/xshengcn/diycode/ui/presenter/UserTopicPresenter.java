@@ -2,7 +2,6 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.DiyCodePrefs;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.ui.iview.IUserTopicView;
 
@@ -15,12 +14,10 @@ import io.reactivex.disposables.Disposable;
 public class UserTopicPresenter extends BasePresenter<IUserTopicView> {
 
     private final DataManager mDataManager;
-    private final DiyCodePrefs mPrefs;
 
     @Inject
-    public UserTopicPresenter(DataManager dataManager, DiyCodePrefs prefs) {
+    public UserTopicPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
-        this.mPrefs = prefs;
     }
 
     @Override

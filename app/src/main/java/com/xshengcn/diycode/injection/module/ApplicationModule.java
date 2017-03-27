@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 
 import com.xshengcn.diycode.DiyCodeApplication;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.util.RxBus;
 
 import dagger.Module;
@@ -26,13 +26,13 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    protected DiyCodeApplication providerApplication() {
+    protected DiyCodeApplication provideApplication() {
         return mApplication;
     }
 
     @Singleton
     @Provides
-    protected Context providerContext() {
+    protected Context provideContext() {
         return mApplication.getApplicationContext();
     }
 
@@ -43,7 +43,7 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    public DataManager providerDiyCodeClient(OkHttpClient okHttpClient) {
+    public DataManager provideDiyCodeClient(OkHttpClient okHttpClient) {
         return new DataManager(okHttpClient);
     }
 
@@ -51,13 +51,13 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    public DiyCodePrefs providerUserPrefs(Context context, RxBus rxBus) {
-        return new DiyCodePrefs(context, rxBus);
+    public PreferencesHelper providePreferencesHelper(Context context, RxBus rxBus) {
+        return new PreferencesHelper(context, rxBus);
     }
 
     @Singleton
     @Provides
-    public RxBus providerRxBus() {
+    public RxBus provideRxBus() {
         return new RxBus();
     }
 

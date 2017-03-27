@@ -3,7 +3,7 @@ package com.xshengcn.diycode.ui;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
@@ -24,41 +24,41 @@ import javax.inject.Inject;
 @PreActivity
 public final class ActivityNavigator {
 
-    private final DiyCodePrefs mPrefs;
+    private final PreferencesHelper mPreferencesHelper;
     private final AppCompatActivity mActivity;
 
     @Inject
-    public ActivityNavigator(DiyCodePrefs prefs, AppCompatActivity activity) {
-        this.mPrefs = prefs;
+    public ActivityNavigator(PreferencesHelper preferencesHelper, AppCompatActivity activity) {
+        this.mPreferencesHelper = preferencesHelper;
         this.mActivity = activity;
     }
 
     public void showUserReplies() {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
-        UserReplyActivity.start(mActivity, mPrefs.getUser().login);
+        UserReplyActivity.start(mActivity, mPreferencesHelper.getUser().login);
     }
 
     public void showUserFavorites() {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
-        UserFavoriteActivity.start(mActivity, mPrefs.getUser().login);
+        UserFavoriteActivity.start(mActivity, mPreferencesHelper.getUser().login);
     }
 
     public void showUserTopics() {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
-        UserTopicActivity.start(mActivity, mPrefs.getUser().login);
+        UserTopicActivity.start(mActivity, mPreferencesHelper.getUser().login);
     }
 
     public void showUser() {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
@@ -74,7 +74,7 @@ public final class ActivityNavigator {
     }
 
     public void showNotification() {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
@@ -82,7 +82,7 @@ public final class ActivityNavigator {
     }
 
     public void showReply(@NonNull String title, @NonNull int id) {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
@@ -90,7 +90,7 @@ public final class ActivityNavigator {
     }
 
     public void showCreateTopic() {
-        if (mPrefs.getToken() == null) {
+        if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }

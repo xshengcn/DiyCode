@@ -20,11 +20,11 @@
         try again when you are connected to the internet.
     </string>
     <string name="favorites">我的收藏</string>
-    <string name="user_favorites">%s的收藏</string>
+    <string name="user_favorites">{0}的收藏</string>
     <string name="topics">我的帖子</string>
-    <string name="user_topics">%s的帖子</string>
+    <string name="user_topics">{0}的帖子</string>
     <string name="relies">我的评论</string>
-    <string name="user_replies">%s的评论</string>
+    <string name="user_replies">{0}的评论</string>
     <string name="share">分享</string>
     <string name="preview">预览</string>
     <string name="insert_link">插入链接</string>

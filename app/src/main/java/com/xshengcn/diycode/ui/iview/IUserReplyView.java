@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserReplyView {
 
-    String getUser();
+    String getUserLogin();
 
     int getItemOffset();
 
@@ -23,4 +23,5 @@ public interface IUserReplyView {
 
     void changeStateView(@MultiStateView.ViewState int state);
 
+    void setTitle(boolean me);
 }

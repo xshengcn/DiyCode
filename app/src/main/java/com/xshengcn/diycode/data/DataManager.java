@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.ArrayMap;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 import com.xshengcn.diycode.BuildConfig;
 import com.xshengcn.diycode.Constants;
 import com.xshengcn.diycode.data.model.ImageResult;
@@ -12,7 +15,6 @@ import com.xshengcn.diycode.data.model.Token;
 import com.xshengcn.diycode.data.model.news.News;
 import com.xshengcn.diycode.data.model.news.NewsReply;
 import com.xshengcn.diycode.data.model.project.Project;
-import com.xshengcn.diycode.data.model.site.Site;
 import com.xshengcn.diycode.data.model.site.SiteCollection;
 import com.xshengcn.diycode.data.model.site.SiteHeaderItem;
 import com.xshengcn.diycode.data.model.site.SiteItem;
@@ -31,7 +33,6 @@ import com.xshengcn.diycode.data.remote.DiyCodeService;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +69,6 @@ public class DataManager {
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
 
     public Observable<Token> login(String username, String password) {
         return mService.getToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET,
@@ -150,7 +150,7 @@ public class DataManager {
     @NonNull
     private Map<TopicNodeCategory, List<TopicNode>> getTopicNodeCategoryListMap(
             @NonNull List<TopicNode> topicNodes) {
-        LinkedHashMap<TopicNodeCategory, List<TopicNode>> map = new LinkedHashMap<>();
+        ArrayMap<TopicNodeCategory, List<TopicNode>> map = new ArrayMap<>();
         topicNodes.sort((o1, o2) -> {
             int x = o1.sectionId;
             int y = o2.sectionId;
@@ -196,9 +196,9 @@ public class DataManager {
             if (siteCollection.sites == null) {
                 continue;
             }
-            for (Site site : siteCollection.sites) {
-                items.add(new SiteItem(site));
-            }
+            items.addAll(Stream.of(siteCollection.sites)
+                    .map(SiteItem::new)
+                    .collect(Collectors.toList()));
         }
         return items;
     }

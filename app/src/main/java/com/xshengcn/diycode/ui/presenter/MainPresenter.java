@@ -1,7 +1,7 @@
 package com.xshengcn.diycode.ui.presenter;
 
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.event.UserDetailUpdate;
 import com.xshengcn.diycode.data.event.UserLogin;
 import com.xshengcn.diycode.ui.ActivityNavigator;
@@ -15,15 +15,15 @@ import io.reactivex.disposables.Disposable;
 
 public class MainPresenter extends BasePresenter<IMainView> {
 
-    private final DiyCodePrefs mPrefs;
+    private final PreferencesHelper mPreferencesHelper;
     private final DataManager mDataManager;
     private final RxBus mBus;
     private final ActivityNavigator mNavigator;
 
     @Inject
-    public MainPresenter(DiyCodePrefs prefs, DataManager dataManager, RxBus rxBus,
+    public MainPresenter(PreferencesHelper preferencesHelper, DataManager dataManager, RxBus rxBus,
             ActivityNavigator navigator) {
-        this.mPrefs = prefs;
+        this.mPreferencesHelper = preferencesHelper;
         this.mDataManager = dataManager;
         this.mBus = rxBus;
         this.mNavigator = navigator;
@@ -50,19 +50,19 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     private void loadNotificationCount() {
-        if (mPrefs.getToken() != null) {
+        if (mPreferencesHelper.getToken() != null) {
             final IMainView view = getView();
             Disposable disposable = mDataManager.getNotificationsUnreadCount()
                     .map(unread -> unread.count > 0)
-                    .subscribe(b -> view.showNotificationMenuBadge(b), throwable -> {
+                    .subscribe(view::showNotificationMenuBadge, throwable -> {
                     });
             addDisposable(disposable);
         }
     }
 
     private void checkUser() {
-        if (mPrefs.getUser() != null) {
-            getView().setupNavigationView(mPrefs.getUser());
+        if (mPreferencesHelper.getUser() != null) {
+            getView().setupNavigationView(mPreferencesHelper.getUser());
         }
     }
 

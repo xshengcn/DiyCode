@@ -51,36 +51,36 @@ public class MainActivity extends BaseActivity
         implements IMainView, FabDialog.OnButtonClickListener {
 
     @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    DrawerLayout mDrawerLayout;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
     @BindView(R.id.appbar_layout)
-    AppBarLayout appbarLayout;
+    AppBarLayout mAppBarLayout;
     @BindView(R.id.nav_view)
-    NavigationView navView;
+    NavigationView mNavView;
     @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
+    TabLayout mTabLayout;
     @BindView(R.id.view_pager)
-    ViewPager viewPager;
+    ViewPager mViewPager;
 
     @BindView(R.id.header)
     @Nullable
-    ImageView header;
+    ImageView mHeaderImage;
     @BindView(R.id.name)
     @Nullable
-    TextView name;
+    TextView mNameText;
     @BindView(R.id.email)
     @Nullable
-    TextView email;
+    TextView mEmailText;
 
     @Inject
-    MainPresenter presenter;
+    MainPresenter mPresenter;
     @Inject
-    ActivityNavigator navigator;
+    ActivityNavigator mNavigator;
     @BindView(R.id.fab_menu)
-    FloatingActionButton fabMenu;
+    FloatingActionButton mFabMenu;
     @BindView(R.id.coordinator_layout)
-    CoordinatorLayout coordinatorLayout;
+    CoordinatorLayout mCoordinatorLayout;
 
     private boolean mHasNotification;
     private FabDialog mFabDialog;
@@ -106,23 +106,23 @@ public class MainActivity extends BaseActivity
         ButterKnife.bind(this);
         setupActionBar();
 
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), this));
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setupWithViewPager(viewPager);
+        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), this));
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setupWithViewPager(mViewPager);
 
-        View headerView = navView.getHeaderView(0);
-        header = (ImageView) headerView.findViewById(R.id.header);
-        header.setOnClickListener(this::clickNavHeader);
-        name = (TextView) headerView.findViewById(R.id.name);
-        email = (TextView) headerView.findViewById(R.id.email);
+        View headerView = mNavView.getHeaderView(0);
+        mHeaderImage = (ImageView) headerView.findViewById(R.id.header);
+        mHeaderImage.setOnClickListener(this::clickNavHeader);
+        mNameText = (TextView) headerView.findViewById(R.id.name);
+        mEmailText = (TextView) headerView.findViewById(R.id.email);
 
-        navView.setNavigationItemSelectedListener(menuItem -> onNavigationItemSelected(menuItem));
+        mNavView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
-        fabMenu.setOnClickListener(this::clickFabMenu);
-        drawerLayout.addDrawerListener(mDrawerListener);
+        mFabMenu.setOnClickListener(this::clickFabMenu);
+        mDrawerLayout.addDrawerListener(mDrawerListener);
 
-        presenter.onAttach(this);
+        mPresenter.onAttach(this);
     }
 
     @Override
@@ -131,12 +131,12 @@ public class MainActivity extends BaseActivity
     }
 
     private void clickNavHeader(View view) {
-        drawerLayout.closeDrawers();
+        mDrawerLayout.closeDrawers();
         mDisposable.clear();
         mDisposable.add(Observable.just("")
                 .subscribeOn(Schedulers.single())
                 .delay(300, TimeUnit.MILLISECONDS)
-                .subscribe(s -> navigator.showUser()));
+                .subscribe(s -> mNavigator.showUser()));
     }
 
     private void clickFabMenu(View view) {
@@ -157,14 +157,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onDestroy() {
-        presenter.onDetach();
+        mPresenter.onDetach();
         mDisposable.clear();
-        drawerLayout.removeDrawerListener(mDrawerListener);
+        mDrawerLayout.removeDrawerListener(mDrawerListener);
         super.onDestroy();
     }
 
     private boolean onNavigationItemSelected(MenuItem menuItem) {
-        drawerLayout.closeDrawers();
+        mDrawerLayout.closeDrawers();
         mDisposable.clear();
         mDisposable.add(Observable.just(menuItem.getItemId())
                 .subscribeOn(Schedulers.single())
@@ -177,16 +177,16 @@ public class MainActivity extends BaseActivity
     private void clickNavMenu(int id) {
         switch (id) {
             case R.id.nav_topic:
-                navigator.showUserTopics();
+                mNavigator.showUserTopics();
                 break;
             case R.id.nav_favorite:
-                navigator.showUserFavorites();
+                mNavigator.showUserFavorites();
                 break;
             case R.id.nav_reply:
-                navigator.showUserReplies();
+                mNavigator.showUserReplies();
                 break;
             case R.id.nav_site:
-                navigator.showSite();
+                mNavigator.showSite();
                 break;
             case R.id.nav_share:
                 break;
@@ -196,14 +196,14 @@ public class MainActivity extends BaseActivity
     }
 
     private void setupActionBar() {
-        toolbar.setTitle("");
-        toolbar.setLogo(R.drawable.ic_logo);
-        setSupportActionBar(toolbar);
+        mToolbar.setTitle("");
+        mToolbar.setLogo(R.drawable.ic_logo);
+        setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle =
-                new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                         R.string.navigation_drawer_open,
                         R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
 
@@ -220,10 +220,10 @@ public class MainActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                navigator.showSearch();
+                mNavigator.showSearch();
                 break;
             case R.id.action_notification:
-                navigator.showNotification();
+                mNavigator.showNotification();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -231,8 +231,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -243,9 +243,9 @@ public class MainActivity extends BaseActivity
         Glide.with(this)
                 .load(user.avatarUrl.replace("large_avatar", "avatar"))
                 .transform(new CircleTransform(this))
-                .into(header);
-        name.setText(user.name);
-        email.setText(user.email);
+                .into(mHeaderImage);
+        mNameText.setText(user.name);
+        mEmailText.setText(user.email);
     }
 
     @Override
@@ -261,7 +261,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void clickTopicButton() {
-        navigator.showCreateTopic();
+        mNavigator.showCreateTopic();
     }
 
     public class MainPagerAdapter extends FragmentPagerAdapter {

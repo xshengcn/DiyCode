@@ -26,7 +26,7 @@ public class TopicCreatorPresenter extends BasePresenter<ITopicCreatorView> {
     private void loadTopicNodes() {
         final ITopicCreatorView view = getView();
         Disposable disposable = mDataManager.getTopicNodes()
-                .subscribe(map -> view.showNodes(map), throwable -> {
+                .subscribe(view::showNodes, throwable -> {
                 });
         addDisposable(disposable);
     }

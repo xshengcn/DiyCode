@@ -8,13 +8,11 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.DiyCodePrefs;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.ui.adapter.TopicAdapter;
 import com.xshengcn.diycode.ui.iview.IUserFavoriteView;
@@ -23,6 +21,7 @@ import com.xshengcn.diycode.ui.widget.itemdecoration.OffsetDecoration;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreWrapper;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,8 +57,6 @@ public class UserFavoriteActivity extends BaseActivity
     UserFavoritePresenter presenter;
     @Inject
     TopicAdapter adapter;
-    @Inject
-    DiyCodePrefs prefs;
     private String mUserLogin;
     private LoadMoreWrapper mWrapper;
 
@@ -77,12 +74,6 @@ public class UserFavoriteActivity extends BaseActivity
         getComponent().inject(this);
 
         mUserLogin = getIntent().getStringExtra(EXTRA_USER_LOGIN);
-
-        if (prefs.getUser() != null && TextUtils.equals(mUserLogin, prefs.getUser().login)) {
-            toolbar.setTitle(myFavorites);
-        } else {
-            toolbar.setTitle(String.format(userFavorites, mUserLogin));
-        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -167,6 +158,15 @@ public class UserFavoriteActivity extends BaseActivity
         if (state == MultiStateView.VIEW_STATE_ERROR) {
             ButterKnife.findById(stateView.getView(state), R.id.no_connection_retry)
                     .setOnClickListener(v -> presenter.onRefresh());
+        }
+    }
+
+    @Override
+    public void setTitle(boolean me) {
+        if (me) {
+            getSupportActionBar().setTitle(myFavorites);
+        } else {
+            getSupportActionBar().setTitle(MessageFormat.format(userFavorites, getUserLogin()));
         }
     }
 

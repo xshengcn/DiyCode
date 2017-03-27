@@ -72,12 +72,9 @@ public class SiteAdapter extends RecyclerView.Adapter {
     private void bindItemViewHolder(ItemViewHolder holder, SiteItem siteItem) {
         Glide.with(mContext).load(siteItem.site.avatarUrl).into(holder.avatar);
         holder.name.setText(siteItem.site.name);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.clickItem(siteItem.site.url);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickItem(siteItem.site.url);
             }
         });
     }

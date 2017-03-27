@@ -10,8 +10,10 @@ import android.text.TextUtils;
 import android.widget.FrameLayout;
 
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.ui.fragment.TopicFragment;
+
+import java.text.MessageFormat;
 
 import javax.inject.Inject;
 
@@ -30,12 +32,12 @@ public class UserTopicActivity extends BaseActivity {
     FrameLayout fragmentContainer;
 
     @BindString(R.string.topics)
-    String myTopics;
+    String mMyTopics;
     @BindString(R.string.user_topics)
-    String userTopics;
+    String mUserTopics;
 
     @Inject
-    DiyCodePrefs prefs;
+    PreferencesHelper mPreferencesHelper;
 
     public static void start(Activity activity, String userLogin) {
         Intent intent = new Intent(activity, UserTopicActivity.class);
@@ -55,10 +57,11 @@ public class UserTopicActivity extends BaseActivity {
 
         String user = getIntent().getStringExtra(EXTRA_USER_LOGIN);
 
-        if (prefs.getUser() != null && TextUtils.equals(user, prefs.getUser().login)) {
-            getSupportActionBar().setTitle(myTopics);
+        if (mPreferencesHelper.getUser() != null && TextUtils
+                .equals(user, mPreferencesHelper.getUser().login)) {
+            getSupportActionBar().setTitle(mMyTopics);
         } else {
-            getSupportActionBar().setTitle(String.format(userTopics, user));
+            getSupportActionBar().setTitle(MessageFormat.format(mUserTopics, user));
         }
 
         replaceFragment(TopicFragment.newInstance(user), R.id.fragment_container);

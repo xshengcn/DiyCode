@@ -8,13 +8,11 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.DiyCodePrefs;
 import com.xshengcn.diycode.data.model.user.UserReply;
 import com.xshengcn.diycode.ui.adapter.UserReplyAdapter;
 import com.xshengcn.diycode.ui.iview.IUserReplyView;
@@ -23,6 +21,7 @@ import com.xshengcn.diycode.ui.widget.itemdecoration.OffsetDecoration;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreWrapper;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,8 +56,6 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
     UserReplyPresenter presenter;
     @Inject
     UserReplyAdapter adapter;
-    @Inject
-    DiyCodePrefs prefs;
     private String mUser;
     private LoadMoreWrapper mWrapper;
 
@@ -76,12 +73,6 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
         getComponent().inject(this);
 
         mUser = getIntent().getStringExtra(EXTRA_USER);
-
-        if (prefs.getUser() != null && TextUtils.equals(mUser, prefs.getUser().login)) {
-            toolbar.setTitle(myReplies);
-        } else {
-            toolbar.setTitle(String.format(userReplies, mUser));
-        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -111,7 +102,7 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
     }
 
     @Override
-    public String getUser() {
+    public String getUserLogin() {
         return mUser;
     }
 
@@ -166,6 +157,15 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
         if (state == MultiStateView.VIEW_STATE_ERROR && stateView.getView(state) != null) {
             ButterKnife.findById(stateView.getView(state), R.id.no_connection_retry)
                     .setOnClickListener(v -> presenter.onRefresh());
+        }
+    }
+
+    @Override
+    public void setTitle(boolean me) {
+        if (me) {
+            getSupportActionBar().setTitle(myReplies);
+        } else {
+            getSupportActionBar().setTitle(MessageFormat.format(userReplies, getUserLogin()));
         }
     }
 

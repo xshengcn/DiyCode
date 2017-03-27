@@ -14,9 +14,9 @@ import com.xshengcn.diycode.util.RxBus;
 
 import javax.inject.Inject;
 
-public class DiyCodePrefs {
+public class PreferencesHelper {
 
-    private static final String USER_PREF = "DIY_CODE_PREF";
+    private static final String PREF_FILE_NAME = "DIY_CODE_PREF";
     private static final String KEY_TOKEN_INFO = "KEY_TOKEN_INFO";
     private static final String KEY_USER_INFO = "KEY_USER_INFO";
     private final SharedPreferences mPreferences;
@@ -26,8 +26,8 @@ public class DiyCodePrefs {
     private UserDetail mUser;
 
     @Inject
-    public DiyCodePrefs(Context context, RxBus rxBus) {
-        mPreferences = context.getSharedPreferences(USER_PREF, Context.MODE_PRIVATE);
+    public PreferencesHelper(Context context, RxBus rxBus) {
+        mPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
         this.mBus = rxBus;
         String tokenStr = mPreferences.getString(KEY_TOKEN_INFO, null);
 

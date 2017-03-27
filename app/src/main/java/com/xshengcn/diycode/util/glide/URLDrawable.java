@@ -8,6 +8,8 @@ public class URLDrawable extends BitmapDrawable {
 
     private Drawable mDrawable;
 
+    private String mSource;
+
     @Override
     public void draw(Canvas canvas) {
         if (mDrawable != null) {
@@ -17,5 +19,13 @@ public class URLDrawable extends BitmapDrawable {
 
     public void setDrawable(Drawable drawable) {
         this.mDrawable = drawable;
+    }
+
+    public String getSource() {
+        return mSource;
+    }
+
+    public void setSource(String source) {
+        this.mSource = source;
     }
 }

@@ -21,6 +21,7 @@ public class GlideImageGetter implements Html.ImageGetter {
     @Override
     public Drawable getDrawable(String source) {
         final URLDrawable urlDrawable = new URLDrawable();
+        urlDrawable.setSource(source);
         TextView textView = mReference.get();
         if (textView != null) {
             Glide.with(textView.getContext())

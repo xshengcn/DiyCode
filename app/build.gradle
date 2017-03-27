@@ -116,6 +116,9 @@ dependencies {
     // logger
     compile 'com.orhanobut:logger:1.15'
 
+    // Lightweight-Stream-API
+    compile 'com.annimon:stream:1.1.7'
+
     // leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'

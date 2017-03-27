@@ -3,7 +3,7 @@ package com.xshengcn.diycode.injection.module;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.remote.OfflineRequestInterceptor;
 import com.xshengcn.diycode.data.remote.ResponseInterceptor;
 
@@ -26,7 +26,7 @@ public class HttpClientModule {
 
     @Singleton
     @Provides
-    public OkHttpClient providerHttpClient(Context context, DiyCodePrefs prefs,
+    public OkHttpClient provideHttpClient(Context context, PreferencesHelper mPreferencesHelper,
             ConnectivityManager manager) {
         File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
@@ -37,7 +37,7 @@ public class HttpClientModule {
                 .writeTimeout(60000, TimeUnit.MILLISECONDS)
                 .cache(cache)
                 .addNetworkInterceptor(new ResponseInterceptor())
-                .addInterceptor(new OfflineRequestInterceptor(prefs, manager));
+                .addInterceptor(new OfflineRequestInterceptor(mPreferencesHelper, manager));
 
         return builder.build();
     }

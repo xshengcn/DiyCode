@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.remote.OfflineRequestInterceptor;
 import com.xshengcn.diycode.data.remote.ResponseInterceptor;
 
@@ -29,7 +29,7 @@ public class HttpClientModule {
 
     @Singleton
     @Provides
-    public OkHttpClient providerHttpClient(Context context, DiyCodePrefs prefs,
+    public OkHttpClient provideHttpClient(Context context, PreferencesHelper preferencesHelper,
             ConnectivityManager manager) {
         File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
@@ -45,7 +45,7 @@ public class HttpClientModule {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(logging)
                 .addNetworkInterceptor(new ResponseInterceptor())
-                .addInterceptor(new OfflineRequestInterceptor(prefs, manager));
+                .addInterceptor(new OfflineRequestInterceptor(preferencesHelper, manager));
 
         return builder.build();
     }

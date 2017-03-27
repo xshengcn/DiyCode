@@ -22,4 +22,6 @@ public interface IUserFavoriteView {
     void showNoMoreTopic();
 
     void changeStateView(@MultiStateView.ViewState int state);
+
+    void setTitle(boolean me);
 }

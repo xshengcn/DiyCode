@@ -24,7 +24,7 @@ public class NewsDetailPresenter extends BasePresenter<INewsDetailView> {
     private void getReplies(int offset) {
         mDataManager.getNewsReplies(getView().getNewsId(), offset)
                 .subscribe(replies -> getView().showReplies(replies),
-                        throwable -> handleThrowable(throwable));
+                        this::handleThrowable);
     }
 
     private void handleThrowable(Throwable throwable) {

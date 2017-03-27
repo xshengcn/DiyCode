@@ -38,6 +38,7 @@ import retrofit2.HttpException;
 public class DataManagerTest {
 
     private DataManager mDataManager;
+    private PreferencesHelper mPreferencesHelper;
 
     @BeforeClass
     public static void onlyOnce() throws Exception {

@@ -1,8 +1,10 @@
 package com.xshengcn.diycode.ui.presenter;
 
+import android.text.TextUtils;
+
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.ui.iview.IUserFavoriteView;
 
@@ -15,17 +17,22 @@ import io.reactivex.disposables.Disposable;
 public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
 
     private final DataManager mDataManager;
-    private final DiyCodePrefs mPrefs;
+    private final PreferencesHelper mPreferencesHelper;
 
     @Inject
-    public UserFavoritePresenter(DataManager dataManager, DiyCodePrefs prefs) {
+    public UserFavoritePresenter(DataManager dataManager, PreferencesHelper preferencesHelper) {
         this.mDataManager = dataManager;
-        this.mPrefs = prefs;
+        this.mPreferencesHelper = preferencesHelper;
     }
 
     @Override
     public void onAttach(IUserFavoriteView view) {
         super.onAttach(view);
+        boolean me = mPreferencesHelper.getUser() != null && TextUtils
+                .equals(view.getUserLogin(), mPreferencesHelper.getUser().login);
+
+        view.setTitle(me);
+
         onRefresh();
     }
 

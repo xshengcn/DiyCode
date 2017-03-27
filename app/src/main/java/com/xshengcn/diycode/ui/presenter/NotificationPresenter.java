@@ -2,7 +2,7 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.DiyCodePrefs;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.ui.iview.INotificationView;
 
@@ -15,12 +15,12 @@ import io.reactivex.disposables.Disposable;
 public class NotificationPresenter extends BasePresenter<INotificationView> {
 
     private final DataManager mDataManager;
-    private final DiyCodePrefs mPrefs;
+    private final PreferencesHelper mPreferencesHelper;
 
     @Inject
-    public NotificationPresenter(DataManager dataManager, DiyCodePrefs prefs) {
+    public NotificationPresenter(DataManager dataManager, PreferencesHelper preferencesHelper) {
         this.mDataManager = dataManager;
-        this.mPrefs = prefs;
+        this.mPreferencesHelper = preferencesHelper;
     }
 
     @Override

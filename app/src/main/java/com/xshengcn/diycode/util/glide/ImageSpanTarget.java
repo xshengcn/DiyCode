@@ -27,8 +27,10 @@ public class ImageSpanTarget extends SimpleTarget<Bitmap> {
         if (textView != null && drawable != null) {
             BitmapDrawable bd = new BitmapDrawable(textView.getResources(), resource);
             final double aspectRatio = (1.0 * bd.getIntrinsicWidth()) / bd.getIntrinsicHeight();
-
-            final int width = Math.min(textView.getWidth(), bd.getIntrinsicWidth());
+            boolean isEmoji = drawable.getSource()
+                    .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/");
+//            final int width = Math.min(textView.getWidth(), bd.getIntrinsicWidth());
+            final int width = isEmoji ? bd.getIntrinsicWidth() : textView.getWidth();
             final int height = (int) (width / aspectRatio);
             bd.setBounds(0, 0, width, height);
             drawable.setDrawable(bd);
