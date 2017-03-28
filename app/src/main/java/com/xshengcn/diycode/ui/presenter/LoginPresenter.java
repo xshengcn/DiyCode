@@ -2,6 +2,7 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.PreferencesHelper;
+import com.xshengcn.diycode.data.model.user.UserDetail;
 import com.xshengcn.diycode.ui.iview.ILoginView;
 
 import javax.inject.Inject;
@@ -31,8 +32,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 .doOnNext(mPreferencesHelper::setToken)
                 .flatMap(token -> mDataManager.getMe())
                 .doOnNext(mPreferencesHelper::setUser)
-                .subscribe(userDetail -> view.loginSuccess(), this::handleLoginError);
+                .subscribe(this::handleLoginSuccess, this::handleLoginError);
         addDisposable(disposable);
+    }
+
+    private void handleLoginSuccess(UserDetail userDetail) {
+        final ILoginView view = getView();
+        view.hideLoginDialog();
+        view.loginSuccess();
     }
 
     private void handleLoginError(Throwable throwable) {

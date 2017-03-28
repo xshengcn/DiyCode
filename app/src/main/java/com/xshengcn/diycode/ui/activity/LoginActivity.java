@@ -142,7 +142,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void loginSuccess() {
-        hideLoginDialog();
         this.finish();
     }
 
