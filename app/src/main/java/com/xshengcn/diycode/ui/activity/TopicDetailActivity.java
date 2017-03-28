@@ -102,13 +102,15 @@ public class TopicDetailActivity extends BaseActivity
                 new InsetDividerDecoration(TopicDetailAdapter.ViewHolder.class,
                         divider, 0, colorDivider));
         adapter.setContentCallBack(this);
-        adapter.setOnHeaderClickListener(user -> presenter.clickUserHeader(this, user));
+        adapter.setOnHeaderClickListener(user -> {
+        });
         mWrapper = new LoadMoreWrapper(this, adapter);
         recyclerView.setAdapter(mWrapper);
         swipeRefreshLayout.setOnRefreshListener(presenter::onRefresh);
         fab.setOnClickListener(v -> navigator.showReply(getTopic().title, getTopic().id));
         recyclerView.addOnScrollListener(mScrollListener);
         presenter.onAttach(this);
+        presenter.onRefresh();
     }
 
     @Override

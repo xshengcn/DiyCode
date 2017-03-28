@@ -1,6 +1,5 @@
 package com.xshengcn.diycode.ui.presenter;
 
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,11 +15,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
+import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -42,6 +42,7 @@ public class LoginPresenterTest {
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         mPresenter = new LoginPresenter(mDataManager, mPreferencesHelper);
         mPresenter.onAttach(mLoginView);
     }
@@ -81,7 +82,7 @@ public class LoginPresenterTest {
     @After
     public void tearDown() throws Exception {
         mPresenter.onDetach();
-        Mockito.reset();
+        RxJavaPlugins.reset();
     }
 
 }

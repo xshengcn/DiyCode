@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.ui.presenter;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,10 +49,8 @@ public class NewsPresenterTest {
 
     @Test
     public void testInit() throws Exception {
-        List<News> newses = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            newses.add(new News());
-        }
+        List<News> newses = mock(ArrayList.class);
+        when(newses.size()).thenReturn(30);
         when(mNewsView.isRefreshing()).thenReturn(false);
         when(mDataManager.getAllNewses(mNewsView.getItemOffset()))
                 .thenReturn(Observable.just(newses));
@@ -75,10 +74,8 @@ public class NewsPresenterTest {
 
     @Test
     public void testRefresh() throws Exception {
-        List<News> newses = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            newses.add(new News());
-        }
+        List<News> newses = mock(ArrayList.class);
+        when(newses.size()).thenReturn(30);
         when(mNewsView.isRefreshing()).thenReturn(true);
         when(mDataManager.getAllNewses(mNewsView.getItemOffset()))
                 .thenReturn(Observable.just(newses));
@@ -100,12 +97,9 @@ public class NewsPresenterTest {
 
     @Test
     public void testLoadMore() throws Exception {
-        List<News> newses = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            newses.add(new News());
-        }
+        List<News> newses = mock(ArrayList.class);
+        when(newses.size()).thenReturn(30);
 
-        when(mNewsView.isRefreshing()).thenReturn(false);
         Integer offset = 30;
         when(mNewsView.getItemOffset()).thenReturn(offset);
 
@@ -117,10 +111,8 @@ public class NewsPresenterTest {
 
     @Test
     public void testLoadMoreError() throws Exception {
-        when(mNewsView.isRefreshing()).thenReturn(false);
         Integer offset = 30;
         when(mNewsView.getItemOffset()).thenReturn(offset);
-
         when(mDataManager.getAllNewses(offset)).thenReturn(Observable.error(new Exception()));
         mPresenter.loadMore();
         verify(mNewsView).showLoadMoreFailed();
@@ -128,15 +120,10 @@ public class NewsPresenterTest {
 
     @Test
     public void testLoadNoMore() throws Exception {
-        List<News> newses = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            newses.add(new News());
-        }
-
-        when(mNewsView.isRefreshing()).thenReturn(false);
+        List<News> newses = mock(ArrayList.class);
+        when(newses.size()).thenReturn(10);
         Integer offset = 30;
         when(mNewsView.getItemOffset()).thenReturn(offset);
-
         when(mDataManager.getAllNewses(offset)).thenReturn(Observable.just(newses));
         mPresenter.loadMore();
         verify(mNewsView).showNewes(newses, false);

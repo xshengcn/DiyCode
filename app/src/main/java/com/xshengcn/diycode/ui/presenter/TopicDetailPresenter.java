@@ -1,7 +1,5 @@
 package com.xshengcn.diycode.ui.presenter;
 
-import android.app.Activity;
-
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
@@ -23,14 +21,8 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     @Inject
     public TopicDetailPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
-
     }
 
-    @Override
-    public void onAttach(ITopicDetailView view) {
-        super.onAttach(view);
-        onRefresh();
-    }
 
     public void onRefresh() {
         final ITopicDetailView view = getView();
@@ -40,7 +32,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
         loadTopicAndReplies();
     }
 
-    public void loadTopicAndReplies() {
+    private void loadTopicAndReplies() {
 
         Observable<TopicContent> topicObservable =
                 mDataManager.getTopicDetail(getView().getTopic().id);
@@ -95,15 +87,5 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
             view.showMoreReplies(replies);
         }
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    public void clickUserHeader(Activity activity, String user) {
-
-    }
-
 
 }
