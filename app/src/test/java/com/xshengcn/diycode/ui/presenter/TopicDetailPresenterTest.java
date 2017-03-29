@@ -8,9 +8,8 @@ import static org.mockito.Mockito.when;
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
-import com.xshengcn.diycode.data.model.topic.TopicContent;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
+import com.xshengcn.diycode.data.model.topic.TopicAndComments;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
 
 import org.junit.After;
@@ -26,8 +25,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TopicDetailPresenterTest {
@@ -55,16 +54,15 @@ public class TopicDetailPresenterTest {
     public void testInit() throws Exception {
 
         Topic topic = mock(Topic.class);
-        TopicContent topicContent = mock(TopicContent.class);
-        List<TopicReply> replies = mock(ArrayList.class);
-        when(replies.size()).thenReturn(30);
+        TopicAndComments topicAndComments = mock(TopicAndComments.class);
+
         when(mTopicDetailView.isRefreshing()).thenReturn(false);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mDataManager.getTopicDetail(topic.id)).thenReturn(Observable.just(topicContent));
-        when(mDataManager.getTopicReplies(topic.id, 0)).thenReturn(Observable.just(replies));
+        when(mDataManager.getTopicAndComments(topic.id))
+                .thenReturn(Observable.just(topicAndComments));
 
         mPresenter.onRefresh();
-        verify(mTopicDetailView).showTopicAndReplies(any(TopicAndReplies.class));
+        verify(mTopicDetailView).showTopicAndReplies(any(TopicAndComments.class));
     }
 
     @Test
@@ -73,9 +71,8 @@ public class TopicDetailPresenterTest {
         Topic topic = mock(Topic.class);
         when(mTopicDetailView.isRefreshing()).thenReturn(false);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mDataManager.getTopicDetail(topic.id)).thenReturn(Observable.error(new Exception()));
-        when(mDataManager.getTopicReplies(topic.id, 0))
-                .thenReturn(Observable.error(new Exception()));
+        when(mDataManager.getTopicAndComments(topic.id))
+                .thenReturn(Observable.error(mock(HttpException.class)));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).changeStateView(MultiStateView.VIEW_STATE_ERROR);
@@ -85,16 +82,16 @@ public class TopicDetailPresenterTest {
     public void testInitNoMore() throws Exception {
 
         Topic topic = mock(Topic.class);
-        TopicContent topicContent = mock(TopicContent.class);
-        List<TopicReply> replies = mock(ArrayList.class);
-        when(replies.size()).thenReturn(10);
+        TopicAndComments topicAndComments = mock(TopicAndComments.class);
+        topicAndComments.comments = mock(ArrayList.class);
+        when(topicAndComments.comments.size()).thenReturn(10);
         when(mTopicDetailView.isRefreshing()).thenReturn(false);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mDataManager.getTopicDetail(topic.id)).thenReturn(Observable.just(topicContent));
-        when(mDataManager.getTopicReplies(topic.id, 0)).thenReturn(Observable.just(replies));
+        when(mDataManager.getTopicAndComments(topic.id))
+                .thenReturn(Observable.just(topicAndComments));
 
         mPresenter.onRefresh();
-        verify(mTopicDetailView).showTopicAndReplies(any(TopicAndReplies.class));
+        verify(mTopicDetailView).showTopicAndReplies(any(TopicAndComments.class));
         verify(mTopicDetailView).showLoadNoMore();
     }
 
@@ -102,16 +99,14 @@ public class TopicDetailPresenterTest {
     public void testRefresh() throws Exception {
 
         Topic topic = mock(Topic.class);
-        TopicContent topicContent = mock(TopicContent.class);
-        List<TopicReply> replies = mock(ArrayList.class);
-        when(replies.size()).thenReturn(30);
+        TopicAndComments topicAndComments = mock(TopicAndComments.class);
         when(mTopicDetailView.isRefreshing()).thenReturn(true);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mDataManager.getTopicDetail(topic.id)).thenReturn(Observable.just(topicContent));
-        when(mDataManager.getTopicReplies(topic.id, 0)).thenReturn(Observable.just(replies));
+        when(mDataManager.getTopicAndComments(topic.id))
+                .thenReturn(Observable.just(topicAndComments));
 
         mPresenter.onRefresh();
-        verify(mTopicDetailView).showTopicAndReplies(any(TopicAndReplies.class));
+        verify(mTopicDetailView).showTopicAndReplies(topicAndComments);
     }
 
     @Test
@@ -120,9 +115,8 @@ public class TopicDetailPresenterTest {
         Topic topic = mock(Topic.class);
         when(mTopicDetailView.isRefreshing()).thenReturn(true);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mDataManager.getTopicDetail(topic.id)).thenReturn(Observable.error(new Exception()));
-        when(mDataManager.getTopicReplies(topic.id, 0))
-                .thenReturn(Observable.error(new Exception()));
+        when(mDataManager.getTopicAndComments(topic.id))
+                .thenReturn(Observable.error(mock(HttpException.class)));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).showRefreshErrorAndComplete();
@@ -132,16 +126,16 @@ public class TopicDetailPresenterTest {
     public void testRefreshNoMore() throws Exception {
 
         Topic topic = mock(Topic.class);
-        TopicContent topicContent = mock(TopicContent.class);
-        List<TopicReply> replies = mock(ArrayList.class);
-        when(replies.size()).thenReturn(10);
+        TopicAndComments topicAndComments = mock(TopicAndComments.class);
+        topicAndComments.comments = mock(ArrayList.class);
+        when(topicAndComments.comments.size()).thenReturn(10);
         when(mTopicDetailView.isRefreshing()).thenReturn(true);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mDataManager.getTopicDetail(topic.id)).thenReturn(Observable.just(topicContent));
-        when(mDataManager.getTopicReplies(topic.id, 0)).thenReturn(Observable.just(replies));
+        when(mDataManager.getTopicAndComments(topic.id))
+                .thenReturn(Observable.just(topicAndComments));
 
         mPresenter.onRefresh();
-        verify(mTopicDetailView).showTopicAndReplies(any(TopicAndReplies.class));
+        verify(mTopicDetailView).showTopicAndReplies(topicAndComments);
         verify(mTopicDetailView).showLoadNoMore();
     }
 
@@ -149,11 +143,12 @@ public class TopicDetailPresenterTest {
     public void testLoadMore() throws Exception {
 
         Topic topic = mock(Topic.class);
-        List<TopicReply> replies = mock(ArrayList.class);
-        when(replies.size()).thenReturn(30);
+        List<TopicComment> replies = mock(ArrayList.class);
+        when(replies.size()).thenReturn(DataManager.PAGE_LIMIT);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mTopicDetailView.getItemOffset()).thenReturn(30);
-        when(mDataManager.getTopicReplies(topic.id, 30)).thenReturn(Observable.just(replies));
+        when(mTopicDetailView.getItemOffset()).thenReturn(DataManager.PAGE_LIMIT);
+        when(mDataManager.getTopicReplies(topic.id, DataManager.PAGE_LIMIT))
+                .thenReturn(Observable.just(replies));
 
         mPresenter.loadMoreReplies();
         verify(mTopicDetailView).showMoreReplies(replies);
@@ -164,9 +159,9 @@ public class TopicDetailPresenterTest {
 
         Topic topic = mock(Topic.class);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mTopicDetailView.getItemOffset()).thenReturn(30);
-        when(mDataManager.getTopicReplies(topic.id, 30))
-                .thenReturn(Observable.error(new Exception()));
+        when(mTopicDetailView.getItemOffset()).thenReturn(DataManager.PAGE_LIMIT);
+        when(mDataManager.getTopicReplies(topic.id, DataManager.PAGE_LIMIT))
+                .thenReturn(Observable.error(mock(HttpException.class)));
 
         mPresenter.loadMoreReplies();
         verify(mTopicDetailView).showLoadMoreFailed();
@@ -176,11 +171,12 @@ public class TopicDetailPresenterTest {
     public void testLoadNoMore() throws Exception {
 
         Topic topic = mock(Topic.class);
-        List<TopicReply> replies = mock(ArrayList.class);
+        List<TopicComment> replies = mock(ArrayList.class);
         when(replies.size()).thenReturn(10);
         when(mTopicDetailView.getTopic()).thenReturn(topic);
-        when(mTopicDetailView.getItemOffset()).thenReturn(30);
-        when(mDataManager.getTopicReplies(topic.id, 30)).thenReturn(Observable.just(replies));
+        when(mTopicDetailView.getItemOffset()).thenReturn(DataManager.PAGE_LIMIT);
+        when(mDataManager.getTopicReplies(topic.id, DataManager.PAGE_LIMIT))
+                .thenReturn(Observable.just(replies));
 
         mPresenter.loadMoreReplies();
         verify(mTopicDetailView).showMoreReplies(replies);
@@ -189,6 +185,6 @@ public class TopicDetailPresenterTest {
     @After
     public void tearDown() throws Exception {
         mPresenter.onDetach();
-        RxJavaPlugins.reset();
+        RxAndroidPlugins.reset();
     }
 }

@@ -20,10 +20,11 @@ import com.xshengcn.diycode.data.model.site.SiteHeaderItem;
 import com.xshengcn.diycode.data.model.site.SiteItem;
 import com.xshengcn.diycode.data.model.site.SiteListItem;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicContent;
+import com.xshengcn.diycode.data.model.topic.TopicAndComments;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.data.model.user.NotificationUnread;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -91,7 +92,7 @@ public class DataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable<TopicContent> createTopic(int nodeId, String title, String body) {
+    public Observable<TopicDetail> createTopic(int nodeId, String title, String body) {
         return mService.createTopic(buildAuthorization(), nodeId, title, body)
                 .compose(applySchedulers());
     }
@@ -139,16 +140,22 @@ public class DataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable<TopicContent> getTopicDetail(int id) {
+    public Observable<TopicAndComments> getTopicAndComments(int topicId) {
+        Observable<TopicDetail> topicObservable = getTopicDetail(topicId);
+        Observable<List<TopicComment>> reliesObservable = getTopicReplies(topicId, 0);
+        return Observable.zip(topicObservable, reliesObservable, TopicAndComments::new);
+    }
+
+    public Observable<TopicDetail> getTopicDetail(int id) {
         return mService.getTopicDetail(buildAuthorization(), id).compose(applySchedulers());
     }
 
-    public Observable<List<TopicReply>> getTopicReplies(int topicId, int offset) {
+    public Observable<List<TopicComment>> getTopicReplies(int topicId, int offset) {
         return mService.getTopicReplies(buildAuthorization(), topicId, offset, PAGE_LIMIT)
                 .compose(applySchedulers());
     }
 
-    public Observable<TopicReply> sendReply(int id, String body) {
+    public Observable<TopicComment> sendReply(int id, String body) {
         return mService.sendReply(buildAuthorization(), id, body).compose(applySchedulers());
     }
 

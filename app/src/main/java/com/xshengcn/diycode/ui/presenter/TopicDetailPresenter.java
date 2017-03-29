@@ -2,16 +2,14 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
-import com.xshengcn.diycode.data.model.topic.TopicContent;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
+import com.xshengcn.diycode.data.model.topic.TopicAndComments;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
@@ -29,27 +27,17 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
         if (!view.isRefreshing()) {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
         }
-        loadTopicAndReplies();
+
+        addDisposable(mDataManager.getTopicAndComments(getView().getTopic().id)
+                .subscribe(this::loadTopicAndRepliesNext, this::loadTopicAndRepliesError));
     }
 
-    private void loadTopicAndReplies() {
 
-        Observable<TopicContent> topicObservable =
-                mDataManager.getTopicDetail(getView().getTopic().id);
-        Observable<List<TopicReply>> reliesObservable =
-                mDataManager.getTopicReplies(getView().getTopic().id, 0);
-
-        Disposable disposable =
-                Observable.zip(topicObservable, reliesObservable, TopicAndReplies::new)
-                        .subscribe(this::loadTopicAndRepliesNext, this::loadTopicAndRepliesError);
-        addDisposable(disposable);
-    }
-
-    private void loadTopicAndRepliesNext(TopicAndReplies topicAndReplies) {
+    private void loadTopicAndRepliesNext(TopicAndComments topicAndComments) {
         final ITopicDetailView view = getView();
-        view.showTopicAndReplies(topicAndReplies);
-        if (topicAndReplies.replies.isEmpty()
-                || topicAndReplies.replies.size() < DataManager.PAGE_LIMIT) {
+        view.showTopicAndReplies(topicAndComments);
+        if (topicAndComments.comments.isEmpty()
+                || topicAndComments.comments.size() < DataManager.PAGE_LIMIT) {
             view.showLoadNoMore();
         }
     }
@@ -76,7 +64,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
         view.showLoadMoreFailed();
     }
 
-    private void loadMoreRepliesNext(List<TopicReply> replies) {
+    private void loadMoreRepliesNext(List<TopicComment> replies) {
         final ITopicDetailView view = getView();
         if (replies == null || replies.isEmpty()) {
             view.showLoadNoMore();

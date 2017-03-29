@@ -22,8 +22,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NewsPresenterTest {
@@ -50,7 +50,7 @@ public class NewsPresenterTest {
     @Test
     public void testInit() throws Exception {
         List<News> newses = mock(ArrayList.class);
-        when(newses.size()).thenReturn(30);
+        when(newses.size()).thenReturn(DataManager.PAGE_LIMIT);
         when(mNewsView.isRefreshing()).thenReturn(false);
         when(mDataManager.getAllNewses(mNewsView.getItemOffset()))
                 .thenReturn(Observable.just(newses));
@@ -65,7 +65,7 @@ public class NewsPresenterTest {
 
         when(mNewsView.isRefreshing()).thenReturn(false);
         when(mDataManager.getAllNewses(mNewsView.getItemOffset()))
-                .thenReturn(Observable.error(new Exception()));
+                .thenReturn(Observable.error(mock(HttpException.class)));
         mPresenter.onRefresh();
 
         verify(mNewsView).changeStateView(MultiStateView.VIEW_STATE_LOADING);
@@ -75,7 +75,7 @@ public class NewsPresenterTest {
     @Test
     public void testRefresh() throws Exception {
         List<News> newses = mock(ArrayList.class);
-        when(newses.size()).thenReturn(30);
+        when(newses.size()).thenReturn(DataManager.PAGE_LIMIT);
         when(mNewsView.isRefreshing()).thenReturn(true);
         when(mDataManager.getAllNewses(mNewsView.getItemOffset()))
                 .thenReturn(Observable.just(newses));
@@ -89,7 +89,7 @@ public class NewsPresenterTest {
 
         when(mNewsView.isRefreshing()).thenReturn(true);
         when(mDataManager.getAllNewses(mNewsView.getItemOffset()))
-                .thenReturn(Observable.error(new Exception()));
+                .thenReturn(Observable.error(mock(HttpException.class)));
         mPresenter.onRefresh();
 
         verify(mNewsView).showRefreshErrorAndComplete();
@@ -98,9 +98,9 @@ public class NewsPresenterTest {
     @Test
     public void testLoadMore() throws Exception {
         List<News> newses = mock(ArrayList.class);
-        when(newses.size()).thenReturn(30);
+        when(newses.size()).thenReturn(DataManager.PAGE_LIMIT);
 
-        Integer offset = 30;
+        Integer offset = DataManager.PAGE_LIMIT;
         when(mNewsView.getItemOffset()).thenReturn(offset);
 
         when(mDataManager.getAllNewses(offset)).thenReturn(Observable.just(newses));
@@ -111,9 +111,10 @@ public class NewsPresenterTest {
 
     @Test
     public void testLoadMoreError() throws Exception {
-        Integer offset = 30;
+        Integer offset = DataManager.PAGE_LIMIT;
         when(mNewsView.getItemOffset()).thenReturn(offset);
-        when(mDataManager.getAllNewses(offset)).thenReturn(Observable.error(new Exception()));
+        when(mDataManager.getAllNewses(offset))
+                .thenReturn(Observable.error(mock(HttpException.class)));
         mPresenter.loadMore();
         verify(mNewsView).showLoadMoreFailed();
     }
@@ -122,7 +123,7 @@ public class NewsPresenterTest {
     public void testLoadNoMore() throws Exception {
         List<News> newses = mock(ArrayList.class);
         when(newses.size()).thenReturn(10);
-        Integer offset = 30;
+        Integer offset = DataManager.PAGE_LIMIT;
         when(mNewsView.getItemOffset()).thenReturn(offset);
         when(mDataManager.getAllNewses(offset)).thenReturn(Observable.just(newses));
         mPresenter.loadMore();
@@ -133,7 +134,7 @@ public class NewsPresenterTest {
     @After
     public void tearDown() throws Exception {
         mPresenter.onDetach();
-        RxJavaPlugins.reset();
+        RxAndroidPlugins.reset();
     }
 
 }

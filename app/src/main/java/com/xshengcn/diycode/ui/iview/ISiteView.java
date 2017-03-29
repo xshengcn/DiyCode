@@ -7,4 +7,8 @@ import java.util.List;
 public interface ISiteView {
 
     void showSites(List<SiteListItem> siteListItems);
+
+    void showLoading();
+
+    void showLoadSiteError();
 }

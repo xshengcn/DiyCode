@@ -27,9 +27,9 @@ import butterknife.ButterKnife;
 public class SiteFragment extends BaseFragment implements ISiteView {
 
     @BindView(R.id.recycler_View)
-    RecyclerView recyclerView;
+    RecyclerView mRecyclerView;
     @BindView(R.id.state_view)
-    MultiStateView stateView;
+    MultiStateView mStateView;
 
     @Inject
     SitePresenter presenter;
@@ -61,15 +61,31 @@ public class SiteFragment extends BaseFragment implements ISiteView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(url -> BrowserUtil.openUrl(getActivity(), url));
+        View errorState = mStateView.getView(MultiStateView.VIEW_STATE_ERROR);
+        if (errorState != null) {
+            ButterKnife.findById(errorState, R.id.no_connection_retry).setOnClickListener(
+                    v -> presenter.loadSite());
+        }
         presenter.onAttach(this);
+        presenter.loadSite();
     }
 
     @Override
     public void showSites(List<SiteListItem> siteListItems) {
-        stateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+        mStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
         adapter.addSiteListItems(siteListItems);
         Logger.d(siteListItems);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.setViewState(MultiStateView.VIEW_STATE_LOADING);
+    }
+
+    @Override
+    public void showLoadSiteError() {
+        mStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
     }
 }

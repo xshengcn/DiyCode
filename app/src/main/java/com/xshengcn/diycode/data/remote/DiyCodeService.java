@@ -9,9 +9,9 @@ import com.xshengcn.diycode.data.model.news.Node;
 import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.site.SiteCollection;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicContent;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.data.model.user.NotificationUnread;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -103,24 +103,24 @@ public interface DiyCodeService {
 
     @POST("topics.json")
     @FormUrlEncoded
-    Observable<TopicContent> createTopic(@Header(Params.AUTHORIZATION) String header,
+    Observable<TopicDetail> createTopic(@Header(Params.AUTHORIZATION) String header,
             @Field(Params.NODE_ID) Integer nodeId,
             @Field(Params.TITLE) String title,
             @Field(Params.BODY) String body);
 
     @GET("topics/{id}.json")
-    Observable<TopicContent> getTopicDetail(@Header(Params.AUTHORIZATION) String header,
+    Observable<TopicDetail> getTopicDetail(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id);
 
     @GET("topics/{id}/replies.json")
-    Observable<List<TopicReply>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
+    Observable<List<TopicComment>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @POST("topics/{id}/replies.json")
     @FormUrlEncoded
-    Observable<TopicReply> sendReply(@Header(Params.AUTHORIZATION) String header,
+    Observable<TopicComment> sendReply(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Field(Params.BODY) String body);
 

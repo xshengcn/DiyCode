@@ -7,10 +7,10 @@ import com.xshengcn.diycode.data.model.news.NewsReply;
 import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.site.SiteListItem;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicContent;
+import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.data.model.user.NotificationUnread;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -92,7 +92,7 @@ public class DataManagerTest {
     @Test
     public void createTopic() throws Exception {
         // 发帖失败 需要token
-        TestObserver<TopicContent> testObserver = mDataManager.createTopic(0, "title", "body")
+        TestObserver<TopicDetail> testObserver = mDataManager.createTopic(0, "title", "body")
                 .test()
                 .await();
         testObserver.assertError(HttpException.class);
@@ -171,14 +171,14 @@ public class DataManagerTest {
 
     @Test
     public void getTopicDetail() throws Exception {
-        TestObserver<TopicContent> testObserver = mDataManager.getTopicDetail(4).test().await();
+        TestObserver<TopicDetail> testObserver = mDataManager.getTopicDetail(4).test().await();
         testObserver.assertNoErrors();
         testObserver.assertComplete();
     }
 
     @Test
     public void getTopicReplies() throws Exception {
-        TestObserver<List<TopicReply>> testObserver = mDataManager.getTopicReplies(4, 0).test()
+        TestObserver<List<TopicComment>> testObserver = mDataManager.getTopicReplies(4, 0).test()
                 .await();
         testObserver.assertNoErrors();
         testObserver.assertComplete();
@@ -186,7 +186,7 @@ public class DataManagerTest {
 
     @Test
     public void sendReply() throws Exception {
-        TestObserver<TopicReply> testObserver = mDataManager.sendReply(4, "body").test().await();
+        TestObserver<TopicComment> testObserver = mDataManager.sendReply(4, "body").test().await();
         testObserver.assertError(HttpException.class);
         testObserver.assertNotComplete();
     }

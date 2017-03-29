@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.ui.presenter;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -15,13 +16,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginPresenterTest {
@@ -42,17 +43,16 @@ public class LoginPresenterTest {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
         mPresenter = new LoginPresenter(mDataManager, mPreferencesHelper);
         mPresenter.onAttach(mLoginView);
     }
 
     @Test
     public void testLoginSuccessful() throws Exception {
-        Token token = new Token();
+        Token token = mock(Token.class);
         String username = "xshengcn";
         String password = "password";
-        UserDetail userDetail = new UserDetail();
+        UserDetail userDetail = mock(UserDetail.class);
         when(mDataManager.login(username, password)).thenReturn(Observable.just(token));
         when(mDataManager.getMe()).thenReturn(Observable.just(userDetail));
 
@@ -70,7 +70,8 @@ public class LoginPresenterTest {
     public void testLoginFailed() throws Exception {
         String username = "xshengcn";
         String password = "password";
-        when(mDataManager.login(username, password)).thenReturn(Observable.error(new Exception()));
+        when(mDataManager.login(username, password))
+                .thenReturn(Observable.error(mock(HttpException.class)));
 
         mPresenter.login(username, password);
 

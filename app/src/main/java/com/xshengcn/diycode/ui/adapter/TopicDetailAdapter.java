@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
-import com.xshengcn.diycode.data.model.topic.TopicContent;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
+import com.xshengcn.diycode.data.model.topic.TopicAndComments;
+import com.xshengcn.diycode.data.model.topic.TopicDetail;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
 import com.xshengcn.diycode.util.DateUtils;
 import com.xshengcn.diycode.util.DensityUtil;
 import com.xshengcn.diycode.util.HtmlUtils;
@@ -34,7 +34,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     private final Context mContext;
     private final int mImgMaxWidth;
-    private final TopicAndReplies mTopicAndReplies;
+    private final TopicAndComments mTopicAndComments;
     private HtmlUtils.Callback mCallback;
     private OnHeaderClickListener mOnHeaderClickListener;
 
@@ -43,8 +43,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         this.mContext = context;
         int margin = DensityUtil.dp2px(context, 16 * 2);
         mImgMaxWidth = DensityUtil.getScreenWidth(context) - margin;
-        mTopicAndReplies = new TopicAndReplies();
-        mTopicAndReplies.replies = new ArrayList<>();
+        mTopicAndComments = new TopicAndComments();
+        mTopicAndComments.comments = new ArrayList<>();
     }
 
     public void setOnHeaderClickListener(OnHeaderClickListener onHeaderClickListener) {
@@ -55,29 +55,29 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         this.mCallback = callBack;
     }
 
-    public TopicAndReplies getTopicAndReplies() {
-        return mTopicAndReplies;
+    public TopicAndComments getTopicAndComments() {
+        return mTopicAndComments;
     }
 
-    public TopicContent getTopicContent() {
-        return mTopicAndReplies.content;
+    public TopicDetail getTopicContent() {
+        return mTopicAndComments.detail;
     }
 
-    public void setTopicContent(TopicContent content) {
-        this.mTopicAndReplies.content = content;
+    public void setTopicContent(TopicDetail content) {
+        this.mTopicAndComments.detail = content;
     }
 
-    public void addReplies(List<TopicReply> replies) {
-        mTopicAndReplies.replies.addAll(replies);
+    public void addReplies(List<TopicComment> replies) {
+        mTopicAndComments.comments.addAll(replies);
     }
 
-    public List<TopicReply> getTopicReplies() {
-        return mTopicAndReplies.replies;
+    public List<TopicComment> getTopicReplies() {
+        return mTopicAndComments.comments;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mTopicAndReplies.content != null && position == 0) {
+        if (mTopicAndComments.detail != null && position == 0) {
             return TYPE_TOPIC_HEADER;
         } else {
             return TYPE_TOPIC_ITEM;
@@ -100,14 +100,14 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_TOPIC_HEADER) {
-            bindHeaderViewHolder((HeaderViewHolder) holder, mTopicAndReplies.content);
+            bindHeaderViewHolder((HeaderViewHolder) holder, mTopicAndComments.detail);
         } else if (getItemViewType(position) == TYPE_TOPIC_ITEM) {
-            TopicReply reply = mTopicAndReplies.replies.get(position - 1);
+            TopicComment reply = mTopicAndComments.comments.get(position - 1);
             bindItemViewHolder((ViewHolder) holder, reply, position);
         }
     }
 
-    private void bindItemViewHolder(ViewHolder holder, TopicReply reply, int position) {
+    private void bindItemViewHolder(ViewHolder holder, TopicComment reply, int position) {
         Glide.with(mContext).load(reply.user.avatarUrl).into(holder.avatar);
         holder.name.setText(reply.user.login);
         holder.floor.setText(
@@ -127,7 +127,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         HtmlUtils.parseHtmlAndSetText(reply.bodyHtml, holder.body, mCallback);
     }
 
-    private void bindHeaderViewHolder(HeaderViewHolder holder, TopicContent detail) {
+    private void bindHeaderViewHolder(HeaderViewHolder holder, TopicDetail detail) {
         Glide.with(mContext).load(detail.user.avatarUrl).into(holder.avatar);
         holder.avatar.setOnClickListener(v -> {
             if (mOnHeaderClickListener != null) {
@@ -156,12 +156,12 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (mTopicAndReplies == null) {
+        if (mTopicAndComments == null) {
             return 0;
-        } else if (mTopicAndReplies.content == null) {
-            return mTopicAndReplies.replies == null ? 0 : mTopicAndReplies.replies.size();
+        } else if (mTopicAndComments.detail == null) {
+            return mTopicAndComments.comments == null ? 0 : mTopicAndComments.comments.size();
         } else {
-            return mTopicAndReplies.replies == null ? 1 : 1 + mTopicAndReplies.replies.size();
+            return mTopicAndComments.comments == null ? 1 : 1 + mTopicAndComments.comments.size();
         }
     }
 
