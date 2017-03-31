@@ -8,34 +8,29 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
+import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.target.ImageViewTarget;
 import com.xshengcn.diycode.R;
-
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PhotoViewerActivity extends BaseActivity {
 
     private static final int UI_ANIMATION_DELAY = 300;
     private static final String EXTRA_IMAGE_SOURCE = "PhotoViewerActivity.source";
     @BindView(R.id.image_view)
-    ImageView imageView;
+    PhotoView imageView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     private final Runnable mRunnable = () -> getSupportActionBar().show();
 
-    private PhotoViewAttacher mPhotoViewAttacher;
     private boolean mVisible;
     private Handler mHandler = new Handler();
 
@@ -58,36 +53,8 @@ public class PhotoViewerActivity extends BaseActivity {
         }
 
         String source = getIntent().getStringExtra(EXTRA_IMAGE_SOURCE);
-        if (!TextUtils.isEmpty(source)) {
-            if (!source.endsWith("gif")) {
-                mPhotoViewAttacher = new PhotoViewAttacher(imageView);
-                mPhotoViewAttacher.setOnPhotoTapListener(
-                        new PhotoViewAttacher.OnPhotoTapListener() {
-                            @Override
-                            public void onPhotoTap(View view, float x, float y) {
-                                toggle();
-                            }
-
-                            @Override
-                            public void onOutsidePhotoTap() {
-                                toggle();
-                            }
-                        });
-                Glide.with(this)
-                        .load(source)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(new ImageViewTarget<GlideDrawable>(imageView) {
-
-                            @Override
-                            protected void setResource(GlideDrawable resource) {
-                                imageView.setImageDrawable(resource);
-                                mPhotoViewAttacher.update();
-                            }
-                        });
-            } else {
-                Glide.with(this).load(source).into(imageView);
-            }
-        }
+        imageView.enable();
+        Glide.with(this).load(source).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
     }
 
     @Override
@@ -101,7 +68,8 @@ public class PhotoViewerActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void toggle() {
+    @OnClick(R.id.image_view)
+    void toggle(View view) {
         if (mVisible) {
             hide();
         } else {

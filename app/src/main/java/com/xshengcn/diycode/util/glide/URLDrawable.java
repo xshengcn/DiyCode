@@ -1,14 +1,25 @@
 package com.xshengcn.diycode.util.glide;
 
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-public class URLDrawable extends BitmapDrawable {
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 
-    private Drawable mDrawable;
+public class URLDrawable extends BitmapDrawable implements Drawable.Callback {
 
-    private String mSource;
+    private GlideDrawable mDrawable;
+    private final String mSource;
+
+    public URLDrawable(String source) {
+        mSource = source;
+    }
+
+    public String getSource() {
+        return mSource;
+    }
 
     @Override
     public void draw(Canvas canvas) {
@@ -17,15 +28,54 @@ public class URLDrawable extends BitmapDrawable {
         }
     }
 
-    public void setDrawable(Drawable drawable) {
+    @Override
+    public void setAlpha(int alpha) {
+        if (mDrawable != null) {
+            mDrawable.setAlpha(alpha);
+        }
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter cf) {
+        if (mDrawable != null) {
+            mDrawable.setColorFilter(cf);
+        }
+    }
+
+    @Override
+    public int getOpacity() {
+        if (mDrawable != null) {
+            return mDrawable.getOpacity();
+        }
+        return PixelFormat.UNKNOWN;
+    }
+
+    public void setDrawable(GlideDrawable drawable) {
+        if (this.mDrawable != null) {
+            this.mDrawable.setCallback(null);
+        }
+        drawable.setCallback(this);
         this.mDrawable = drawable;
     }
 
-    public String getSource() {
-        return mSource;
+    @Override
+    public void invalidateDrawable(Drawable who) {
+        if (getCallback() != null) {
+            getCallback().invalidateDrawable(who);
+        }
     }
 
-    public void setSource(String source) {
-        this.mSource = source;
+    @Override
+    public void scheduleDrawable(Drawable who, Runnable what, long when) {
+        if (getCallback() != null) {
+            getCallback().scheduleDrawable(who, what, when);
+        }
+    }
+
+    @Override
+    public void unscheduleDrawable(Drawable who, Runnable what) {
+        if (getCallback() != null) {
+            getCallback().unscheduleDrawable(who, what);
+        }
     }
 }

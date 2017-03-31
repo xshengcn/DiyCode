@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.bm.library.PhotoView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/nav_header"/>
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"/>
 
     <FrameLayout
         android:layout_width="match_parent"

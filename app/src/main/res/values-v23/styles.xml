@@ -16,6 +16,7 @@
     </style>
 
     <style name="AppTheme.NoActionBar.Photo">
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>

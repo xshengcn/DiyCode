@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.util.ViewUtils;
 
@@ -175,14 +174,26 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if ((holder instanceof LoadMoreViewHolder)) {
-            Logger.d("LOAD MORE");
+            bindLoadMoreViewHolder();
         } else if (holder instanceof LoadFailedViewHolder) {
-            Logger.d("LOAD MORE FAILED");
+            bindLoadFailedViewHolder();
         } else if (holder instanceof NoMoreViewHolder) {
-            Logger.d("NO MORE");
+            bindLoadNoMoreViewHolder();
         } else {
             mInnerAdapter.onBindViewHolder(holder, position);
         }
+    }
+
+    private void bindLoadNoMoreViewHolder() {
+        // empty
+    }
+
+    private void bindLoadFailedViewHolder() {
+        // empty
+    }
+
+    private void bindLoadMoreViewHolder() {
+        // empty
     }
 
     @Override
