@@ -3,6 +3,8 @@ package com.xshengcn.diycode.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.GridLayoutManager.SpanSizeLookup;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SiteFragment extends BaseFragment implements ISiteView {
+
+    private static final int DEFAULT_SPAN_COUNT = 2;
 
     @BindView(R.id.recycler_View)
     RecyclerView mRecyclerView;
@@ -61,6 +65,14 @@ public class SiteFragment extends BaseFragment implements ISiteView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), DEFAULT_SPAN_COUNT);
+        layoutManager.setSpanSizeLookup(new SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return DEFAULT_SPAN_COUNT - adapter.getItemViewType(position);
+            }
+        });
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(url -> BrowserUtil.openUrl(getActivity(), url));
         View errorState = mStateView.getView(MultiStateView.VIEW_STATE_ERROR);
