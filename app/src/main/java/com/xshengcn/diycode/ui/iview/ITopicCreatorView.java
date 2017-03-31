@@ -19,4 +19,6 @@ public interface ITopicCreatorView {
     void showProgressDialog();
 
     void hideProgressDialog();
+
+    void intoTopicDetail(int id);
 }

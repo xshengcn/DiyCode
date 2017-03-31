@@ -27,7 +27,7 @@ public class MarkdownPreviewActivity extends BaseActivity {
     @BindView(R.id.appbar_layout)
     AppBarLayout appbarLayout;
 
-    private String mText;
+    private String mMarkdownText;
 
     public static void start(Activity activity, String text) {
         Intent intent = new Intent(activity, MarkdownPreviewActivity.class);
@@ -41,7 +41,7 @@ public class MarkdownPreviewActivity extends BaseActivity {
         setContentView(R.layout.activity_markdown_preview);
         ButterKnife.bind(this);
 
-        mText = getIntent().getStringExtra(EXTRA_CONTENT);
+        mMarkdownText = getIntent().getStringExtra(EXTRA_CONTENT);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,13 +61,13 @@ public class MarkdownPreviewActivity extends BaseActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                //super.onPageFinished(view, url);
-                //parseMarkdown(text);
+                super.onPageFinished(view, url);
+                parseMarkdown(mMarkdownText);
 
             }
         });
-        //webView.loadUrl("file:///android_asset/markdown.html");
-        webView.loadUrl("file:///android_asset/markdown-helper.html");
+        webView.loadUrl("file:///android_asset/markdown.html");
+//        webView.loadUrl("file:///android_asset/markdown-helper.html");
     }
 
 

@@ -22,6 +22,7 @@ import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
+import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.iview.ITopicCreatorView;
 import com.xshengcn.diycode.ui.presenter.TopicCreatorPresenter;
 
@@ -61,7 +62,9 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
     AppBarLayout appbarLayout;
 
     @Inject
-    TopicCreatorPresenter presenter;
+    TopicCreatorPresenter mPresenter;
+    @Inject
+    ActivityNavigator mNavigator;
 
     private boolean mMenuEnable = false;
     private ProgressDialog mDialog;
@@ -81,6 +84,7 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
         ButterKnife.bind(this);
         getComponent().inject(this);
 
+        toolbar.setTitle(R.string.create_topic);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -107,7 +111,8 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
             }
         });
 
-        presenter.onAttach(this);
+        mPresenter.onAttach(this);
+        mPresenter.loadTopicNodes();
     }
 
     @OnTextChanged({R.id.title, R.id.body})
@@ -139,7 +144,7 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
             case android.R.id.home:
                 break;
             case R.id.action_send:
-                presenter.createTopic();
+                mPresenter.createTopic();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -183,5 +188,10 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
         if (mDialog != null) {
             mDialog.dismiss();
         }
+    }
+
+    @Override
+    public void intoTopicDetail(int id) {
+//        mNavigator.showTopicDetail();
     }
 }

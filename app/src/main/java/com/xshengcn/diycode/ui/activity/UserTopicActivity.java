@@ -31,7 +31,7 @@ public class UserTopicActivity extends BaseActivity {
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
 
-    @BindString(R.string.topics)
+    @BindString(R.string.my_topics)
     String mMyTopics;
     @BindString(R.string.user_topics)
     String mUserTopics;

@@ -155,8 +155,8 @@ public class DataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable<TopicComment> sendReply(int id, String body) {
-        return mService.sendReply(buildAuthorization(), id, body).compose(applySchedulers());
+    public Observable<TopicComment> publishComment(int id, String body) {
+        return mService.publishComment(buildAuthorization(), id, body).compose(applySchedulers());
     }
 
     public Observable<ImageResult> uploadPhoto(String filePath) {

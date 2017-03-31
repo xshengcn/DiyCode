@@ -2,7 +2,7 @@ package com.xshengcn.diycode.ui.iview;
 
 import com.xshengcn.diycode.data.model.ImageResult;
 
-public interface IReplyView {
+public interface ITopicComment {
 
     void showUploadDialog();
 
@@ -15,4 +15,12 @@ public interface IReplyView {
     String getBody();
 
     void insertImage(ImageResult result);
+
+    void showCommentDialog();
+
+    void hideCommentDialog();
+
+    void closeActivity();
+
+    void showCommentFailed();
 }

@@ -47,7 +47,7 @@ public class NotificationActivity
 
     @BindDimen(R.dimen.spacing_xsmall)
     int space;
-    @BindString(R.string.topics)
+    @BindString(R.string.my_topics)
     String myTopics;
     @BindString(R.string.user_topics)
     String userTopics;

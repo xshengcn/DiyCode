@@ -4,7 +4,7 @@
     <item
         android:id="@+id/nav_topic"
         android:icon="@drawable/ic_menu_topic"
-        android:title="@string/topics"/>
+        android:title="@string/my_topics"/>
     <item
         android:id="@+id/nav_favorite"
         android:icon="@drawable/ic_menu_collection"

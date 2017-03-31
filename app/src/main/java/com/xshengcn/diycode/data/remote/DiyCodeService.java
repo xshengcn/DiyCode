@@ -120,7 +120,7 @@ public interface DiyCodeService {
 
     @POST("topics/{id}/replies.json")
     @FormUrlEncoded
-    Observable<TopicComment> sendReply(@Header(Params.AUTHORIZATION) String header,
+    Observable<TopicComment> publishComment(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Field(Params.BODY) String body);
 

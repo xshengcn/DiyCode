@@ -7,10 +7,10 @@ import com.xshengcn.diycode.data.model.news.NewsReply;
 import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.site.SiteListItem;
 import com.xshengcn.diycode.data.model.topic.Topic;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.data.model.user.NotificationUnread;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -186,7 +186,8 @@ public class DataManagerTest {
 
     @Test
     public void sendReply() throws Exception {
-        TestObserver<TopicComment> testObserver = mDataManager.sendReply(4, "body").test().await();
+        TestObserver<TopicComment> testObserver = mDataManager.publishComment(4, "body").test()
+                .await();
         testObserver.assertError(HttpException.class);
         testObserver.assertNotComplete();
     }

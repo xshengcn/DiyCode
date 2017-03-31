@@ -94,7 +94,7 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".ui.activity.ReplyActivity"
+            android:name=".ui.activity.TopicCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"/>

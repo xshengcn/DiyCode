@@ -7,10 +7,11 @@ import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
+import com.xshengcn.diycode.ui.activity.MarkdownPreviewActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
-import com.xshengcn.diycode.ui.activity.ReplyActivity;
 import com.xshengcn.diycode.ui.activity.SearchActivity;
 import com.xshengcn.diycode.ui.activity.SiteActivity;
+import com.xshengcn.diycode.ui.activity.TopicCommentActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.UserActivity;
@@ -86,7 +87,7 @@ public final class ActivityNavigator {
             showLogin();
             return;
         }
-        ReplyActivity.start(mActivity, title, id);
+        TopicCommentActivity.start(mActivity, title, id);
     }
 
     public void showCreateTopic() {
@@ -107,5 +108,9 @@ public final class ActivityNavigator {
 
     public void showWeb(@NonNull String url) {
         BrowserUtil.openUrl(mActivity, url);
+    }
+
+    public void showPreView(@NonNull String markdown) {
+        MarkdownPreviewActivity.start(mActivity, markdown);
     }
 }

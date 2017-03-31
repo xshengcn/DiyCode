@@ -5,7 +5,8 @@ import android.net.Uri;
 
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.model.ImageResult;
-import com.xshengcn.diycode.ui.iview.IReplyView;
+import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.ui.iview.ITopicComment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,54 +16,50 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class ReplyPresenter extends BasePresenter<IReplyView> {
+public class TopicCommentPresenter extends BasePresenter<ITopicComment> {
 
     private final DataManager mDataManager;
     private final Context mContext;
 
     @Inject
-    public ReplyPresenter(DataManager dataManager, Context context) {
+    public TopicCommentPresenter(DataManager dataManager, Context context) {
         this.mDataManager = dataManager;
         this.mContext = context;
     }
 
-    public void sendReply() {
-        final IReplyView view = getView();
-        mDataManager.sendReply(view.getId(), view.getBody()).subscribe(new Observer<Object>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(Object o) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+    public void publishComment() {
+        final ITopicComment view = getView();
+        view.showCommentDialog();
+        mDataManager.publishComment(view.getId(), view.getBody())
+                .subscribe(this::commentSuccess, this::commentFailed);
     }
 
-    public void uploadImage() {
+    private void commentSuccess(TopicComment topicComment) {
+        final ITopicComment view = getView();
+        view.hideCommentDialog();
+        view.closeActivity();
+    }
+
+    private void commentFailed(Throwable throwable) {
+        final ITopicComment view = getView();
+        view.hideCommentDialog();
+        view.showCommentFailed();
 
     }
+
+
+    public void cancelComment() {
+        getDisposable().clear();
+    }
+
 
     public void handlerImagePick(Uri data) {
-        final IReplyView view = getView();
+        final ITopicComment view = getView();
         view.showUploadDialog();
         Disposable d = cacheImageFromContentResolver(data).flatMap(
                 new Function<String, ObservableSource<ImageResult>>() {
@@ -117,4 +114,5 @@ public class ReplyPresenter extends BasePresenter<IReplyView> {
             }
         });
     }
+
 }

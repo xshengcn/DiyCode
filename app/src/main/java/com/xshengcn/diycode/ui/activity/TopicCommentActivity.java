@@ -24,9 +24,11 @@ import android.widget.Toast;
 
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.ImageResult;
-import com.xshengcn.diycode.ui.iview.IReplyView;
-import com.xshengcn.diycode.ui.presenter.ReplyPresenter;
+import com.xshengcn.diycode.ui.ActivityNavigator;
+import com.xshengcn.diycode.ui.iview.ITopicComment;
+import com.xshengcn.diycode.ui.presenter.TopicCommentPresenter;
 import com.xshengcn.diycode.util.MarkdownUtils;
+import com.xshengcn.diycode.util.MarkdownUtils.CategoryCallback;
 import com.xshengcn.diycode.util.TextWatcherAdapter;
 
 import javax.inject.Inject;
@@ -37,11 +39,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class ReplyActivity extends BaseActivity
-        implements IReplyView, PopupMenu.OnMenuItemClickListener {
+public class TopicCommentActivity extends BaseActivity
+        implements ITopicComment, CategoryCallback {
 
-    private static final String EXTRA_ID = "ReplyActivity.mId";
-    private static final String EXTRA_TITLE = "ReplyActivity.title";
+    private static final String EXTRA_ID = "TopicCommentActivity.mId";
+    private static final String EXTRA_TITLE = "TopicCommentActivity.title";
     private static final int PICK_IMAGE = 0;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -79,18 +81,21 @@ public class ReplyActivity extends BaseActivity
     String linkTitleNotEmpty;
 
     @Inject
-    ReplyPresenter presenter;
+    TopicCommentPresenter mPresenter;
+    @Inject
+    ActivityNavigator mNavigator;
 
     private AlertDialog mLinkDialog;
     private View mDialogView;
     private ProgressDialog mUploadImageDialog;
+    private ProgressDialog mCommentDialog;
     private PopupMenu mCodeCategoryPopup;
     private int mId;
     private String mTitle;
     private boolean mMenuEnable = false;
 
     public static void start(Activity activity, String title, int id) {
-        Intent intent = new Intent(activity, ReplyActivity.class);
+        Intent intent = new Intent(activity, TopicCommentActivity.class);
         intent.putExtra(EXTRA_TITLE, title);
         intent.putExtra(EXTRA_ID, id);
         activity.startActivity(intent);
@@ -105,12 +110,13 @@ public class ReplyActivity extends BaseActivity
 
         mId = getIntent().getIntExtra(EXTRA_ID, -1);
         mTitle = getIntent().getStringExtra(EXTRA_TITLE);
+        toolbar.setTitle(R.string.comment);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         titleView.setText(mTitle);
-        presenter.onAttach(this);
+        mPresenter.onAttach(this);
     }
 
     @Override
@@ -132,12 +138,14 @@ public class ReplyActivity extends BaseActivity
     @OnClick(R.id.code)
     public void showCodePopup(View v) {
         if (mCodeCategoryPopup == null) {
-            mCodeCategoryPopup = new PopupMenu(this, v);
-            mCodeCategoryPopup.setOnMenuItemClickListener(this);
-            mCodeCategoryPopup.inflate(R.menu.menu_code_category_popup);
+            mCodeCategoryPopup = MarkdownUtils.createCodePopupMenu(this, v, this);
         }
-
         mCodeCategoryPopup.show();
+    }
+
+    @Override
+    public void clickCategory(String codeCategory) {
+        MarkdownUtils.addCode(editText, codeCategory);
     }
 
     @SuppressLint("InflateParams")
@@ -177,7 +185,7 @@ public class ReplyActivity extends BaseActivity
                     .create();
             mLinkDialog.setOnShowListener(dialog -> {
                 Button positive = mLinkDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(ReplyActivity.this::insertLink);
+                positive.setOnClickListener(TopicCommentActivity.this::insertLink);
             });
         }
 
@@ -204,7 +212,7 @@ public class ReplyActivity extends BaseActivity
 
     @OnClick(R.id.pre_view)
     public void clickPreView(View v) {
-        MarkdownPreviewActivity.start(ReplyActivity.this, editText.getText().toString());
+        mNavigator.showPreView(getBody());
     }
 
     @OnTextChanged(R.id.edit_text)
@@ -222,7 +230,7 @@ public class ReplyActivity extends BaseActivity
         switch (requestCode) {
             case PICK_IMAGE:
                 if (resultCode == RESULT_OK && data != null) {
-                    presenter.handlerImagePick(data.getData());
+                    mPresenter.handlerImagePick(data.getData());
                 }
                 break;
         }
@@ -249,7 +257,7 @@ public class ReplyActivity extends BaseActivity
                 super.onBackPressed();
                 break;
             case R.id.action_send:
-                presenter.sendReply();
+                mPresenter.publishComment();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -261,13 +269,16 @@ public class ReplyActivity extends BaseActivity
             mUploadImageDialog = new ProgressDialog(this);
             mUploadImageDialog.setCanceledOnTouchOutside(false);
             mUploadImageDialog.setMessage("正在上传图片");
+            mUploadImageDialog.setOnCancelListener(dialog -> mPresenter.cancelUploadImage());
         }
         mUploadImageDialog.show();
     }
 
     @Override
     public void hideUploadDialog() {
-        mUploadImageDialog.dismiss();
+        if (mUploadImageDialog != null) {
+            mUploadImageDialog.dismiss();
+        }
     }
 
     @Override
@@ -291,51 +302,30 @@ public class ReplyActivity extends BaseActivity
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        String s;
-        switch (item.getItemId()) {
-            case R.id.action_ruby:
-                s = "ruby";
-                break;
-            case R.id.action_html_erb:
-                s = "erb";
-                break;
-            case R.id.action_css_scss:
-                s = "scss";
-                break;
-            case R.id.action_javascript:
-                s = "js";
-                break;
-            case R.id.action_yaml:
-                s = "yml";
-                break;
-            case R.id.action_coffeescript:
-                s = "coffee";
-                break;
-            case R.id.action_nginx_redis:
-                s = "conf";
-                break;
-            case R.id.action_python:
-                s = "python";
-                break;
-            case R.id.action_php:
-                s = "php";
-                break;
-            case R.id.action_java:
-                s = "java";
-                break;
-            case R.id.action_erlang:
-                s = "erlang";
-                break;
-            case R.id.action_shell_bash:
-                s = "shell";
-                break;
-            default:
-                s = "java";
-                break;
+    public void showCommentDialog() {
+        if (mCommentDialog == null) {
+            mCommentDialog = new ProgressDialog(this);
+            mCommentDialog.setCanceledOnTouchOutside(false);
+            mCommentDialog.setMessage("正在发表评论");
+            mCommentDialog.setOnCancelListener(dialog -> mPresenter.cancelComment());
         }
+        mCommentDialog.show();
+    }
 
-        MarkdownUtils.addCode(editText, s);
-        return false;
+    @Override
+    public void hideCommentDialog() {
+        if (mCommentDialog != null) {
+            mCommentDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void closeActivity() {
+        this.finish();
+    }
+
+    @Override
+    public void showCommentFailed() {
+        Toast.makeText(this, "发表评论失败", Toast.LENGTH_SHORT).show();
     }
 }

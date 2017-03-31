@@ -95,7 +95,7 @@ public class TopicDetailActivity extends BaseActivity
         getComponent().inject(this);
 
         mTopic = getIntent().getParcelableExtra(EXTRA_TOPIC);
-
+        toolbar.setTitle(R.string.topic);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.addItemDecoration(
