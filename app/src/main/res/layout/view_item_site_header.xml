@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:gravity="center_vertical"
+    android:background="@color/colorDivider"
     android:orientation="vertical"
     android:paddingLeft="@dimen/spacing"
     android:paddingRight="@dimen/spacing"
