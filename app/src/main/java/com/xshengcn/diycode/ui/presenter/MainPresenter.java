@@ -47,6 +47,14 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
         checkUser();
         loadNotificationCount();
+        updateUserDetail();
+
+    }
+
+    private void updateUserDetail() {
+        if (mPreferencesHelper.getToken() != null) {
+            addDisposable(mDataManager.getMe().doOnNext(mPreferencesHelper::setUser).subscribe());
+        }
     }
 
     private void loadNotificationCount() {

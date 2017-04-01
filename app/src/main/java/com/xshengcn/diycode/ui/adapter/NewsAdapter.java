@@ -69,7 +69,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             holder.date.setText(DateUtils.computePastTime(mContext, news.createdAt));
         }
 
-        Glide.with(mContext).load(news.user.avatarUrl).into(holder.avatar);
+        Glide.with(mContext).load(news.user.avatarUrl.replace("large_avatar", "avatar"))
+                .into(holder.avatar);
         holder.itemView.setOnClickListener(v -> {
             if (mOnItemClickListener != null) {
                 mOnItemClickListener.clickItem(news, position);

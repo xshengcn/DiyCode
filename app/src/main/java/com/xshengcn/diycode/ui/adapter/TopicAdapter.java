@@ -50,7 +50,8 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Topic topic = mTopics.get(position);
 
-        Glide.with(mContext).load(topic.user.avatarUrl).into(holder.avatar);
+        Glide.with(mContext).load(topic.user.avatarUrl.replace("large_avatar", "avatar"))
+                .into(holder.avatar);
         holder.name.setText(topic.user.login);
         holder.node.setText(topic.nodeName);
         holder.title.setText(topic.title);

@@ -53,7 +53,8 @@ public class UserReplyAdapter extends RecyclerView.Adapter<UserReplyAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserReply reply = mUserReplies.get(position);
-        Glide.with(mContext).load(reply.user.avatarUrl).into(holder.avatar);
+        Glide.with(mContext).load(reply.user.avatarUrl.replace("large_avatar", "avatar"))
+                .into(holder.avatar);
         holder.name.setText(reply.user.login);
         if (reply.updatedAt != null) {
             holder.date.setText(DateUtils.computePastTime(mContext, reply.updatedAt));
