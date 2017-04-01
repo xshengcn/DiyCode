@@ -1,11 +1,8 @@
 package com.xshengcn.diycode.ui.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,16 +11,14 @@ import android.view.ViewGroup;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.model.news.News;
 import com.xshengcn.diycode.data.model.project.Project;
-import com.xshengcn.diycode.ui.adapter.NewsAdapter;
 import com.xshengcn.diycode.ui.adapter.ProjectAdapter;
 import com.xshengcn.diycode.ui.iview.IProjectView;
 import com.xshengcn.diycode.ui.presenter.ProjectPresenter;
 import com.xshengcn.diycode.ui.widget.itemdecoration.OffsetDecoration;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreWrapper;
-import com.xshengcn.diycode.util.customtabs.CustomTabActivityHelper;
+import com.xshengcn.diycode.util.BrowserUtil;
 
 import java.util.List;
 
@@ -34,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProjectFragment extends BaseFragment
-        implements IProjectView, NewsAdapter.OnItemClickListener, LoadMoreHandler {
+        implements IProjectView, ProjectAdapter.OnItemClickListener, LoadMoreHandler {
 
     private static final String BUNDLE_PROJECT = "ProjectFragment.project";
 
@@ -79,6 +74,7 @@ public class ProjectFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(presenter::onRefresh);
         recyclerView.setPadding(0, space, 0, space);
         recyclerView.addItemDecoration(new OffsetDecoration(space, space, 0, 0));
+        adapter.setOnItemClickListener(this);
         mWrapper = new LoadMoreWrapper(this, adapter);
         recyclerView.setAdapter(mWrapper);
         presenter.onAttach(this);
@@ -97,26 +93,6 @@ public class ProjectFragment extends BaseFragment
         getComponent().inject(this);
     }
 
-    @Override
-    public void clickItem(News news, int position) {
-        //NewsDetailActivity.start(getActivity(), news);
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        builder.setToolbarColor(Color.WHITE);
-        builder.setShowTitle(true);
-
-        CustomTabActivityHelper.openCustomTab(
-                getActivity(), builder.build(), Uri.parse(news.address), null);
-    }
-
-    @Override
-    public void clickThumbUp(News news, int position) {
-
-    }
-
-    @Override
-    public void clickFavorite(News news, int position) {
-
-    }
 
     @Override
     public void showProjects(List<Project> projects, boolean clean) {
@@ -179,5 +155,10 @@ public class ProjectFragment extends BaseFragment
     @Override
     public void loadMore() {
         presenter.loadMore();
+    }
+
+    @Override
+    public void clickItem(String url) {
+        BrowserUtil.openUrl(getActivity(), url);
     }
 }

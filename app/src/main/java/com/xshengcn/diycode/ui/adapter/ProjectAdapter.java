@@ -26,11 +26,17 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
 
     private final ArrayList<Project> mProjects;
     private final Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     @Inject
     public ProjectAdapter(Context context) {
         this.mContext = context;
         mProjects = new ArrayList<>();
+    }
+
+    public void setOnItemClickListener(
+            OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -49,6 +55,11 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         holder.date.setText(DateUtils.computePastTime(mContext, project.lastUpdatedAt));
         holder.title.setText(project.name);
         holder.description.setText(project.description);
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.clickItem(project.github);
+            }
+        });
     }
 
     @Override
@@ -68,6 +79,12 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     public ArrayList<Project> getProjects() {
         return mProjects;
     }
+
+    public interface OnItemClickListener {
+
+        void clickItem(String url);
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
