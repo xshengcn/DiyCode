@@ -15,8 +15,8 @@ import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicAndComments;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.adapter.TopicDetailAdapter;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
@@ -126,25 +126,25 @@ public class TopicDetailActivity extends BaseActivity
     }
 
     @Override
-    public void showTopicAndReplies(TopicAndComments topicAndComments) {
+    public void showTopicAndReplies(TopicAndReplies topicAndReplies) {
         stateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
         mWrapper.hideFooter();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        adapter.getTopicAndComments().comments.clear();
-        adapter.setTopicContent(topicAndComments.detail);
-        adapter.addReplies(topicAndComments.comments);
+        adapter.getTopicAndReplies().replies.clear();
+        adapter.setTopicContent(topicAndReplies.detail);
+        adapter.addReplies(topicAndReplies.replies);
         mWrapper.notifyDataSetChanged();
     }
 
     @Override
     public int getItemOffset() {
-        return adapter.getTopicAndComments().comments.size();
+        return adapter.getTopicAndReplies().replies.size();
     }
 
     @Override
-    public void showMoreReplies(List<TopicComment> topicReplies) {
+    public void showMoreReplies(List<TopicReply> topicReplies) {
         mWrapper.hideFooter();
         int start = adapter.getItemCount();
         adapter.addReplies(topicReplies);
@@ -206,8 +206,8 @@ public class TopicDetailActivity extends BaseActivity
 
     @Override
     public boolean canLoadMore() {
-        TopicAndComments details = adapter.getTopicAndComments();
-        return details.detail.repliesCount > details.comments.size()
+        TopicAndReplies details = adapter.getTopicAndReplies();
+        return details.detail.repliesCount > details.replies.size()
                 && !swipeRefreshLayout.isRefreshing();
     }
 

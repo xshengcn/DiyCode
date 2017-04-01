@@ -15,6 +15,7 @@ import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.data.model.user.UserReply;
 import com.xshengcn.diycode.util.DateUtils;
+import com.xshengcn.diycode.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +68,7 @@ public class UserReplyAdapter extends RecyclerView.Adapter<UserReplyAdapter.View
 
         holder.title.setText(reply.topicTitle);
         holder.body.setText(Html.fromHtml(reply.body));
+        HtmlUtils.parseHtmlAndSetText(reply.bodyHtml, holder.body, null);
     }
 
     @Override

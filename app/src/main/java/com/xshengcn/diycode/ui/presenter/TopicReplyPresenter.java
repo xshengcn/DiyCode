@@ -5,8 +5,8 @@ import android.net.Uri;
 
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.model.ImageResult;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
-import com.xshengcn.diycode.ui.iview.ITopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
+import com.xshengcn.diycode.ui.iview.ITopicReplyView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,32 +21,32 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class TopicCommentPresenter extends BasePresenter<ITopicComment> {
+public class TopicReplyPresenter extends BasePresenter<ITopicReplyView> {
 
     private final DataManager mDataManager;
     private final Context mContext;
 
     @Inject
-    public TopicCommentPresenter(DataManager dataManager, Context context) {
+    public TopicReplyPresenter(DataManager dataManager, Context context) {
         this.mDataManager = dataManager;
         this.mContext = context;
     }
 
     public void publishComment() {
-        final ITopicComment view = getView();
+        final ITopicReplyView view = getView();
         view.showCommentDialog();
         mDataManager.publishComment(view.getId(), view.getBody())
                 .subscribe(this::commentSuccess, this::commentFailed);
     }
 
-    private void commentSuccess(TopicComment topicComment) {
-        final ITopicComment view = getView();
+    private void commentSuccess(TopicReply topicReply) {
+        final ITopicReplyView view = getView();
         view.hideCommentDialog();
         view.closeActivity();
     }
 
     private void commentFailed(Throwable throwable) {
-        final ITopicComment view = getView();
+        final ITopicReplyView view = getView();
         view.hideCommentDialog();
         view.showCommentFailed();
 
@@ -59,7 +59,7 @@ public class TopicCommentPresenter extends BasePresenter<ITopicComment> {
 
 
     public void handlerImagePick(Uri data) {
-        final ITopicComment view = getView();
+        final ITopicReplyView view = getView();
         view.showUploadDialog();
         Disposable d = cacheImageFromContentResolver(data).flatMap(
                 new Function<String, ObservableSource<ImageResult>>() {

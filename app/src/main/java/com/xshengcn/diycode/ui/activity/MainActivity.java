@@ -133,10 +133,11 @@ public class MainActivity extends BaseActivity
     private void clickNavHeader(View view) {
         mDrawerLayout.closeDrawers();
         mDisposable.clear();
-        mDisposable.add(Observable.just("")
-                .subscribeOn(Schedulers.single())
-                .delay(200, TimeUnit.MILLISECONDS)
-                .subscribe(s -> mNavigator.showUser()));
+        // TODO 跳转到用户界面
+//        mDisposable.add(Observable.just("")
+//                .subscribeOn(Schedulers.single())
+//                .delay(200, TimeUnit.MILLISECONDS)
+//                .subscribe(s -> mNavigator.showUser()));
     }
 
     private void clickFabMenu(View view) {

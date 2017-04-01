@@ -11,9 +11,9 @@ import com.xshengcn.diycode.ui.activity.MarkdownPreviewActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
 import com.xshengcn.diycode.ui.activity.SearchActivity;
 import com.xshengcn.diycode.ui.activity.SiteActivity;
-import com.xshengcn.diycode.ui.activity.TopicCommentActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
+import com.xshengcn.diycode.ui.activity.TopicReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
@@ -87,7 +87,7 @@ public final class ActivityNavigator {
             showLogin();
             return;
         }
-        TopicCommentActivity.start(mActivity, title, id);
+        TopicReplyActivity.start(mActivity, title, id);
     }
 
     public void showCreateTopic() {

@@ -2,7 +2,7 @@ package com.xshengcn.diycode.ui.iview;
 
 import com.xshengcn.diycode.data.model.ImageResult;
 
-public interface ITopicComment {
+public interface ITopicReplyView {
 
     void showUploadDialog();
 

@@ -2,8 +2,8 @@ package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicAndComments;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ public interface ITopicDetailView {
 
     Topic getTopic();
 
-    void showTopicAndReplies(TopicAndComments topicAndComments);
+    void showTopicAndReplies(TopicAndReplies topicAndReplies);
 
     int getItemOffset();
 
-    void showMoreReplies(List<TopicComment> topicReplies);
+    void showMoreReplies(List<TopicReply> topicReplies);
 
     void showLoadMoreFailed();
 

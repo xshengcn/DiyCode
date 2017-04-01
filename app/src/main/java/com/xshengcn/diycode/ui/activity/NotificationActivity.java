@@ -8,7 +8,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kennyc.view.MultiStateView;
@@ -17,7 +16,7 @@ import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.ui.adapter.NotificationAdapter;
 import com.xshengcn.diycode.ui.iview.INotificationView;
 import com.xshengcn.diycode.ui.presenter.NotificationPresenter;
-import com.xshengcn.diycode.ui.widget.itemdecoration.OffsetDecoration;
+import com.xshengcn.diycode.ui.widget.itemdecoration.InsetDividerDecoration;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreWrapper;
 
@@ -25,6 +24,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -45,12 +45,14 @@ public class NotificationActivity
     @BindView(R.id.state_view)
     MultiStateView stateView;
 
-    @BindDimen(R.dimen.spacing_xsmall)
-    int space;
     @BindString(R.string.my_topics)
     String myTopics;
     @BindString(R.string.user_topics)
     String userTopics;
+    @BindColor(R.color.colorDivider)
+    int dividerColor;
+    @BindDimen(R.dimen.divider)
+    int divider;
 
     @Inject
     NotificationPresenter presenter;
@@ -70,26 +72,19 @@ public class NotificationActivity
         ButterKnife.bind(this);
         getComponent().inject(this);
 
+        toolbar.setTitle(R.string.menu_notification);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         swipeRefreshLayout.setOnRefreshListener(presenter::onRefresh);
-        recyclerView.setPadding(0, space, 0, space);
         mWrapper = new LoadMoreWrapper(this, adapter);
-        recyclerView.addItemDecoration(new OffsetDecoration(space, space, 0, 0));
+        recyclerView.addItemDecoration(
+                new InsetDividerDecoration(NotificationAdapter.ViewHolder.class, divider, 0,
+                        dividerColor));
         recyclerView.setAdapter(mWrapper);
         presenter.onAttach(this);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                super.onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onDestroy() {

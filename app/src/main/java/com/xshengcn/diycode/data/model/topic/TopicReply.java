@@ -7,7 +7,7 @@ import com.xshengcn.diycode.data.model.common.User;
 
 import java.util.Date;
 
-public class TopicComment {
+public class TopicReply {
 
     @SerializedName("id")
     public int id;

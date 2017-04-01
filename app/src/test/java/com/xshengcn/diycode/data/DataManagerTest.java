@@ -7,7 +7,7 @@ import com.xshengcn.diycode.data.model.news.NewsReply;
 import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.site.SiteListItem;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
@@ -178,7 +178,7 @@ public class DataManagerTest {
 
     @Test
     public void getTopicReplies() throws Exception {
-        TestObserver<List<TopicComment>> testObserver = mDataManager.getTopicReplies(4, 0).test()
+        TestObserver<List<TopicReply>> testObserver = mDataManager.getTopicReplies(4, 0).test()
                 .await();
         testObserver.assertNoErrors();
         testObserver.assertComplete();
@@ -186,7 +186,7 @@ public class DataManagerTest {
 
     @Test
     public void sendReply() throws Exception {
-        TestObserver<TopicComment> testObserver = mDataManager.publishComment(4, "body").test()
+        TestObserver<TopicReply> testObserver = mDataManager.publishComment(4, "body").test()
                 .await();
         testObserver.assertError(HttpException.class);
         testObserver.assertNotComplete();

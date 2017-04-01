@@ -9,7 +9,7 @@ import com.xshengcn.diycode.data.model.news.Node;
 import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.site.SiteCollection;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.user.Notification;
@@ -113,14 +113,14 @@ public interface DiyCodeService {
             @Path(Params.ID) Integer id);
 
     @GET("topics/{id}/replies.json")
-    Observable<List<TopicComment>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
+    Observable<List<TopicReply>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @POST("topics/{id}/replies.json")
     @FormUrlEncoded
-    Observable<TopicComment> publishComment(@Header(Params.AUTHORIZATION) String header,
+    Observable<TopicReply> publishComment(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Field(Params.BODY) String body);
 

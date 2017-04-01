@@ -20,8 +20,8 @@ import com.xshengcn.diycode.data.model.site.SiteHeaderItem;
 import com.xshengcn.diycode.data.model.site.SiteItem;
 import com.xshengcn.diycode.data.model.site.SiteListItem;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicAndComments;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
@@ -140,22 +140,22 @@ public class DataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable<TopicAndComments> getTopicAndComments(int topicId) {
+    public Observable<TopicAndReplies> getTopicAndComments(int topicId) {
         Observable<TopicDetail> topicObservable = getTopicDetail(topicId);
-        Observable<List<TopicComment>> reliesObservable = getTopicReplies(topicId, 0);
-        return Observable.zip(topicObservable, reliesObservable, TopicAndComments::new);
+        Observable<List<TopicReply>> reliesObservable = getTopicReplies(topicId, 0);
+        return Observable.zip(topicObservable, reliesObservable, TopicAndReplies::new);
     }
 
     public Observable<TopicDetail> getTopicDetail(int id) {
         return mService.getTopicDetail(buildAuthorization(), id).compose(applySchedulers());
     }
 
-    public Observable<List<TopicComment>> getTopicReplies(int topicId, int offset) {
+    public Observable<List<TopicReply>> getTopicReplies(int topicId, int offset) {
         return mService.getTopicReplies(buildAuthorization(), topicId, offset, PAGE_LIMIT)
                 .compose(applySchedulers());
     }
 
-    public Observable<TopicComment> publishComment(int id, String body) {
+    public Observable<TopicReply> publishComment(int id, String body) {
         return mService.publishComment(buildAuthorization(), id, body).compose(applySchedulers());
     }
 

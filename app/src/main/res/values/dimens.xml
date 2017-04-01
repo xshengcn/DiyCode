@@ -14,10 +14,11 @@
 
 
     <dimen name="nav_header_height">180dp</dimen>
+    <dimen name="header_size_large">40dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tab_height">48dp</dimen>
-    <dimen name="divider">1dp</dimen>
+    <dimen name="divider">1px</dimen>
 </resources>

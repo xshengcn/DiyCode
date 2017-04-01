@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.model.topic.TopicAndComments;
+import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.util.DateUtils;
 import com.xshengcn.diycode.util.DensityUtil;
 import com.xshengcn.diycode.util.HtmlUtils;
@@ -34,7 +34,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     private final Context mContext;
     private final int mImgMaxWidth;
-    private final TopicAndComments mTopicAndComments;
+    private final TopicAndReplies mTopicAndReplies;
     private HtmlUtils.Callback mCallback;
     private OnHeaderClickListener mOnHeaderClickListener;
 
@@ -43,8 +43,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         this.mContext = context;
         int margin = DensityUtil.dp2px(context, 16 * 2);
         mImgMaxWidth = DensityUtil.getScreenWidth(context) - margin;
-        mTopicAndComments = new TopicAndComments();
-        mTopicAndComments.comments = new ArrayList<>();
+        mTopicAndReplies = new TopicAndReplies();
+        mTopicAndReplies.replies = new ArrayList<>();
     }
 
     public void setOnHeaderClickListener(OnHeaderClickListener onHeaderClickListener) {
@@ -55,29 +55,29 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         this.mCallback = callBack;
     }
 
-    public TopicAndComments getTopicAndComments() {
-        return mTopicAndComments;
+    public TopicAndReplies getTopicAndReplies() {
+        return mTopicAndReplies;
     }
 
     public TopicDetail getTopicContent() {
-        return mTopicAndComments.detail;
+        return mTopicAndReplies.detail;
     }
 
     public void setTopicContent(TopicDetail content) {
-        this.mTopicAndComments.detail = content;
+        this.mTopicAndReplies.detail = content;
     }
 
-    public void addReplies(List<TopicComment> replies) {
-        mTopicAndComments.comments.addAll(replies);
+    public void addReplies(List<TopicReply> replies) {
+        mTopicAndReplies.replies.addAll(replies);
     }
 
-    public List<TopicComment> getTopicReplies() {
-        return mTopicAndComments.comments;
+    public List<TopicReply> getTopicReplies() {
+        return mTopicAndReplies.replies;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mTopicAndComments.detail != null && position == 0) {
+        if (mTopicAndReplies.detail != null && position == 0) {
             return TYPE_TOPIC_HEADER;
         } else {
             return TYPE_TOPIC_ITEM;
@@ -100,14 +100,14 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_TOPIC_HEADER) {
-            bindHeaderViewHolder((HeaderViewHolder) holder, mTopicAndComments.detail);
+            bindHeaderViewHolder((HeaderViewHolder) holder, mTopicAndReplies.detail);
         } else if (getItemViewType(position) == TYPE_TOPIC_ITEM) {
-            TopicComment reply = mTopicAndComments.comments.get(position - 1);
+            TopicReply reply = mTopicAndReplies.replies.get(position - 1);
             bindItemViewHolder((ViewHolder) holder, reply, position);
         }
     }
 
-    private void bindItemViewHolder(ViewHolder holder, TopicComment reply, int position) {
+    private void bindItemViewHolder(ViewHolder holder, TopicReply reply, int position) {
         Glide.with(mContext).load(reply.user.avatarUrl).into(holder.avatar);
         holder.name.setText(reply.user.login);
         holder.floor.setText(
@@ -156,12 +156,12 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (mTopicAndComments == null) {
+        if (mTopicAndReplies == null) {
             return 0;
-        } else if (mTopicAndComments.detail == null) {
-            return mTopicAndComments.comments == null ? 0 : mTopicAndComments.comments.size();
+        } else if (mTopicAndReplies.detail == null) {
+            return mTopicAndReplies.replies == null ? 0 : mTopicAndReplies.replies.size();
         } else {
-            return mTopicAndComments.comments == null ? 1 : 1 + mTopicAndComments.comments.size();
+            return mTopicAndReplies.replies == null ? 1 : 1 + mTopicAndReplies.replies.size();
         }
     }
 

@@ -2,8 +2,8 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.model.topic.TopicAndComments;
-import com.xshengcn.diycode.data.model.topic.TopicComment;
+import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
 
 import java.util.List;
@@ -33,11 +33,11 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     }
 
 
-    private void loadTopicAndRepliesNext(TopicAndComments topicAndComments) {
+    private void loadTopicAndRepliesNext(TopicAndReplies topicAndReplies) {
         final ITopicDetailView view = getView();
-        view.showTopicAndReplies(topicAndComments);
-        if (topicAndComments.comments.isEmpty()
-                || topicAndComments.comments.size() < DataManager.PAGE_LIMIT) {
+        view.showTopicAndReplies(topicAndReplies);
+        if (topicAndReplies.replies.isEmpty()
+                || topicAndReplies.replies.size() < DataManager.PAGE_LIMIT) {
             view.showLoadNoMore();
         }
     }
@@ -64,7 +64,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
         view.showLoadMoreFailed();
     }
 
-    private void loadMoreRepliesNext(List<TopicComment> replies) {
+    private void loadMoreRepliesNext(List<TopicReply> replies) {
         final ITopicDetailView view = getView();
         if (replies == null || replies.isEmpty()) {
             view.showLoadNoMore();

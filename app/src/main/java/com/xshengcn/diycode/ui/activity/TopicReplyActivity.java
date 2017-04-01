@@ -25,8 +25,8 @@ import android.widget.Toast;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.ImageResult;
 import com.xshengcn.diycode.ui.ActivityNavigator;
-import com.xshengcn.diycode.ui.iview.ITopicComment;
-import com.xshengcn.diycode.ui.presenter.TopicCommentPresenter;
+import com.xshengcn.diycode.ui.iview.ITopicReplyView;
+import com.xshengcn.diycode.ui.presenter.TopicReplyPresenter;
 import com.xshengcn.diycode.util.MarkdownUtils;
 import com.xshengcn.diycode.util.MarkdownUtils.CategoryCallback;
 import com.xshengcn.diycode.util.TextWatcherAdapter;
@@ -39,8 +39,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class TopicCommentActivity extends BaseActivity
-        implements ITopicComment, CategoryCallback {
+public class TopicReplyActivity extends BaseActivity
+        implements ITopicReplyView, CategoryCallback {
 
     private static final String EXTRA_ID = "TopicCommentActivity.mId";
     private static final String EXTRA_TITLE = "TopicCommentActivity.title";
@@ -81,7 +81,7 @@ public class TopicCommentActivity extends BaseActivity
     String linkTitleNotEmpty;
 
     @Inject
-    TopicCommentPresenter mPresenter;
+    TopicReplyPresenter mPresenter;
     @Inject
     ActivityNavigator mNavigator;
 
@@ -95,7 +95,7 @@ public class TopicCommentActivity extends BaseActivity
     private boolean mMenuEnable = false;
 
     public static void start(Activity activity, String title, int id) {
-        Intent intent = new Intent(activity, TopicCommentActivity.class);
+        Intent intent = new Intent(activity, TopicReplyActivity.class);
         intent.putExtra(EXTRA_TITLE, title);
         intent.putExtra(EXTRA_ID, id);
         activity.startActivity(intent);
@@ -185,7 +185,7 @@ public class TopicCommentActivity extends BaseActivity
                     .create();
             mLinkDialog.setOnShowListener(dialog -> {
                 Button positive = mLinkDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(TopicCommentActivity.this::insertLink);
+                positive.setOnClickListener(TopicReplyActivity.this::insertLink);
             });
         }
 
