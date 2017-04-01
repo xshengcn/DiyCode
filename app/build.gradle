@@ -44,6 +44,7 @@ android {
         }
 
         release {
+            versionNameSuffix "-BETA"
             minifyEnabled true
             shrinkResources true
             signingConfig signingConfigs.release
