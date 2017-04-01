@@ -43,6 +43,7 @@
     <string name="years_ago">{0}年前</string>
     <string name="comment">评论</string>
     <string name="create_topic">发布新话题</string>
+    <string name="clear_all_notification">清除所有通知</string>
 
     <string-array name="main_tabs">
         <item>topics</item>

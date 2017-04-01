@@ -14,7 +14,6 @@ import com.xshengcn.diycode.ui.activity.SiteActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.TopicReplyActivity;
-import com.xshengcn.diycode.ui.activity.UserActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserTopicActivity;
@@ -63,7 +62,8 @@ public final class ActivityNavigator {
             showLogin();
             return;
         }
-        UserActivity.start(mActivity);
+        // TODO 完善个人页面
+        // UserActivity.start(mActivity);
     }
 
     public void showLogin() {
