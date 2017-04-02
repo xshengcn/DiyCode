@@ -1,7 +1,6 @@
 package com.xshengcn.diycode.ui.iview;
 
 import com.kennyc.view.MultiStateView;
-import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
 import com.xshengcn.diycode.data.model.topic.TopicReply;
 
@@ -10,7 +9,9 @@ import java.util.List;
 public interface ITopicDetailView {
 
 
-    Topic getTopic();
+    int getTopicId();
+
+    String getTopicTitle();
 
     void showTopicAndReplies(TopicAndReplies topicAndReplies);
 

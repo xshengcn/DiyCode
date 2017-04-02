@@ -38,49 +38,61 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/divider"
         android:background="@color/colorDivider"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        android:gravity="center_vertical|end"
+        android:gravity="center_vertical"
         android:paddingLeft="@dimen/spacing"
         android:paddingRight="@dimen/spacing">
 
         <ImageView
+            android:id="@+id/help"
+            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/reply_icon_size"
+            android:layout_height="@dimen/reply_icon_size"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_help_gray"/>
+
+        <ImageView
             android:id="@+id/image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_toLeftOf="@+id/code"
+            android:layout_width="@dimen/reply_icon_size"
+            android:layout_height="@dimen/reply_icon_size"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_image_gray"/>
 
         <ImageView
             android:id="@+id/code"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_toLeftOf="@+id/link"
+            android:layout_width="@dimen/reply_icon_size"
+            android:layout_height="@dimen/reply_icon_size"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_code_gray"/>
 
         <ImageView
             android:id="@+id/link"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_toLeftOf="@+id/pre_view"
+            android:layout_width="@dimen/reply_icon_size"
+            android:layout_height="@dimen/reply_icon_size"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_link_gray"/>
 
         <ImageView
+            android:layout_alignParentRight="true"
             android:id="@+id/pre_view"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/reply_icon_size"
+            android:layout_height="@dimen/reply_icon_size"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_preview_gray"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

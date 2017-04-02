@@ -38,7 +38,7 @@ public class MarkdownPreviewActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_markdown_preview);
+        setContentView(R.layout.activity_markdown);
         ButterKnife.bind(this);
 
         mMarkdownText = getIntent().getStringExtra(EXTRA_CONTENT);

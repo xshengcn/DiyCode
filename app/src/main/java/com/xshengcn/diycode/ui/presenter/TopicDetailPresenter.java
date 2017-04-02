@@ -28,7 +28,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
         }
 
-        addDisposable(mDataManager.getTopicAndComments(getView().getTopic().id)
+        addDisposable(mDataManager.getTopicAndComments(view.getTopicId())
                 .subscribe(this::loadTopicAndRepliesNext, this::loadTopicAndRepliesError));
     }
 
@@ -54,7 +54,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     public void loadMoreReplies() {
         final ITopicDetailView view = getView();
         Disposable disposable =
-                mDataManager.getTopicReplies(view.getTopic().id, view.getItemOffset())
+                mDataManager.getTopicReplies(view.getTopicId(), view.getItemOffset())
                         .subscribe(this::loadMoreRepliesNext, this::loadMoreRepliesError);
         addDisposable(disposable);
     }

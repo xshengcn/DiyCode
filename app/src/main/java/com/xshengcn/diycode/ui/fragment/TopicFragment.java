@@ -160,7 +160,7 @@ public class TopicFragment extends BaseFragment
 
     @Override
     public void clickItem(Topic topic, int position) {
-        navigator.showTopicDetail(topic);
+        navigator.showTopicDetail(topic.id, topic.title);
     }
 
     @Override

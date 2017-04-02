@@ -35,7 +35,7 @@
 
             <meta-data
                 android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
+                android:resource="@xml/shortcuts"/>
         </activity>
 
         <activity
@@ -56,7 +56,7 @@
         <activity
             android:name=".ui.activity.TopicDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".ui.activity.LoginActivity"
@@ -103,6 +103,10 @@
             android:name=".ui.activity.MarkdownPreviewActivity"
             android:label="@string/preview"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ui.activity.MarkdownGuideActivity"
+            android:label="@string/markdown_guide"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

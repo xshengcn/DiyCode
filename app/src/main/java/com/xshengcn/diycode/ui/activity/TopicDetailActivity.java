@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
 import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.ui.ActivityNavigator;
@@ -39,7 +39,8 @@ import butterknife.ButterKnife;
 public class TopicDetailActivity extends BaseActivity
         implements ITopicDetailView, HtmlUtils.Callback, LoadMoreHandler {
 
-    private static final String EXTRA_TOPIC = "TopicDetailActivity.topic";
+    private static final String EXTRA_TOPIC_ID = "TopicDetailActivity.topicId";
+    private static final String EXTRA_TOPIC_TITLE = "TopicDetailActivity.topicTitle";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.appbar_layout)
@@ -62,14 +63,15 @@ public class TopicDetailActivity extends BaseActivity
     int divider;
 
     @Inject
-    TopicDetailPresenter presenter;
+    TopicDetailPresenter mPresenter;
     @Inject
-    TopicDetailAdapter adapter;
+    TopicDetailAdapter mAdapter;
     @Inject
-    ActivityNavigator navigator;
+    ActivityNavigator mNavigator;
 
     private LoadMoreWrapper mWrapper;
-    private Topic mTopic;
+    private int mTopicId;
+    private String mTopicTitle;
 
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
         @Override
@@ -81,9 +83,10 @@ public class TopicDetailActivity extends BaseActivity
         }
     };
 
-    public static void start(Activity activity, Topic topic) {
+    public static void start(Activity activity, @NonNull int topicId, @NonNull String topicTitle) {
         Intent intent = new Intent(activity, TopicDetailActivity.class);
-        intent.putExtra(EXTRA_TOPIC, topic);
+        intent.putExtra(EXTRA_TOPIC_ID, topicId);
+        intent.putExtra(EXTRA_TOPIC_TITLE, topicTitle);
         activity.startActivity(intent);
     }
 
@@ -94,35 +97,41 @@ public class TopicDetailActivity extends BaseActivity
         ButterKnife.bind(this);
         getComponent().inject(this);
 
-        mTopic = getIntent().getParcelableExtra(EXTRA_TOPIC);
+        mTopicId = getIntent().getIntExtra(EXTRA_TOPIC_ID, -1);
+        mTopicTitle = getIntent().getStringExtra(EXTRA_TOPIC_TITLE);
         toolbar.setTitle(R.string.topic);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.addItemDecoration(
                 new InsetDividerDecoration(TopicDetailAdapter.ViewHolder.class,
                         divider, 0, colorDivider));
-        adapter.setContentCallBack(this);
-        adapter.setOnHeaderClickListener(user -> {
+        mAdapter.setContentCallBack(this);
+        mAdapter.setOnHeaderClickListener(user -> {
         });
-        mWrapper = new LoadMoreWrapper(this, adapter);
+        mWrapper = new LoadMoreWrapper(this, mAdapter);
         recyclerView.setAdapter(mWrapper);
-        swipeRefreshLayout.setOnRefreshListener(presenter::onRefresh);
-        fab.setOnClickListener(v -> navigator.showReply(getTopic().title, getTopic().id));
+        swipeRefreshLayout.setOnRefreshListener(mPresenter::onRefresh);
+        fab.setOnClickListener(v -> mNavigator.showReply(getTopicTitle(), getTopicId()));
         recyclerView.addOnScrollListener(mScrollListener);
-        presenter.onAttach(this);
-        presenter.onRefresh();
+        mPresenter.onAttach(this);
+        mPresenter.onRefresh();
+    }
+
+    @Override
+    public int getTopicId() {
+        return mTopicId;
+    }
+
+    @Override
+    public String getTopicTitle() {
+        return mTopicTitle;
     }
 
     @Override
     protected void onDestroy() {
         recyclerView.removeOnScrollListener(mScrollListener);
-        presenter.onDetach();
+        mPresenter.onDetach();
         super.onDestroy();
-    }
-
-    @Override
-    public Topic getTopic() {
-        return mTopic;
     }
 
     @Override
@@ -132,22 +141,22 @@ public class TopicDetailActivity extends BaseActivity
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        adapter.getTopicAndReplies().replies.clear();
-        adapter.setTopicContent(topicAndReplies.detail);
-        adapter.addReplies(topicAndReplies.replies);
+        mAdapter.getTopicAndReplies().replies.clear();
+        mAdapter.setTopicContent(topicAndReplies.detail);
+        mAdapter.addReplies(topicAndReplies.replies);
         mWrapper.notifyDataSetChanged();
     }
 
     @Override
     public int getItemOffset() {
-        return adapter.getTopicAndReplies().replies.size();
+        return mAdapter.getTopicAndReplies().replies.size();
     }
 
     @Override
     public void showMoreReplies(List<TopicReply> topicReplies) {
         mWrapper.hideFooter();
-        int start = adapter.getItemCount();
-        adapter.addReplies(topicReplies);
+        int start = mAdapter.getItemCount();
+        mAdapter.addReplies(topicReplies);
         mWrapper.notifyItemRangeInserted(start, topicReplies.size());
     }
 
@@ -187,9 +196,9 @@ public class TopicDetailActivity extends BaseActivity
                 Logger.e(e.getMessage());
             }
         } else if (url.startsWith("/")) {
-            navigator.showUser();
+            mNavigator.showUser();
         } else {
-            navigator.showWeb(url);
+            mNavigator.showWeb(url);
         }
     }
 
@@ -206,13 +215,13 @@ public class TopicDetailActivity extends BaseActivity
 
     @Override
     public boolean canLoadMore() {
-        TopicAndReplies details = adapter.getTopicAndReplies();
+        TopicAndReplies details = mAdapter.getTopicAndReplies();
         return details.detail.repliesCount > details.replies.size()
                 && !swipeRefreshLayout.isRefreshing();
     }
 
     @Override
     public void loadMore() {
-        presenter.loadMoreReplies();
+        mPresenter.loadMoreReplies();
     }
 }

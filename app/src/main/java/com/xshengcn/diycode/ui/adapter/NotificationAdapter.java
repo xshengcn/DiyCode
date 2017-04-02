@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.util.HtmlUtils;
@@ -50,23 +52,32 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         switch (notification.type) {
             case "TopicReply":
                 holder.title.setText(
-                        MessageFormat.format("{0} 在帖子{1}回复了:", notification.actor.login,
+                        MessageFormat.format(mContext.getString(R.string.notification_topic_reply),
+                                notification.actor.login,
                                 notification.reply.topicTitle));
                 HtmlUtils.parseHtmlAndSetText(notification.reply.bodyHtml, holder.body, null);
                 break;
             case "Follow":
                 holder.title.setText(notification.actor.login);
-                holder.body.setText("开始关注你了。");
+                holder.body.setText(R.string.notification_follow);
                 break;
             case "Mention":
-                holder.title.setText(notification.actor.login + " 提及你:");
+                holder.title.setText(MessageFormat
+                        .format(mContext.getString(R.string.notification_mention),
+                                notification.actor.login));
                 if (notification.mention != null) {
                     HtmlUtils.parseHtmlAndSetText(notification.mention.bodyHtml, holder.body, null);
                 } else {
-                    holder.body.setText("服务器返回了空的Mention。");
+                    holder.body.setText(R.string.notification_empty_mention);
                 }
                 break;
         }
+        holder.itemView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logger.d(notification);
+            }
+        });
     }
 
     @Override

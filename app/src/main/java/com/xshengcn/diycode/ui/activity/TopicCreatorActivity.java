@@ -35,6 +35,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
+import butterknife.Unbinder;
 
 public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorView {
 
@@ -66,6 +67,8 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
     @Inject
     ActivityNavigator mNavigator;
 
+    private Unbinder mUnbinder;
+
     private boolean mMenuEnable = false;
     private ProgressDialog mDialog;
     private Map<TopicNodeCategory, List<TopicNode>> mNodeMap;
@@ -81,7 +84,7 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_creator);
-        ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
         getComponent().inject(this);
 
         toolbar.setTitle(R.string.create_topic);
@@ -148,6 +151,14 @@ public class TopicCreatorActivity extends BaseActivity implements ITopicCreatorV
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
+        super.onDestroy();
     }
 
     @Override

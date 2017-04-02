@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.xshengcn.diycode.data.PreferencesHelper;
-import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
+import com.xshengcn.diycode.ui.activity.MarkdownGuideActivity;
 import com.xshengcn.diycode.ui.activity.MarkdownPreviewActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
 import com.xshengcn.diycode.ui.activity.SearchActivity;
@@ -102,8 +102,8 @@ public final class ActivityNavigator {
         SiteActivity.start(mActivity);
     }
 
-    public void showTopicDetail(@NonNull Topic topic) {
-        TopicDetailActivity.start(mActivity, topic);
+    public void showTopicDetail(@NonNull int topicId, @NonNull String topicTitle) {
+        TopicDetailActivity.start(mActivity, topicId, topicTitle);
     }
 
     public void showWeb(@NonNull String url) {
@@ -112,5 +112,9 @@ public final class ActivityNavigator {
 
     public void showPreView(@NonNull String markdown) {
         MarkdownPreviewActivity.start(mActivity, markdown);
+    }
+
+    public void showMarkdownHelper() {
+        MarkdownGuideActivity.start(mActivity);
     }
 }

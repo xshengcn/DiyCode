@@ -61,6 +61,8 @@ public class TopicReplyActivity extends BaseActivity
     ImageView code;
     @BindView(R.id.link)
     ImageView link;
+    @BindView(R.id.help)
+    ImageView help;
 
     @BindView(R.id.edit_link_title_wrapper)
     @Nullable
@@ -208,6 +210,11 @@ public class TopicReplyActivity extends BaseActivity
             MarkdownUtils.addLink(editText, editLinkTitle.getText().toString().trim(),
                     editLink.getText().toString().trim());
         }
+    }
+
+    @OnClick(R.id.help)
+    public void clickHelp(View view) {
+        mNavigator.showMarkdownHelper();
     }
 
     @OnClick(R.id.pre_view)

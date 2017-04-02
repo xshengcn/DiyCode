@@ -9,7 +9,6 @@ import android.support.v4.util.ArrayMap;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.xshengcn.diycode.BuildConfig;
-import com.xshengcn.diycode.Constants;
 import com.xshengcn.diycode.data.model.ImageResult;
 import com.xshengcn.diycode.data.model.Token;
 import com.xshengcn.diycode.data.model.news.News;
@@ -21,10 +20,10 @@ import com.xshengcn.diycode.data.model.site.SiteItem;
 import com.xshengcn.diycode.data.model.site.SiteListItem;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
 import com.xshengcn.diycode.data.model.topic.TopicNodeCategory;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.data.model.user.NotificationUnread;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -51,6 +50,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataManager {
+    private static final String GRANT_TYPE_PASSWORD = "password";
 
     public static final int PAGE_LIMIT = 30;
     public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS:SZ";
@@ -84,7 +84,7 @@ public class DataManager {
 
     public Observable<Token> login(String username, String password) {
         return mService.getToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET,
-                Constants.GRANT_TYPE_PASSWORD, username, password).compose(applySchedulers());
+                GRANT_TYPE_PASSWORD, username, password).compose(applySchedulers());
     }
 
     public Observable<List<Topic>> getTopics(int offset) {
