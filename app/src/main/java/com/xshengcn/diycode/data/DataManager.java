@@ -50,6 +50,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataManager {
+
     private static final String GRANT_TYPE_PASSWORD = "password";
 
     public static final int PAGE_LIMIT = 30;
