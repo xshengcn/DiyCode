@@ -14,8 +14,6 @@ DiyCode是一个优雅、极客、创意、分享、美好的开发社区。
 
 ## 下载
 
-![](https://diycode.b0.upaiyun.com/photo/2017/5ee70b9df8da31d9c98da577e7480704.png)
-
 [fir.im](https://fir.im/kbua)
 
 [项目地址](https://github.com/xshengcn/DiyCode)
