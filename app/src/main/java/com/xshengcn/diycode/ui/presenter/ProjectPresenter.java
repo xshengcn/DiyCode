@@ -21,12 +21,9 @@ public class ProjectPresenter extends BasePresenter<IProjectView> {
         this.mDataManager = dataManager;
     }
 
-    @Override
-    public void onAttach(IProjectView view) {
-        super.onAttach(view);
-    }
 
     public void onRefresh() {
+        getDisposable().clear();
         final IProjectView view = getView();
         if (!view.isRefreshing()) {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);

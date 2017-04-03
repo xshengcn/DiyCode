@@ -23,6 +23,7 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
 
     public void onRefresh() {
+        getDisposable().clear();
         final ITopicDetailView view = getView();
         if (!view.isRefreshing()) {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);

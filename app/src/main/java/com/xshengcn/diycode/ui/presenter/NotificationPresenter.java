@@ -30,6 +30,7 @@ public class NotificationPresenter extends BasePresenter<INotificationView> {
     }
 
     public void onRefresh() {
+        getDisposable().clear();
         final INotificationView view = getView();
         if (!view.isRefreshing()) {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);

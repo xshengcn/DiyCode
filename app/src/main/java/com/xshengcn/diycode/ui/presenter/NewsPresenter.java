@@ -26,6 +26,7 @@ public class NewsPresenter extends BasePresenter<INewsView> {
     }
 
     public void onRefresh() {
+        getDisposable().clear();
         final INewsView view = getView();
         if (!view.isRefreshing()) {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);

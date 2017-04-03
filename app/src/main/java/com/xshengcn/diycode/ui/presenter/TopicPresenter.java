@@ -31,6 +31,7 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
     }
 
     public void onRefresh() {
+        getDisposable().clear();
         loadTopics(true);
     }
 

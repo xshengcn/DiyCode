@@ -84,6 +84,7 @@ public class UserFavoriteActivity extends BaseActivity
         recyclerView.addItemDecoration(new OffsetDecoration(space, space, 0, 0));
         recyclerView.setAdapter(mWrapper);
         presenter.onAttach(this);
+        presenter.onRefresh();
     }
 
     @Override

@@ -32,11 +32,10 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
                 .equals(view.getUserLogin(), mPreferencesHelper.getUser().login);
 
         view.setTitle(me);
-
-        onRefresh();
     }
 
     public void onRefresh() {
+        getDisposable().clear();
         final IUserFavoriteView view = getView();
         if (!view.isRefreshing()) {
             view.changeStateView(MultiStateView.VIEW_STATE_LOADING);
