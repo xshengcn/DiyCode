@@ -1,7 +1,6 @@
 package com.xshengcn.diycode.ui.presenter;
 
 import com.kennyc.view.MultiStateView;
-import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.event.TopicReplied;
 import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
@@ -13,10 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 
