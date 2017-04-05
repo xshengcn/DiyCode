@@ -74,7 +74,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             bindNotification((ViewHolder) holder, notification);
         } else if (holder instanceof HeaderViewHolder) {
             ((HeaderViewHolder) holder).unreadCount.setText(MessageFormat.format(mContext.getString(
-                                R.string.unread_count), 1));
+                    R.string.unread_count), 1));
             ((HeaderViewHolder) holder).cleanUnread.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,7 +96,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         MessageFormat.format(mContext.getString(R.string.notification_topic_reply),
                                 notification.actor.login,
                                 notification.reply.topicTitle));
-                HtmlUtils.parseHtmlAndSetText(notification.reply.bodyHtml, holder.body, null);
+                holder.body.setText(
+                        HtmlUtils.getSimpleHtmlText(mContext, notification.reply.bodyHtml));
                 break;
             case "Follow":
                 holder.title.setText(notification.actor.login);

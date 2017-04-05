@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.util;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
@@ -23,7 +24,36 @@ import android.widget.TextView;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.util.glide.GlideImageGetter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class HtmlUtils {
+
+    public static String delHTMLTag(String htmlStr) {
+        String regexScript = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
+        String regexStyle = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
+        String regexHtml = "<[^>]+>"; //定义HTML标签的正则表达式
+
+        Pattern pScript = Pattern.compile(regexScript, Pattern.CASE_INSENSITIVE);
+        Matcher mScript = pScript.matcher(htmlStr);
+        htmlStr = mScript.replaceAll(""); //过滤script标签
+
+        Pattern pStyle = Pattern.compile(regexStyle, Pattern.CASE_INSENSITIVE);
+        Matcher mStyle = pStyle.matcher(htmlStr);
+        htmlStr = mStyle.replaceAll(""); //过滤style标签
+
+        Pattern pHtml = Pattern.compile(regexHtml, Pattern.CASE_INSENSITIVE);
+        Matcher mHtml = pHtml.matcher(htmlStr);
+        htmlStr = mHtml.replaceAll(""); //过滤html标签
+
+        return htmlStr.trim(); //返回文本字符串
+    }
+
+    public static String getSimpleHtmlText(Context context, String html) {
+        String regex = "<img.*src=(.*?)[^>]*?>";
+        html = html.replaceAll(regex, "[图片]");
+        return delHTMLTag(html).replaceAll("\n", "");
+    }
 
     public static CharSequence trimTrailingWhitespace(CharSequence source) {
 

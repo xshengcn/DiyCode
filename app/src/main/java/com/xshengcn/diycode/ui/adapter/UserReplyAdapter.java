@@ -2,7 +2,6 @@ package com.xshengcn.diycode.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +67,7 @@ public class UserReplyAdapter extends RecyclerView.Adapter<UserReplyAdapter.View
         holder.node.setVisibility(View.GONE);
 
         holder.title.setText(reply.topicTitle);
-        holder.body.setText(Html.fromHtml(reply.body));
-        HtmlUtils.parseHtmlAndSetText(reply.bodyHtml, holder.body, null);
+        holder.body.setText(HtmlUtils.getSimpleHtmlText(mContext, reply.bodyHtml));
     }
 
     @Override
