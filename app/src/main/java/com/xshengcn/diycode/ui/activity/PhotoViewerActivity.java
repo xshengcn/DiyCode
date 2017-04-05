@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.xshengcn.diycode.R;
 
 import butterknife.BindView;
@@ -53,7 +53,6 @@ public class PhotoViewerActivity extends BaseActivity {
         }
 
         String source = getIntent().getStringExtra(EXTRA_IMAGE_SOURCE);
-        imageView.enable();
         Glide.with(this).load(source).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
     }
 
