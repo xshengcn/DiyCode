@@ -15,7 +15,6 @@ import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.util.DateUtils;
-import com.xshengcn.diycode.util.DensityUtil;
 import com.xshengcn.diycode.util.HtmlUtils;
 
 import java.text.MessageFormat;
@@ -33,7 +32,6 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     private static final int TYPE_TOPIC_ITEM = 0x02;
 
     private final Context mContext;
-    private final int mImgMaxWidth;
     private final TopicAndReplies mTopicAndReplies;
     private HtmlUtils.Callback mCallback;
     private OnHeaderClickListener mOnHeaderClickListener;
@@ -41,8 +39,6 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     @Inject
     public TopicDetailAdapter(Context context) {
         this.mContext = context;
-        int margin = DensityUtil.dp2px(context, 16 * 2);
-        mImgMaxWidth = DensityUtil.getScreenWidth(context) - margin;
         mTopicAndReplies = new TopicAndReplies();
         mTopicAndReplies.replies = new ArrayList<>();
     }
@@ -148,7 +144,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         HtmlUtils.parseHtmlAndSetText(detail.bodyHtml, holder.body, mCallback);
 
         holder.replyCount.setVisibility(detail.repliesCount == 0 ? View.GONE : View.VISIBLE);
-        holder.replyCount.setText("共收到" + detail.repliesCount + "条回复");
+        holder.replyCount.setText(MessageFormat
+                .format(mContext.getString(R.string.reply_count), detail.repliesCount));
 
         holder.thumbUp.setImageResource(
                 detail.liked ? R.drawable.ic_thumb_up_selected : R.drawable.ic_thumb_up_normal);

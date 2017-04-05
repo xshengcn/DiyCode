@@ -8,8 +8,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kennyc.view.MultiStateView;
@@ -60,7 +58,6 @@ public class NotificationActivity
     @Inject
     NotificationAdapter adapter;
     private LoadMoreWrapper mWrapper;
-    private boolean mMenuEnable;
 
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, NotificationActivity.class);
@@ -87,19 +84,6 @@ public class NotificationActivity
         presenter.onAttach(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_clear, menu);
-        MenuItem clear = menu.findItem(R.id.action_clear);
-        clear.setEnabled(mMenuEnable);
-        if (mMenuEnable) {
-            clear.getIcon().setAlpha(255);
-        } else {
-            clear.getIcon().setAlpha(55);
-        }
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     protected void onDestroy() {

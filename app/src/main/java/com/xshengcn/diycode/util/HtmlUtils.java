@@ -71,7 +71,9 @@ public class HtmlUtils {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        if (callback != null) {
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
         textView.setText(trimTrailingWhitespace(style));
     }

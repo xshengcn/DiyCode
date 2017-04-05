@@ -49,6 +49,8 @@
     <string name="notification_mention">{0} 提及你:</string>
     <string name="notification_empty_mention">服务器返回了空的Mention。</string>
     <string name="markdown_guide">Markdown教程</string>
+    <string name="unread_count">{0}条未读</string>
+    <string name="reply_count">共收到{0}条回复</string>
 
     <string-array name="main_tabs">
         <item>topics</item>

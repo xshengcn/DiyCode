@@ -30,4 +30,5 @@ public interface ITopicDetailView {
 
     void showRefreshErrorAndComplete();
 
+    void insertUserReply(TopicReply topicReply);
 }

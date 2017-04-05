@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingLeft="@dimen/spacing"
+    android:paddingRight="@dimen/spacing"
+    android:layout_height="48dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/unread_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        tools:text="0条未读"
+        android:layout_weight="1"
+        android:textColor="@color/colorTextTertiary"
+        android:textSize="@dimen/dimenTextQuaternary" />
+
+    <ImageView
+        android:id="@+id/clean_unread"
+        android:src="@drawable/ic_menu_clear"
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+</LinearLayout>

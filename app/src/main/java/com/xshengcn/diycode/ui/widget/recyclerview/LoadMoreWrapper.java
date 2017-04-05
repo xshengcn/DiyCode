@@ -82,6 +82,10 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mInnerAdapter = innerAdapter;
     }
 
+    public int getCurrentType() {
+        return mCurrentType;
+    }
+
     public void showLoadMore() {
         if (mCurrentType == ITEM_TYPE_LOAD_MORE_VIEW) {
             return;

@@ -1,7 +1,6 @@
 package com.xshengcn.diycode.ui.presenter;
 
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
+import com.orhanobut.logger.Logger;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -9,10 +8,11 @@ import io.reactivex.disposables.Disposable;
 public abstract class BasePresenter<T> {
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
-    private Reference<T> mReference;
+    private T mView;
 
     public void onAttach(T view) {
-        mReference = new WeakReference<>(view);
+        Logger.d("onAttach: " + view.getClass().getSimpleName());
+        mView = view;
     }
 
     protected void addDisposable(Disposable s) {
@@ -24,20 +24,15 @@ public abstract class BasePresenter<T> {
     }
 
     public void onDetach() {
-
+        Logger.d("onDetach");
         mDisposable.clear();
-
-        if (mReference != null) {
-            mReference.clear();
-            mReference = null;
-        }
+        mView = null;
     }
 
     protected T getView() {
-        T t = mReference.get();
-        if (t == null) {
+        if (mView == null) {
             throw new NullPointerException("must attach to presenter");
         }
-        return mReference.get();
+        return mView;
     }
 }

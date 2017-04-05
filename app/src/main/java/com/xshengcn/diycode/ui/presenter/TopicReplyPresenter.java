@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.data.event.TopicReplied;
 import com.xshengcn.diycode.data.model.ImageResult;
 import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.ui.iview.ITopicReplyView;
+import com.xshengcn.diycode.util.RxBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -25,17 +28,25 @@ public class TopicReplyPresenter extends BasePresenter<ITopicReplyView> {
 
     private final DataManager mDataManager;
     private final Context mContext;
+    private final RxBus mBus;
 
     @Inject
-    public TopicReplyPresenter(DataManager dataManager, Context context) {
+    public TopicReplyPresenter(DataManager dataManager, Context context, RxBus bus) {
         this.mDataManager = dataManager;
         this.mContext = context;
+        mBus = bus;
     }
 
     public void publishComment() {
         final ITopicReplyView view = getView();
         view.showCommentDialog();
         mDataManager.publishComment(view.getId(), view.getBody())
+                .doOnNext(new Consumer<TopicReply>() {
+                    @Override
+                    public void accept(@NonNull TopicReply topicReply) throws Exception {
+                        mBus.send(new TopicReplied(topicReply));
+                    }
+                })
                 .subscribe(this::commentSuccess, this::commentFailed);
     }
 

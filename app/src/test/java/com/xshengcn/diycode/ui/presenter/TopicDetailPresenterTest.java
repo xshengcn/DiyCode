@@ -10,6 +10,7 @@ import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
 import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
+import com.xshengcn.diycode.util.RxBus;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +34,8 @@ public class TopicDetailPresenterTest {
     @Mock
     DataManager mDataManager;
     @Mock
+    RxBus mBus;
+    @Mock
     ITopicDetailView mTopicDetailView;
     private TopicDetailPresenter mPresenter;
 
@@ -44,7 +47,7 @@ public class TopicDetailPresenterTest {
 
     @Before
     public void setUp() throws Exception {
-        mPresenter = new TopicDetailPresenter(mDataManager);
+        mPresenter = new TopicDetailPresenter(mDataManager, mBus);
         mPresenter.onAttach(mTopicDetailView);
     }
 

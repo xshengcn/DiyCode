@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/item_content"
     android:background="@android:color/white"
     android:foreground="@drawable/selector_subtle"
     android:paddingBottom="@dimen/spacing"
@@ -16,7 +16,7 @@
         tools:src="@drawable/ic_default_header"
         android:scaleType="centerCrop"
         android:layout_width="@dimen/header_size_large"
-        android:layout_height="@dimen/header_size_large"/>
+        android:layout_height="@dimen/header_size_large" />
 
     <LinearLayout
         android:layout_centerVertical="true"
@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_marginLeft="@dimen/spacing"
             android:id="@+id/title"
@@ -31,7 +32,7 @@
             android:textSize="@dimen/dimenTextTertiary"
             tools:text="@string/no_connection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_marginLeft="@dimen/spacing"
@@ -41,7 +42,7 @@
             android:textSize="@dimen/dimenTextSecondary"
             tools:text="@string/no_connection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>

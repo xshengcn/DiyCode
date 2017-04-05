@@ -186,6 +186,15 @@ public class TopicDetailActivity extends BaseActivity
     }
 
     @Override
+    public void insertUserReply(TopicReply topicReply) {
+        if (mWrapper.getCurrentType() == LoadMoreWrapper.ITEM_TYPE_NO_MORE_VIEW) {
+            int count = mAdapter.getItemCount();
+            mAdapter.getTopicReplies().add(topicReply);
+            mAdapter.notifyItemInserted(count + 1);
+        }
+    }
+
+    @Override
     public void clickUrl(String url) {
         if (url.startsWith("#reply")) {
             String floorStr = url.substring(6);
