@@ -13,6 +13,7 @@
     <string name="password_not_empty">密码不能为空</string>
     <string name="tips_login">正在登录…</string>
     <string name="tips_error">error</string>
+    <string name="tips_no_more">没有更多内容</string>
     <string name="bt_retry">重试</string>
     <string name="bt_ignore">忽略</string>
     <string name="no_connection">No Connection</string>
