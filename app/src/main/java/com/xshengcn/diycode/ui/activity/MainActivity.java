@@ -192,6 +192,9 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.nav_about:
                 break;
+            case R.id.nav_setting:
+                mNavigator.showSettings();
+                break;
         }
     }
 

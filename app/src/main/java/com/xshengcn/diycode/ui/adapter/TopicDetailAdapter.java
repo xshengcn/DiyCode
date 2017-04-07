@@ -1,6 +1,7 @@
 package com.xshengcn.diycode.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_TOPIC_HEADER = 0x01;
     private static final int TYPE_TOPIC_ITEM = 0x02;
+    private static final int TYPE_TOPIC_ITEM_DELETE = 0x03;
 
     private final Context mContext;
     private final TopicAndReplies mTopicAndReplies;
@@ -75,6 +77,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (mTopicAndReplies.detail != null && position == 0) {
             return TYPE_TOPIC_HEADER;
+        } else if (mTopicAndReplies.replies.get(position - 1).deleted) {
+            return TYPE_TOPIC_ITEM_DELETE;
         } else {
             return TYPE_TOPIC_ITEM;
         }
@@ -86,10 +90,14 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_item_topic_reply_header, parent, false);
             return new HeaderViewHolder(view);
-        } else {
+        } else if (viewType == TYPE_TOPIC_ITEM) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_item_topic_reply, parent, false);
             return new ViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.view_item_topic_reply_deleted, parent, false);
+            return new DeletedViewHolder(view);
         }
     }
 
@@ -100,6 +108,11 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         } else if (getItemViewType(position) == TYPE_TOPIC_ITEM) {
             TopicReply reply = mTopicAndReplies.replies.get(position - 1);
             bindItemViewHolder((ViewHolder) holder, reply, position);
+        } else if (getItemViewType(position) == TYPE_TOPIC_ITEM_DELETE) {
+            ((DeletedViewHolder) holder).deletedFloor.setText(position + "楼 Deleted");
+            Paint paint = ((DeletedViewHolder) holder).deletedFloor.getPaint();
+            paint.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            paint.setAntiAlias(true);
         }
     }
 
@@ -226,6 +239,17 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         TextView body;
 
         ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    static class DeletedViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.deleted_floor)
+        TextView deletedFloor;
+
+        public DeletedViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

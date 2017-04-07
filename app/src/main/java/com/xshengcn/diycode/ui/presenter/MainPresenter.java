@@ -4,7 +4,6 @@ import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.event.UserDetailUpdate;
 import com.xshengcn.diycode.data.event.UserLogin;
-import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.iview.IMainView;
 import com.xshengcn.diycode.util.RxBus;
 
@@ -18,15 +17,13 @@ public class MainPresenter extends BasePresenter<IMainView> {
     private final PreferencesHelper mPreferencesHelper;
     private final DataManager mDataManager;
     private final RxBus mBus;
-    private final ActivityNavigator mNavigator;
 
     @Inject
-    public MainPresenter(PreferencesHelper preferencesHelper, DataManager dataManager, RxBus rxBus,
-            ActivityNavigator navigator) {
+    public MainPresenter(PreferencesHelper preferencesHelper, DataManager dataManager,
+            RxBus rxBus) {
         this.mPreferencesHelper = preferencesHelper;
         this.mDataManager = dataManager;
         this.mBus = rxBus;
-        this.mNavigator = navigator;
     }
 
     @Override
@@ -73,7 +70,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
             getView().setupNavigationView(mPreferencesHelper.getUser());
         }
     }
-
 
 }
 

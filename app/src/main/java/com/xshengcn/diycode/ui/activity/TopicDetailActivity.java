@@ -2,6 +2,7 @@ package com.xshengcn.diycode.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,8 +10,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.LinearLayout;
 
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
@@ -21,7 +24,6 @@ import com.xshengcn.diycode.ui.ActivityNavigator;
 import com.xshengcn.diycode.ui.adapter.TopicDetailAdapter;
 import com.xshengcn.diycode.ui.iview.ITopicDetailView;
 import com.xshengcn.diycode.ui.presenter.TopicDetailPresenter;
-import com.xshengcn.diycode.ui.widget.itemdecoration.InsetDividerDecoration;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreWrapper;
 import com.xshengcn.diycode.util.HtmlUtils;
@@ -31,7 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindColor;
-import butterknife.BindDimen;
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,8 +61,8 @@ public class TopicDetailActivity extends BaseActivity
     int color;
     @BindString(R.string.share)
     String share;
-    @BindDimen(R.dimen.divider)
-    int divider;
+    @BindDrawable(R.drawable.divider_drawabe)
+    Drawable dividerDrawable;
 
     @Inject
     TopicDetailPresenter mPresenter;
@@ -102,9 +104,9 @@ public class TopicDetailActivity extends BaseActivity
         toolbar.setTitle(R.string.topic);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        recyclerView.addItemDecoration(
-                new InsetDividerDecoration(TopicDetailAdapter.ViewHolder.class,
-                        divider, 0, colorDivider));
+        DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayout.VERTICAL);
+        decoration.setDrawable(dividerDrawable);
+        recyclerView.addItemDecoration(decoration);
         mAdapter.setContentCallBack(this);
         mAdapter.setOnHeaderClickListener(user -> {
         });
@@ -211,11 +213,6 @@ public class TopicDetailActivity extends BaseActivity
         }
     }
 
-    private void openUri(Activity activity, Uri uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(uri);
-        activity.startActivity(intent);
-    }
 
     @Override
     public void clickImage(String source) {

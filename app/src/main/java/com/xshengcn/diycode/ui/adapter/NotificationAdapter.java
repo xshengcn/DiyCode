@@ -37,12 +37,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @ColorInt
     private final int mColorUnread;
 
+    private OnItemClickListener mOnItemClickListener;
+
     @Inject
     public NotificationAdapter(Context context) {
         this.mContext = context;
         mNotifications = new ArrayList<>();
         mColorRead = context.getResources().getColor(R.color.colorTextQuaternary);
         mColorUnread = context.getResources().getColor(R.color.colorTextPrimary);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -73,12 +79,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Notification notification = mNotifications.get(position - 1);
             bindNotification((ViewHolder) holder, notification);
         } else if (holder instanceof HeaderViewHolder) {
-            ((HeaderViewHolder) holder).unreadCount.setText(MessageFormat.format(mContext.getString(
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+            headerViewHolder.unreadCount.setText(MessageFormat.format(mContext.getString(
                     R.string.unread_count), 1));
-            ((HeaderViewHolder) holder).cleanUnread.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "标记为已读", Toast.LENGTH_SHORT).show();
+            headerViewHolder.cleanUnread.setOnClickListener(v -> {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.clickClearUnread();
                 }
             });
         }
@@ -98,31 +104,44 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 notification.reply.topicTitle));
                 holder.body.setText(
                         HtmlUtils.getSimpleHtmlText(mContext, notification.reply.bodyHtml));
+                holder.itemContent.setOnClickListener(v -> {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.clickTopicNotification(notification.reply.id);
+                    }
+                });
                 break;
             case "Follow":
                 holder.title.setText(notification.actor.login);
                 holder.body.setText(R.string.notification_follow);
+                holder.itemContent.setOnClickListener(v -> {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.clickUserNotification(notification.actor.login);
+                    }
+                });
                 break;
             case "Mention":
                 holder.title.setText(MessageFormat
                         .format(mContext.getString(R.string.notification_mention),
                                 notification.actor.login));
                 if (notification.mention != null) {
-                    HtmlUtils.parseHtmlAndSetText(notification.mention.bodyHtml, holder.body, null);
+                    holder.body.setText(
+                            HtmlUtils.getSimpleHtmlText(mContext, notification.mention.bodyHtml));
                 } else {
                     holder.body.setText(R.string.notification_empty_mention);
                 }
+                holder.itemContent.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mOnItemClickListener != null && notification.mention != null) {
+                            mOnItemClickListener
+                                    .clickTopicNotification(notification.mention.topicId);
+                        }
+                    }
+                });
                 break;
         }
 
         holder.body.setTextColor(notification.read ? mColorRead : mColorUnread);
-        holder.itemContent.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logger.d(notification);
-                Toast.makeText(mContext, notification.type, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -168,5 +187,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnItemClickListener {
+
+        void clickClearUnread();
+
+        void clickTopicNotification(int id);
+
+        void clickUserNotification(String login);
+
+        void clickNewsNotification(int id);
     }
 }

@@ -10,6 +10,7 @@ import com.xshengcn.diycode.ui.activity.MarkdownGuideActivity;
 import com.xshengcn.diycode.ui.activity.MarkdownPreviewActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
 import com.xshengcn.diycode.ui.activity.SearchActivity;
+import com.xshengcn.diycode.ui.activity.SettingsActivity;
 import com.xshengcn.diycode.ui.activity.SiteActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
@@ -116,5 +117,9 @@ public final class ActivityNavigator {
 
     public void showMarkdownHelper() {
         MarkdownGuideActivity.start(mActivity);
+    }
+
+    public void showSettings() {
+        SettingsActivity.start(mActivity);
     }
 }

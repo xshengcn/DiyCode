@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Account">
+
+        <Preference
+            android:key="PREF_ACCOUNT_QUIT"
+            android:title="退出"
+            android:summary="当前账号" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="General">
+
+        <SwitchPreference
+            android:key="PREF_NIGHT_MODE"
+            android:title="夜间模式" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
