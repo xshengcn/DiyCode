@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 onBackPressed();
                 break;
         }
-        return super.onOptionsItemSelected(ite
+        return super.onOptionsItemSelected(item);
     }
 
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener =
