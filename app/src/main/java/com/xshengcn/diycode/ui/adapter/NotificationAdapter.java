@@ -9,10 +9,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.util.HtmlUtils;

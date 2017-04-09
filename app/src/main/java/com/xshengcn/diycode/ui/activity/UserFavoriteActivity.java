@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class UserFavoriteActivity extends BaseActivity
         implements IUserFavoriteView, LoadMoreHandler {
 
     private static final String EXTRA_USER_LOGIN = "UserTopicActivity.userLogin";
+    private static final String EXTRA_ME = "UserTopicActivity.me";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.appbar_layout)
@@ -48,7 +51,7 @@ public class UserFavoriteActivity extends BaseActivity
 
     @BindDimen(R.dimen.spacing_xsmall)
     int space;
-    @BindString(R.string.favorites)
+    @BindString(R.string.my_favorites)
     String myFavorites;
     @BindString(R.string.user_favorites)
     String userFavorites;
@@ -58,11 +61,18 @@ public class UserFavoriteActivity extends BaseActivity
     @Inject
     TopicAdapter adapter;
     private String mUserLogin;
+    private boolean mMe;
     private LoadMoreWrapper mWrapper;
 
     public static void start(Activity activity, String userLogin) {
         Intent intent = new Intent(activity, UserFavoriteActivity.class);
         intent.putExtra(EXTRA_USER_LOGIN, userLogin);
+        activity.startActivity(intent);
+    }
+
+    public static void start(Activity activity, boolean me) {
+        Intent intent = new Intent(activity, UserFavoriteActivity.class);
+        intent.putExtra(EXTRA_ME, me);
         activity.startActivity(intent);
     }
 
@@ -74,6 +84,17 @@ public class UserFavoriteActivity extends BaseActivity
         getComponent().inject(this);
 
         mUserLogin = getIntent().getStringExtra(EXTRA_USER_LOGIN);
+        mMe = getIntent().getBooleanExtra(EXTRA_ME, false);
+
+        if (!mMe && TextUtils.isEmpty(mUserLogin)) {
+            finish();
+        }
+
+        if (mMe) {
+            toolbar.setTitle(myFavorites);
+        } else {
+            toolbar.setTitle(MessageFormat.format(userFavorites, mUserLogin));
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -106,6 +127,11 @@ public class UserFavoriteActivity extends BaseActivity
     @Override
     public String getUserLogin() {
         return mUserLogin;
+    }
+
+    @Override
+    public boolean isMe() {
+        return mMe;
     }
 
     @Override
@@ -159,15 +185,6 @@ public class UserFavoriteActivity extends BaseActivity
         if (state == MultiStateView.VIEW_STATE_ERROR) {
             ButterKnife.findById(stateView.getView(state), R.id.no_connection_retry)
                     .setOnClickListener(v -> presenter.onRefresh());
-        }
-    }
-
-    @Override
-    public void setTitle(boolean me) {
-        if (me) {
-            getSupportActionBar().setTitle(myFavorites);
-        } else {
-            getSupportActionBar().setTitle(MessageFormat.format(userFavorites, getUserLogin()));
         }
     }
 

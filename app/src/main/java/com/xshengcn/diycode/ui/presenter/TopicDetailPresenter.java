@@ -13,8 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 
 public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
 
@@ -30,12 +28,12 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     @Override
     public void onAttach(ITopicDetailView view) {
         super.onAttach(view);
-
         addDisposable(mBus.toObservable()
-                .filter((Predicate<Object>) o -> o instanceof TopicReplied)
-                .map((Function<Object, TopicReply>) o -> ((TopicReplied) o).getTopicReply())
+                .filter(o -> o instanceof TopicReplied)
+                .map(o -> ((TopicReplied) o).getTopicReply())
                 .subscribe(view::insertUserReply));
     }
+
 
     public void onRefresh() {
         getDisposable().clear();
@@ -52,7 +50,8 @@ public class TopicDetailPresenter extends BasePresenter<ITopicDetailView> {
     private void loadTopicAndRepliesNext(TopicAndReplies topicAndReplies) {
         final ITopicDetailView view = getView();
         view.showTopicAndReplies(topicAndReplies);
-        if (topicAndReplies.replies.isEmpty()
+        if (topicAndReplies.replies == null
+                || topicAndReplies.replies.isEmpty()
                 || topicAndReplies.replies.size() < DataManager.PAGE_LIMIT) {
             view.showLoadNoMore();
         }

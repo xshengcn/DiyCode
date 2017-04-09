@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
@@ -13,79 +13,256 @@
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#284fbb"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleTextAppearance="@style/toolbar_expanded_title"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?android:actionBarSize"
-                android:layout_marginTop="?android:actionBarSize">
-
-
-                <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_default_header"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/avatar"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/colorAccent"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="4dp"
-                    android:text="关注"
-                    android:textColor="@android:color/white"/>
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tab_height"
-            android:layout_gravity="bottom"
-            android:background="@android:color/black"
-            app:tabIndicatorColor="?colorAccent"/>
 
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
+        android:background="@color/content_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="1000dp"/>
-    </android.support.v4.widget.NestedScrollView>
+            android:layout_height="wrap_content">
 
-</android.support.design.widget.CoordinatorLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/spacing"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:padding="@dimen/spacing"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/user_avatar"
+                        android:layout_width="@dimen/header_size_large"
+                        android:layout_height="@dimen/header_size_large"
+                        tools:src="@drawable/ic_default_header" />
+
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/spacing"
+                        android:layout_toRightOf="@id/user_avatar"
+                        android:id="@+id/username"
+                        android:textSize="@dimen/dimenTextSecondary"
+                        tools:text="xshengcn(Hsum)"
+                        android:textColor="@color/colorTextPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/spacing"
+                        android:layout_toRightOf="@id/user_avatar"
+                        android:layout_below="@id/username"
+                        android:id="@+id/user_id"
+                        android:layout_marginTop="@dimen/spacing_xsmall"
+                        android:textSize="@dimen/dimenTextSecondary"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/colorTextTertiary"
+                        android:layout_height="wrap_content"
+                        tools:text="第 3711 位会员" />
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/spacing"
+                        android:id="@+id/user_join"
+                        android:layout_toRightOf="@id/user_avatar"
+                        android:layout_below="@id/user_id"
+                        android:layout_marginTop="@dimen/spacing_xsmall"
+                        android:textSize="@dimen/dimenTextSecondary"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/colorTextTertiary"
+                        android:layout_height="wrap_content"
+                        tools:text="2017-01-17" />
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/spacing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.xshengcn.diycode.ui.widget.TitleDescriptionView
+                        android:id="@+id/user_follower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:rowTitle="1"
+                        app:rowDescription="关注者" />
+
+
+                    <com.xshengcn.diycode.ui.widget.TitleDescriptionView
+                        android:layout_marginLeft="@dimen/spacing_large"
+                        android:id="@+id/user_following"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:rowTitle="10"
+                        app:rowDescription="正在关注" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/recent_reply"
+                android:foreground="@drawable/selector_subtle"
+                android:background="@android:color/white"
+                android:layout_marginTop="@dimen/spacing"
+                android:padding="@dimen/spacing"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:text="最近回复"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:foreground="@drawable/selector_subtle"
+                android:id="@+id/topic_layout"
+                android:background="@android:color/white"
+                android:layout_marginTop="@dimen/spacing"
+                android:padding="@dimen/spacing"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimenTextSecondary"
+                    android:text="@string/topic"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/topic_count"
+                    android:textColor="@color/colorTextTertiary"
+                    android:textSize="@dimen/dimenTextSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/divider"
+                android:foreground="@drawable/selector_subtle"
+                android:id="@+id/favorite_layout"
+                android:background="@android:color/white"
+                android:padding="@dimen/spacing"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimenTextSecondary"
+                    android:text="@string/favorite"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/favorite_count"
+                    android:textColor="@color/colorTextTertiary"
+                    android:textSize="@dimen/dimenTextSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/divider"
+                android:foreground="@drawable/selector_subtle"
+                android:id="@+id/share_layout"
+                android:background="@android:color/white"
+                android:padding="@dimen/spacing"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimenTextSecondary"
+                    android:text="@string/share"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/share_count"
+                    android:textColor="@color/colorTextTertiary"
+                    android:textSize="@dimen/dimenTextSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing" />
+
+            <TextView
+                android:foreground="@drawable/selector_subtle"
+                android:visibility="gone"
+                android:id="@+id/user_github"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/spacing"
+                android:drawableLeft="@drawable/ic_github_circle"
+                android:background="@android:color/white"
+                android:padding="@dimen/spacing"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:text="GitHub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:foreground="@drawable/selector_subtle"
+                android:layout_marginTop="@dimen/divider"
+                android:id="@+id/user_twitter"
+                android:drawableLeft="@drawable/ic_twitter_circle"
+                android:drawablePadding="@dimen/spacing"
+                android:background="@android:color/white"
+                android:padding="@dimen/spacing"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:text="Twitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:foreground="@drawable/selector_subtle"
+                android:layout_marginTop="@dimen/divider"
+                android:id="@+id/user_website"
+                android:background="@android:color/white"
+                android:padding="@dimen/spacing"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:text="Website"
+                android:drawablePadding="@dimen/spacing"
+                android:drawableLeft="@drawable/ic_website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

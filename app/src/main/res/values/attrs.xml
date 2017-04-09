@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RowView">
+        <attr name="rowTitle" format="string" />
+        <attr name="rowDescription" format="string" />
+    </declare-styleable>
+
+
+</resources>

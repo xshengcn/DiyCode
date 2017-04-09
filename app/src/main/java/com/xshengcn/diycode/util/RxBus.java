@@ -3,7 +3,7 @@ package com.xshengcn.diycode.util;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public final class RxBus {
+public class RxBus {
 
     private final PublishSubject<Object> mBus = PublishSubject.create();
 

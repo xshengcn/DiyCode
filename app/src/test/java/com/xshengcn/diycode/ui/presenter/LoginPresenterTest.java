@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.Token;
-import com.xshengcn.diycode.data.model.user.UserDetail;
 import com.xshengcn.diycode.ui.iview.ILoginView;
 
 import org.junit.After;
@@ -18,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
@@ -52,9 +51,7 @@ public class LoginPresenterTest {
         Token token = mock(Token.class);
         String username = "xshengcn";
         String password = "password";
-        UserDetail userDetail = mock(UserDetail.class);
-        when(mDataManager.login(username, password)).thenReturn(Observable.just(token));
-        when(mDataManager.getMe()).thenReturn(Observable.just(userDetail));
+        when(mDataManager.login(username, password)).thenReturn(Single.just(token));
 
         mPresenter.login(username, password);
 
@@ -62,8 +59,6 @@ public class LoginPresenterTest {
         verify(mLoginView).hideLoginDialog();
         verify(mLoginView).loginSuccess();
 
-        verify(mPreferencesHelper).setToken(token);
-        verify(mPreferencesHelper).setUser(userDetail);
     }
 
     @Test
@@ -71,7 +66,7 @@ public class LoginPresenterTest {
         String username = "xshengcn";
         String password = "password";
         when(mDataManager.login(username, password))
-                .thenReturn(Observable.error(mock(HttpException.class)));
+                .thenReturn(Single.error(mock(HttpException.class)));
 
         mPresenter.login(username, password);
 

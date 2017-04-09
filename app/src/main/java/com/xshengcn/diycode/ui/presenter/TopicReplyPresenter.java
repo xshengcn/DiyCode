@@ -16,11 +16,10 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -41,12 +40,7 @@ public class TopicReplyPresenter extends BasePresenter<ITopicReplyView> {
         final ITopicReplyView view = getView();
         view.showCommentDialog();
         mDataManager.publishComment(view.getId(), view.getBody())
-                .doOnNext(new Consumer<TopicReply>() {
-                    @Override
-                    public void accept(@NonNull TopicReply topicReply) throws Exception {
-                        mBus.send(new TopicReplied(topicReply));
-                    }
-                })
+                .doOnSuccess(topicReply -> mBus.send(new TopicReplied(topicReply)))
                 .subscribe(this::commentSuccess, this::commentFailed);
     }
 
@@ -73,14 +67,14 @@ public class TopicReplyPresenter extends BasePresenter<ITopicReplyView> {
         final ITopicReplyView view = getView();
         view.showUploadDialog();
         Disposable d = cacheImageFromContentResolver(data).flatMap(
-                new Function<String, ObservableSource<ImageResult>>() {
+                new Function<String, SingleSource<ImageResult>>() {
                     @Override
-                    public ObservableSource<ImageResult> apply(@NonNull String s) throws Exception {
+                    public SingleSource<ImageResult> apply(@NonNull String s) throws Exception {
                         return mDataManager.uploadPhoto(s);
                     }
                 })
                 .subscribeOn(Schedulers.io())
-                .doOnComplete(view::hideUploadDialog)
+                .doOnSuccess(result -> view.hideUploadDialog())
                 .subscribe(this::handleImageUpload, this::handleImageUploadError);
 
         addDisposable(d);
@@ -99,10 +93,10 @@ public class TopicReplyPresenter extends BasePresenter<ITopicReplyView> {
         getView().hideUploadDialog();
     }
 
-    public Observable<String> cacheImageFromContentResolver(Uri data) {
-        return Observable.just(data).flatMap(new Function<Uri, ObservableSource<String>>() {
+    public Single<String> cacheImageFromContentResolver(Uri data) {
+        return Single.just(data).flatMap(new Function<Uri, SingleSource<String>>() {
             @Override
-            public ObservableSource<String> apply(@NonNull Uri uri) throws Exception {
+            public SingleSource<String> apply(@NonNull Uri uri) throws Exception {
                 InputStream is = mContext.getContentResolver().openInputStream(uri);
 
                 String path = mContext.getCacheDir().getPath()
@@ -121,7 +115,7 @@ public class TopicReplyPresenter extends BasePresenter<ITopicReplyView> {
                     is.close();
                     out.close();
                 }
-                return Observable.just(bkFile.getAbsolutePath());
+                return Single.just(bkFile.getAbsolutePath());
             }
         });
     }

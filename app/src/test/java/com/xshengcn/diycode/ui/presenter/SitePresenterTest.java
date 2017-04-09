@@ -20,7 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
@@ -49,7 +49,7 @@ public class SitePresenterTest {
     @Test
     public void testLoadSiteSuccessful() throws Exception {
         List<SiteListItem> sites = mock(ArrayList.class);
-        when(mDataManager.getSites()).thenReturn(Observable.just(sites));
+        when(mDataManager.getSites()).thenReturn(Single.just(sites));
         mSitePresenter.loadSite();
         verify(mSiteView).showLoading();
         verify(mSiteView).showSites(sites);
@@ -57,7 +57,7 @@ public class SitePresenterTest {
 
     @Test
     public void testLoadSiteFailed() throws Exception {
-        when(mDataManager.getSites()).thenReturn(Observable.error(mock(HttpException.class)));
+        when(mDataManager.getSites()).thenReturn(Single.error(mock(HttpException.class)));
         mSitePresenter.loadSite();
         verify(mSiteView).showLoading();
         verify(mSiteView).showLoadSiteError();

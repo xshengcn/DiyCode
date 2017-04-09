@@ -2,6 +2,7 @@ package com.xshengcn.diycode.ui.presenter;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,14 +19,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.plugins.RxAndroidPlugins;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import retrofit2.HttpException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,7 +54,18 @@ public class TopicDetailPresenterTest {
     @Before
     public void setUp() throws Exception {
         mPresenter = new TopicDetailPresenter(mDataManager, mBus);
+
+        when(mBus.toObservable()).thenReturn(PublishSubject.create());
+        when(mBus.toObservable().filter(spy(Predicate.class))).thenAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Predicate arg = mock(Predicate.class);
+                arg.test(new Object());
+                return mock(Observable.class);
+            }
+        });
         mPresenter.onAttach(mTopicDetailView);
+
     }
 
 
@@ -61,7 +78,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.isRefreshing()).thenReturn(false);
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mDataManager.getTopicAndComments(topicId))
-                .thenReturn(Observable.just(topicAndReplies));
+                .thenReturn(Single.just(topicAndReplies));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).showTopicAndReplies(any(TopicAndReplies.class));
@@ -73,7 +90,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.isRefreshing()).thenReturn(false);
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mDataManager.getTopicAndComments(topicId))
-                .thenReturn(Observable.error(mock(HttpException.class)));
+                .thenReturn(Single.error(mock(HttpException.class)));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).changeStateView(MultiStateView.VIEW_STATE_ERROR);
@@ -89,7 +106,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.isRefreshing()).thenReturn(false);
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mDataManager.getTopicAndComments(topicId))
-                .thenReturn(Observable.just(topicAndReplies));
+                .thenReturn(Single.just(topicAndReplies));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).showTopicAndReplies(any(TopicAndReplies.class));
@@ -104,7 +121,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.isRefreshing()).thenReturn(true);
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mDataManager.getTopicAndComments(topicId))
-                .thenReturn(Observable.just(topicAndReplies));
+                .thenReturn(Single.just(topicAndReplies));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).showTopicAndReplies(topicAndReplies);
@@ -117,7 +134,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.isRefreshing()).thenReturn(true);
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mDataManager.getTopicAndComments(topicId))
-                .thenReturn(Observable.error(mock(HttpException.class)));
+                .thenReturn(Single.error(mock(HttpException.class)));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).showRefreshErrorAndComplete();
@@ -133,7 +150,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.isRefreshing()).thenReturn(true);
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mDataManager.getTopicAndComments(topicId))
-                .thenReturn(Observable.just(topicAndReplies));
+                .thenReturn(Single.just(topicAndReplies));
 
         mPresenter.onRefresh();
         verify(mTopicDetailView).showTopicAndReplies(topicAndReplies);
@@ -149,7 +166,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mTopicDetailView.getItemOffset()).thenReturn(DataManager.PAGE_LIMIT);
         when(mDataManager.getTopicReplies(topicId, DataManager.PAGE_LIMIT))
-                .thenReturn(Observable.just(replies));
+                .thenReturn(Single.just(replies));
 
         mPresenter.loadMoreReplies();
         verify(mTopicDetailView).showMoreReplies(replies);
@@ -162,7 +179,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mTopicDetailView.getItemOffset()).thenReturn(DataManager.PAGE_LIMIT);
         when(mDataManager.getTopicReplies(topicId, DataManager.PAGE_LIMIT))
-                .thenReturn(Observable.error(mock(HttpException.class)));
+                .thenReturn(Single.error(mock(HttpException.class)));
 
         mPresenter.loadMoreReplies();
         verify(mTopicDetailView).showLoadMoreFailed();
@@ -177,7 +194,7 @@ public class TopicDetailPresenterTest {
         when(mTopicDetailView.getTopicId()).thenReturn(topicId);
         when(mTopicDetailView.getItemOffset()).thenReturn(DataManager.PAGE_LIMIT);
         when(mDataManager.getTopicReplies(topicId, DataManager.PAGE_LIMIT))
-                .thenReturn(Observable.just(replies));
+                .thenReturn(Single.just(replies));
 
         mPresenter.loadMoreReplies();
         verify(mTopicDetailView).showMoreReplies(replies);

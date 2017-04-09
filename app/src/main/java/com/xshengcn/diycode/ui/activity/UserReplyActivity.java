@@ -34,6 +34,8 @@ import butterknife.ButterKnife;
 public class UserReplyActivity extends BaseActivity implements IUserReplyView, LoadMoreHandler {
 
     private static final String EXTRA_USER = "UserTopicActivity.user";
+    private static final String EXTRA_ME = "UserTopicActivity.me";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.appbar_layout)
@@ -57,7 +59,14 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
     @Inject
     UserReplyAdapter adapter;
     private String mUser;
+    private boolean mMe;
     private LoadMoreWrapper mWrapper;
+
+    public static void start(Activity activity, boolean me) {
+        Intent intent = new Intent(activity, UserReplyActivity.class);
+        intent.putExtra(EXTRA_ME, me);
+        activity.startActivity(intent);
+    }
 
     public static void start(Activity activity, String user) {
         Intent intent = new Intent(activity, UserReplyActivity.class);
@@ -73,6 +82,13 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
         getComponent().inject(this);
 
         mUser = getIntent().getStringExtra(EXTRA_USER);
+        mMe = getIntent().getBooleanExtra(EXTRA_ME, false);
+
+        if (mMe) {
+            toolbar.setTitle(myReplies);
+        } else {
+            toolbar.setTitle(MessageFormat.format(userReplies, getUserLogin()));
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,6 +120,11 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
     @Override
     public String getUserLogin() {
         return mUser;
+    }
+
+    @Override
+    public boolean isMe() {
+        return mMe;
     }
 
     @Override
@@ -160,14 +181,6 @@ public class UserReplyActivity extends BaseActivity implements IUserReplyView, L
         }
     }
 
-    @Override
-    public void setTitle(boolean me) {
-        if (me) {
-            getSupportActionBar().setTitle(myReplies);
-        } else {
-            getSupportActionBar().setTitle(MessageFormat.format(userReplies, getUserLogin()));
-        }
-    }
 
     @Override
     public boolean canLoadMore() {

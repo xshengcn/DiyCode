@@ -15,8 +15,8 @@
         android:id="@+id/avatar"
         tools:src="@drawable/ic_default_header"
         android:scaleType="centerCrop"
-        android:layout_width="@dimen/header_size_large"
-        android:layout_height="@dimen/header_size_large" />
+        android:layout_width="@dimen/header_size_middle"
+        android:layout_height="@dimen/header_size_middle" />
 
     <LinearLayout
         android:layout_centerVertical="true"

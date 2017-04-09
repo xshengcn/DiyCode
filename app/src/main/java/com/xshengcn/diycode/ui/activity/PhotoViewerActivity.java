@@ -52,6 +52,9 @@ public class PhotoViewerActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        // 防止隐藏状态栏时更新
+        imageView.removeOnLayoutChangeListener(imageView.getAttacher());
+
         String source = getIntent().getStringExtra(EXTRA_IMAGE_SOURCE);
         Glide.with(this).load(source).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
     }
@@ -85,6 +88,7 @@ public class PhotoViewerActivity extends BaseActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         mHandler.postDelayed(mRunnable, UI_ANIMATION_DELAY);
+
     }
 
 

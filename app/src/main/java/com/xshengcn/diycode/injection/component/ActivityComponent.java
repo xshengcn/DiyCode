@@ -7,10 +7,12 @@ import com.xshengcn.diycode.ui.activity.LoginActivity;
 import com.xshengcn.diycode.ui.activity.MainActivity;
 import com.xshengcn.diycode.ui.activity.NewsDetailActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
+import com.xshengcn.diycode.ui.activity.SettingsActivity;
 import com.xshengcn.diycode.ui.activity.SiteActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.TopicReplyActivity;
+import com.xshengcn.diycode.ui.activity.UserActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserTopicActivity;
@@ -44,4 +46,8 @@ public interface ActivityComponent {
     void inject(TopicCreatorActivity topicCreatorActivity);
 
     void inject(SiteActivity siteActivity);
+
+    void inject(SettingsActivity settingsActivity);
+
+    void inject(UserActivity userActivity);
 }

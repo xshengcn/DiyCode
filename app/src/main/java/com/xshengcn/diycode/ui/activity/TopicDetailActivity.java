@@ -3,7 +3,6 @@ package com.xshengcn.diycode.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -101,15 +100,14 @@ public class TopicDetailActivity extends BaseActivity
 
         mTopicId = getIntent().getIntExtra(EXTRA_TOPIC_ID, -1);
         mTopicTitle = getIntent().getStringExtra(EXTRA_TOPIC_TITLE);
-        toolbar.setTitle(R.string.topic);
+        toolbar.setTitle(R.string.topic_detail);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayout.VERTICAL);
         decoration.setDrawable(dividerDrawable);
         recyclerView.addItemDecoration(decoration);
         mAdapter.setContentCallBack(this);
-        mAdapter.setOnHeaderClickListener(user -> {
-        });
+        mAdapter.setOnHeaderClickListener(user -> mNavigator.showUser(user));
         mWrapper = new LoadMoreWrapper(this, mAdapter);
         recyclerView.setAdapter(mWrapper);
         swipeRefreshLayout.setOnRefreshListener(mPresenter::onRefresh);
@@ -207,7 +205,7 @@ public class TopicDetailActivity extends BaseActivity
                 Logger.e(e.getMessage());
             }
         } else if (url.startsWith("/")) {
-            mNavigator.showUser();
+            mNavigator.showUser(url.substring(1));
         } else {
             mNavigator.showWeb(url);
         }

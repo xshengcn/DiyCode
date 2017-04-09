@@ -20,7 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 
@@ -48,7 +48,7 @@ public class TopicCreatorPresenterTest {
     @Test
     public void testLoadTopicNodesSuccess() throws Exception {
         Map<TopicNodeCategory, List<TopicNode>> nodesMap = mock(Map.class);
-        when(mDataManager.getTopicNodes()).thenReturn(Observable.just(nodesMap));
+        when(mDataManager.getTopicNodes()).thenReturn(Single.just(nodesMap));
 
         mPresenter.loadTopicNodes();
         verify(mView).showNodes(nodesMap);

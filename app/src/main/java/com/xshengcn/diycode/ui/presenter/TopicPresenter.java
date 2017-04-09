@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.data.DataManager;
+import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.ui.iview.ITopicView;
 
@@ -12,16 +13,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 
 public class TopicPresenter extends BasePresenter<ITopicView> {
 
     private final DataManager mDataManager;
+    private final PreferencesHelper mPreferencesHelper;
 
     @Inject
-    public TopicPresenter(DataManager dataManager) {
+    public TopicPresenter(DataManager dataManager, PreferencesHelper preferencesHelper) {
         this.mDataManager = dataManager;
+        mPreferencesHelper = preferencesHelper;
     }
 
     @Override
@@ -47,10 +50,16 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
         addDisposable(disposable);
     }
 
-    private Observable<List<Topic>> getTopicDisposable(int offset) {
+    private Single<List<Topic>> getTopicDisposable(int offset) {
         String s = getView().getUser();
         if (TextUtils.isEmpty(s)) {
-            return mDataManager.getTopics(offset);
+            if (getView().isMe()) {
+                return Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
+                        .firstOrError()
+                        .flatMap(detail -> mDataManager.getUserTopics(detail.login, offset));
+            } else {
+                return mDataManager.getTopics(offset);
+            }
         } else {
             return mDataManager.getUserTopics(s, offset);
         }

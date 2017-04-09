@@ -9,6 +9,8 @@ public interface IUserFavoriteView {
 
     String getUserLogin();
 
+    boolean isMe();
+
     int getItemOffset();
 
     boolean isRefreshing();
@@ -23,5 +25,4 @@ public interface IUserFavoriteView {
 
     void changeStateView(@MultiStateView.ViewState int state);
 
-    void setTitle(boolean me);
 }

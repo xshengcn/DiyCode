@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.widget.FrameLayout;
 
 import com.xshengcn.diycode.R;
@@ -24,6 +23,7 @@ import butterknife.ButterKnife;
 public class UserTopicActivity extends BaseActivity {
 
     private static final String EXTRA_USER_LOGIN = "UserTopicActivity.userLogin";
+    private static final String EXTRA_ME = "UserTopicActivity.me";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.appbar_layout)
@@ -45,6 +45,12 @@ public class UserTopicActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
+    public static void start(Activity activity, boolean me) {
+        Intent intent = new Intent(activity, UserTopicActivity.class);
+        intent.putExtra(EXTRA_ME, me);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +62,13 @@ public class UserTopicActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String user = getIntent().getStringExtra(EXTRA_USER_LOGIN);
-
-        if (mPreferencesHelper.getUser() != null && TextUtils
-                .equals(user, mPreferencesHelper.getUser().login)) {
+        boolean me = getIntent().getBooleanExtra(EXTRA_ME, false);
+        if (me) {
             getSupportActionBar().setTitle(mMyTopics);
         } else {
             getSupportActionBar().setTitle(MessageFormat.format(mUserTopics, user));
         }
 
-        replaceFragment(TopicFragment.newInstance(user), R.id.fragment_container);
+        replaceFragment(TopicFragment.newInstance(user, me), R.id.fragment_container);
     }
 }

@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity
         mDisposable.add(Observable.just("")
                 .subscribeOn(Schedulers.single())
                 .delay(200, TimeUnit.MILLISECONDS)
-                .subscribe(s -> mNavigator.showUser()));
+                .subscribe(s -> mNavigator.showUser(true)));
     }
 
     private void clickFabMenu(View view) {
@@ -177,20 +177,20 @@ public class MainActivity extends BaseActivity
     private void clickNavMenu(int id) {
         switch (id) {
             case R.id.nav_topic:
-                mNavigator.showUserTopics();
+                mNavigator.showUserTopics(true);
                 break;
             case R.id.nav_favorite:
-                mNavigator.showUserFavorites();
+                mNavigator.showUserFavorites(true);
                 break;
             case R.id.nav_reply:
-                mNavigator.showUserReplies();
+                mNavigator.showUserReplies(true);
                 break;
             case R.id.nav_site:
                 mNavigator.showSite();
                 break;
             case R.id.nav_share:
                 break;
-            case R.id.nav_about:
+            case R.id.nav_feedback:
                 break;
             case R.id.nav_setting:
                 mNavigator.showSettings();
@@ -276,7 +276,7 @@ public class MainActivity extends BaseActivity
             super(fm);
             mTitles = context.getResources().getStringArray(R.array.main_tabs);
             mFragments = new ArrayList<>();
-            mFragments.add(TopicFragment.newInstance(null));
+            mFragments.add(TopicFragment.newInstance());
             mFragments.add(NewsFragment.newInstance());
             mFragments.add(ProjectFragment.newInstance());
         }

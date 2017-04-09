@@ -14,4 +14,5 @@ public class TopicAndReplies {
         this.detail = detail;
         this.replies = replies;
     }
+
 }

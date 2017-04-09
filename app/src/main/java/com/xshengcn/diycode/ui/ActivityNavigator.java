@@ -15,6 +15,7 @@ import com.xshengcn.diycode.ui.activity.SiteActivity;
 import com.xshengcn.diycode.ui.activity.TopicCreatorActivity;
 import com.xshengcn.diycode.ui.activity.TopicDetailActivity;
 import com.xshengcn.diycode.ui.activity.TopicReplyActivity;
+import com.xshengcn.diycode.ui.activity.UserActivity;
 import com.xshengcn.diycode.ui.activity.UserFavoriteActivity;
 import com.xshengcn.diycode.ui.activity.UserReplyActivity;
 import com.xshengcn.diycode.ui.activity.UserTopicActivity;
@@ -34,37 +35,52 @@ public final class ActivityNavigator {
         this.mActivity = activity;
     }
 
-    public void showUserReplies() {
-        if (mPreferencesHelper.getToken() == null) {
+    public void showUserReplies(boolean me) {
+        if (me && mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
-        UserReplyActivity.start(mActivity, mPreferencesHelper.getUser().login);
+        UserReplyActivity.start(mActivity, me);
     }
 
-    public void showUserFavorites() {
-        if (mPreferencesHelper.getToken() == null) {
-            showLogin();
-            return;
-        }
-        UserFavoriteActivity.start(mActivity, mPreferencesHelper.getUser().login);
+    public void showUserReplies(@NonNull String userLogin) {
+        UserReplyActivity.start(mActivity, userLogin);
     }
 
-    public void showUserTopics() {
-        if (mPreferencesHelper.getToken() == null) {
+    public void showUserFavorites(boolean me) {
+        if (me && mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
-        UserTopicActivity.start(mActivity, mPreferencesHelper.getUser().login);
+        UserFavoriteActivity.start(mActivity, me);
     }
 
-    public void showUser() {
-        if (mPreferencesHelper.getToken() == null) {
+    public void showUserFavorites(String userLogin) {
+        UserFavoriteActivity.start(mActivity, userLogin);
+    }
+
+    public void showUserTopics(boolean me) {
+        if (me && mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
         }
-        // TODO 完善个人页面
-        // UserActivity.start(mActivity);
+        UserTopicActivity.start(mActivity, me);
+    }
+
+    public void showUserTopics(String userLogin) {
+        UserTopicActivity.start(mActivity, userLogin);
+    }
+
+    public void showUser(boolean me) {
+        if (me && mPreferencesHelper.getToken() == null) {
+            showLogin();
+            return;
+        }
+        UserActivity.start(mActivity, me);
+    }
+
+    public void showUser(String user) {
+        UserActivity.start(mActivity, user);
     }
 
     public void showLogin() {

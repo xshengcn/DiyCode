@@ -8,7 +8,7 @@
     <item
         android:id="@+id/nav_favorite"
         android:icon="@drawable/ic_menu_collection"
-        android:title="@string/favorites"/>
+        android:title="@string/my_favorites"/>
     <item
         android:id="@+id/nav_reply"
         android:icon="@drawable/ic_menu_reply"

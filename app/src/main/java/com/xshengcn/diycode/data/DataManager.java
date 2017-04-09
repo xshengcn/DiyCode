@@ -1,5 +1,7 @@
 package com.xshengcn.diycode.data;
 
+import static com.xshengcn.diycode.util.RxUtils.applySingleSchedulers;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,10 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -70,11 +69,6 @@ public class DataManager {
         mService = retrofit.create(DiyCodeService.class);
     }
 
-    public static <T> ObservableTransformer<T, T> applySchedulers() {
-        return upstream -> upstream.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
     public String buildAuthorization() {
         Token token = mPreferencesHelper.getToken();
         if (token != null) {
@@ -83,94 +77,98 @@ public class DataManager {
         return null;
     }
 
-    public Observable<Token> login(String username, String password) {
+    public Single<Token> login(String username, String password) {
         return mService.getToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET,
-                GRANT_TYPE_PASSWORD, username, password).compose(applySchedulers());
+                GRANT_TYPE_PASSWORD, username, password)
+                .doOnSuccess(mPreferencesHelper::setToken)
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<Topic>> getTopics(int offset) {
+    public Single<List<Topic>> getTopics(int offset) {
         return mService.getTopics(buildAuthorization(), null, null, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<TopicDetail> createTopic(int nodeId, String title, String body) {
+    public Single<TopicDetail> createTopic(int nodeId, String title, String body) {
         return mService.createTopic(buildAuthorization(), nodeId, title, body)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<News>> getAllNewses(Integer offset) {
+    public Single<List<News>> getAllNewses(Integer offset) {
         return getNewses(null, offset);
     }
 
-    public Observable<List<News>> getNewses(String nodeId, Integer offset) {
+    public Single<List<News>> getNewses(String nodeId, Integer offset) {
         return mService.getNewses(buildAuthorization(), nodeId, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<NewsReply>> getNewsReplies(int newsId, int offset) {
+    public Single<List<NewsReply>> getNewsReplies(int newsId, int offset) {
         return mService.getNewsReplies(buildAuthorization(), newsId, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<Topic>> getUserTopics(String userLogin, int offset) {
+    public Single<List<Topic>> getUserTopics(String userLogin, int offset) {
         return mService.getUserTopics(buildAuthorization(), userLogin, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<Topic>> getUserFavorites(String userLogin, int offset) {
+    public Single<List<Topic>> getUserFavorites(String userLogin, int offset) {
         return mService.getUserFavorites(buildAuthorization(), userLogin, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<UserReply>> getUserReplies(String userLogin, int offset) {
+    public Single<List<UserReply>> getUserReplies(String userLogin, int offset) {
         return mService.getUserReplies(buildAuthorization(), userLogin, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<UserDetail> getMe() {
-        return mService.getMe(buildAuthorization()).compose(applySchedulers());
+    public Single<UserDetail> getMe() {
+        return mService.getMe(buildAuthorization()).doOnSuccess(mPreferencesHelper::setUserDetail)
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<NotificationUnread> getNotificationsUnreadCount() {
+    public Single<NotificationUnread> getNotificationsUnreadCount() {
         return mService.getNotificationsUnreadCount(buildAuthorization())
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<List<Notification>> getNotifications(int offset) {
+    public Single<List<Notification>> getNotifications(int offset) {
         return mService.getNotifications(buildAuthorization(), offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<TopicAndReplies> getTopicAndComments(int topicId) {
-        Observable<TopicDetail> topicObservable = getTopicDetail(topicId);
-        Observable<List<TopicReply>> reliesObservable = getTopicReplies(topicId, 0);
-        return Observable.zip(topicObservable, reliesObservable, TopicAndReplies::new);
+    public Single<TopicAndReplies> getTopicAndComments(int topicId) {
+        Single<TopicDetail> topicObservable = getTopicDetail(topicId);
+        Single<List<TopicReply>> reliesObservable = getTopicReplies(topicId, 0);
+        return Single.zip(topicObservable, reliesObservable, TopicAndReplies::new);
     }
 
-    public Observable<TopicDetail> getTopicDetail(int id) {
-        return mService.getTopicDetail(buildAuthorization(), id).compose(applySchedulers());
+    public Single<TopicDetail> getTopicDetail(int id) {
+        return mService.getTopicDetail(buildAuthorization(), id).compose(applySingleSchedulers());
     }
 
-    public Observable<List<TopicReply>> getTopicReplies(int topicId, int offset) {
+    public Single<List<TopicReply>> getTopicReplies(int topicId, int offset) {
         return mService.getTopicReplies(buildAuthorization(), topicId, offset, PAGE_LIMIT)
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<TopicReply> publishComment(int id, String body) {
-        return mService.publishComment(buildAuthorization(), id, body).compose(applySchedulers());
+    public Single<TopicReply> publishComment(int id, String body) {
+        return mService.publishComment(buildAuthorization(), id, body)
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<ImageResult> uploadPhoto(String filePath) {
+    public Single<ImageResult> uploadPhoto(String filePath) {
         File file = new File(filePath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         return mService.uploadPhoto(buildAuthorization(),
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile))
-                .compose(applySchedulers());
+                .compose(applySingleSchedulers());
     }
 
-    public Observable<Map<TopicNodeCategory, List<TopicNode>>> getTopicNodes() {
+    public Single<Map<TopicNodeCategory, List<TopicNode>>> getTopicNodes() {
         return mService.getTopicNodes()
-                .compose(applySchedulers())
+                .compose(applySingleSchedulers())
                 .map(this::getTopicNodeCategoryListMap);
     }
 
@@ -205,12 +203,12 @@ public class DataManager {
         return map;
     }
 
-    public Observable<List<Project>> getProjects(int offset) {
-        return mService.getProjects(null, offset, PAGE_LIMIT).compose(applySchedulers());
+    public Single<List<Project>> getProjects(int offset) {
+        return mService.getProjects(null, offset, PAGE_LIMIT).compose(applySingleSchedulers());
     }
 
-    public Observable<List<SiteListItem>> getSites() {
-        return mService.getSites().compose(applySchedulers()).map(this::getSiteListItems);
+    public Single<List<SiteListItem>> getSites() {
+        return mService.getSites().compose(applySingleSchedulers()).map(this::getSiteListItems);
     }
 
     private List<SiteListItem> getSiteListItems(List<SiteCollection> siteCollections) {
@@ -228,5 +226,9 @@ public class DataManager {
                     .collect(Collectors.toList()));
         }
         return items;
+    }
+
+    public Single<UserDetail> getUserDetail(String userLogin) {
+        return mService.getUserDetail(userLogin).compose(applySingleSchedulers());
     }
 }

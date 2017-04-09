@@ -9,9 +9,9 @@ import com.xshengcn.diycode.data.model.news.Node;
 import com.xshengcn.diycode.data.model.project.Project;
 import com.xshengcn.diycode.data.model.site.SiteCollection;
 import com.xshengcn.diycode.data.model.topic.Topic;
-import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicNode;
+import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.data.model.user.Notification;
 import com.xshengcn.diycode.data.model.user.NotificationUnread;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -19,8 +19,9 @@ import com.xshengcn.diycode.data.model.user.UserReply;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.MultipartBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -44,6 +45,8 @@ public interface DiyCodeService {
         String USERNAME = "username";
         String PASSWORD = "password";
         String REFRESH_TOKEN = "refreshToken";
+        String PLATFORM = "platform";
+        String TOKEN = "token";
 
         String NODE_ID = "node_id";
         String OFFSET = "offset";
@@ -63,7 +66,7 @@ public interface DiyCodeService {
      */
     @POST(AUTH_URL)
     @FormUrlEncoded
-    Observable<Token> getToken(@Field(Params.CLIENT_ID) String clientId,
+    Single<Token> getToken(@Field(Params.CLIENT_ID) String clientId,
             @Field(Params.CLIENT_SECRET) String clientSecret,
             @Field(Params.GRANT_TYPE) String grantType,
             @Field(Params.USERNAME) String username,
@@ -74,28 +77,36 @@ public interface DiyCodeService {
      */
     @POST(AUTH_URL)
     @FormUrlEncoded
-    Observable<Token> refreshToken(@Field(Params.CLIENT_ID) String clientId,
+    Single<Token> refreshToken(@Field(Params.CLIENT_ID) String clientId,
             @Field(Params.CLIENT_SECRET) String clientSecret,
             @Field(Params.GRANT_TYPE) String grantType,
             @Field(Params.REFRESH_TOKEN) String refreshToken);
 
+    @POST("devices.json")
+    Single<Object> pushDeviceInfo(@Query(Params.PLATFORM) String platform,
+            @Query(Params.TOKEN) String token);
+
+    @DELETE("devices.json")
+    Single<Object> deleteDeviceInfo(@Query(Params.PLATFORM) String platform,
+            @Query(Params.TOKEN) String token);
+
     @GET("news/nodes.json")
-    Observable<List<Node>> getNewsNodes();
+    Single<List<Node>> getNewsNodes();
 
     @GET("news.json")
-    Observable<List<News>> getNewses(@Header(Params.AUTHORIZATION) String header,
+    Single<List<News>> getNewses(@Header(Params.AUTHORIZATION) String header,
             @Query(Params.NODE_ID) String nodeId,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("news/{id}/replies.json")
-    Observable<List<NewsReply>> getNewsReplies(@Header(Params.AUTHORIZATION) String header,
+    Single<List<NewsReply>> getNewsReplies(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer newsId,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("topics.json")
-    Observable<List<Topic>> getTopics(@Header(Params.AUTHORIZATION) String header,
+    Single<List<Topic>> getTopics(@Header(Params.AUTHORIZATION) String header,
             @Query(Params.TYPE) String type,
             @Query(Params.NODE_ID) Integer nodeId,
             @Query(Params.OFFSET) Integer offset,
@@ -103,35 +114,35 @@ public interface DiyCodeService {
 
     @POST("topics.json")
     @FormUrlEncoded
-    Observable<TopicDetail> createTopic(@Header(Params.AUTHORIZATION) String header,
+    Single<TopicDetail> createTopic(@Header(Params.AUTHORIZATION) String header,
             @Field(Params.NODE_ID) Integer nodeId,
             @Field(Params.TITLE) String title,
             @Field(Params.BODY) String body);
 
     @GET("topics/{id}.json")
-    Observable<TopicDetail> getTopicDetail(@Header(Params.AUTHORIZATION) String header,
+    Single<TopicDetail> getTopicDetail(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id);
 
     @GET("topics/{id}/replies.json")
-    Observable<List<TopicReply>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
+    Single<List<TopicReply>> getTopicReplies(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @POST("topics/{id}/replies.json")
     @FormUrlEncoded
-    Observable<TopicReply> publishComment(@Header(Params.AUTHORIZATION) String header,
+    Single<TopicReply> publishComment(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.ID) Integer id,
             @Field(Params.BODY) String body);
 
     @GET("users/me.json")
-    Observable<UserDetail> getMe(@Header(Params.AUTHORIZATION) String header);
+    Single<UserDetail> getMe(@Header(Params.AUTHORIZATION) String header);
 
     /**
      * 获取项目列表
      */
     @GET("projects.json")
-    Observable<List<Project>> getProjects(@Query(Params.NODE_ID) Integer nodeId,
+    Single<List<Project>> getProjects(@Query(Params.NODE_ID) Integer nodeId,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
@@ -139,26 +150,25 @@ public interface DiyCodeService {
      * 获得未读通知数量
      */
     @GET("notifications/unread_count.json")
-    Observable<NotificationUnread> getNotificationsUnreadCount(
+    Single<NotificationUnread> getNotificationsUnreadCount(
             @Header(Params.AUTHORIZATION) String header);
 
     /**
      * 当前用户的某个通知
      */
     @GET("notifications.json")
-    Observable<List<Notification>> getNotifications(@Header(Params.AUTHORIZATION) String header,
+    Single<List<Notification>> getNotifications(@Header(Params.AUTHORIZATION) String header,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("users/{login}.json")
-    Observable<UserDetail> getUserDetail(@Header(Params.AUTHORIZATION) String header,
-            @Path(Params.LOGIN) String userLogin);
+    Single<UserDetail> getUserDetail(@Path(Params.LOGIN) String userLogin);
 
     /**
      * 用户收藏的话题列表
      */
     @GET("users/{login}/favorites.json")
-    Observable<List<Topic>> getUserFavorites(@Header(Params.AUTHORIZATION) String header,
+    Single<List<Topic>> getUserFavorites(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
@@ -167,7 +177,7 @@ public interface DiyCodeService {
      * 获取用户创建的话题列表
      */
     @GET("users/{login}/topics.json")
-    Observable<List<Topic>> getUserTopics(@Header(Params.AUTHORIZATION) String header,
+    Single<List<Topic>> getUserTopics(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
@@ -176,7 +186,7 @@ public interface DiyCodeService {
      * 用户的关注者列表
      */
     @GET("users/{login}/followers.json")
-    Observable<List<User>> getUserFollowers(@Header(Params.AUTHORIZATION) String header,
+    Single<List<User>> getUserFollowers(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
@@ -185,31 +195,31 @@ public interface DiyCodeService {
      * 用户正在关注的人
      */
     @GET("users/{login}/followers.json")
-    Observable<List<User>> getUserFollowing(@Header(Params.AUTHORIZATION) String header,
+    Single<List<User>> getUserFollowing(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @GET("users/{login}/replies.json")
-    Observable<List<UserReply>> getUserReplies(@Header(Params.AUTHORIZATION) String header,
+    Single<List<UserReply>> getUserReplies(@Header(Params.AUTHORIZATION) String header,
             @Path(Params.LOGIN) String userLogin,
             @Query(Params.OFFSET) Integer offset,
             @Query(Params.LIMIT) Integer limit);
 
     @Multipart
     @POST("photos.json")
-    Observable<ImageResult> uploadPhoto(@Header(Params.AUTHORIZATION) String header,
+    Single<ImageResult> uploadPhoto(@Header(Params.AUTHORIZATION) String header,
             @Part MultipartBody.Part file);
 
     /**
      * 获取话题node列表
      */
     @GET("nodes.json")
-    Observable<List<TopicNode>> getTopicNodes();
+    Single<List<TopicNode>> getTopicNodes();
 
     /**
      * 获取酷站
      */
     @GET("sites.json")
-    Observable<List<SiteCollection>> getSites();
+    Single<List<SiteCollection>> getSites();
 }

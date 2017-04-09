@@ -9,6 +9,8 @@ public interface ITopicView {
 
     String getUser();
 
+    boolean isMe();
+
     void showTopics(List<Topic> topics, boolean clean);
 
     void showLoadMoreFailed();

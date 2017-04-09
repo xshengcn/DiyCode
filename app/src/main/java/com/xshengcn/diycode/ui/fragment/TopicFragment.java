@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,8 @@ public class TopicFragment extends BaseFragment
         implements ITopicView, TopicAdapter.OnItemClickListener, LoadMoreHandler {
 
     private static final String ARGS_USER = "TopicFragment.user";
-    private static final String BUNDLE_TOPICS = "TopicFragment.topics";
+    private static final String ARGS_ME = "TopicFragment.me";
+
     @BindView(R.id.recycler_View)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh_layout)
@@ -52,12 +54,25 @@ public class TopicFragment extends BaseFragment
     private LoadMoreWrapper mWrapper;
 
     /**
-     * 如果参数空则获取全部的主题，否则获取该用户的主题
+     * 如果获取全部的主题
      */
-    public static TopicFragment newInstance(@Nullable String user) {
+    public static TopicFragment newInstance() {
+        
         Bundle args = new Bundle();
+        
         TopicFragment fragment = new TopicFragment();
-        args.putString(ARGS_USER, user);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static TopicFragment newInstance(@Nullable String userLogin, boolean me) {
+
+        Bundle args = new Bundle();
+        if (!TextUtils.isEmpty(userLogin)) {
+            args.putString(ARGS_USER, userLogin);
+        }
+        args.putBoolean(ARGS_ME, me);
+        TopicFragment fragment = new TopicFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -99,6 +114,11 @@ public class TopicFragment extends BaseFragment
     @Override
     public String getUser() {
         return getArguments().getString(ARGS_USER);
+    }
+
+    @Override
+    public boolean isMe() {
+        return getArguments().getBoolean(ARGS_ME);
     }
 
     @Override

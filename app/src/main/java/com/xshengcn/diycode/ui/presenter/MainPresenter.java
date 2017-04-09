@@ -50,7 +50,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     private void updateUserDetail() {
         if (mPreferencesHelper.getToken() != null) {
-            addDisposable(mDataManager.getMe().doOnNext(mPreferencesHelper::setUser).subscribe());
+            addDisposable(mDataManager.getMe().subscribe());
         }
     }
 
@@ -66,9 +66,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     private void checkUser() {
-        if (mPreferencesHelper.getUser() != null) {
-            getView().setupNavigationView(mPreferencesHelper.getUser());
-        }
+        mPreferencesHelper.getUserDetail().subscribe(getView()::setupNavigationView);
     }
 
 }

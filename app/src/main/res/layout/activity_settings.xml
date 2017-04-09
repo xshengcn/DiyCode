@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:text="Account"
+                android:textSize="@dimen/dimenTextTertiary"
+                android:padding="@dimen/spacing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.xshengcn.diycode.ui.widget.SettingRowView
+                android:id="@+id/setting_account"
+                android:foreground="@drawable/selector_subtle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rowTitle="账号"
+                app:rowDescription="xshengcn@gmail.com" />
+
+            <View
+                android:id="@+id/setting_account_divider"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider" />
+
+            <TextView
+                android:id="@+id/setting_account_state"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:padding="@dimen/spacing"
+                android:foreground="@drawable/selector_subtle"
+                android:text="退出账号"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:text="General"
+                android:textSize="@dimen/dimenTextTertiary"
+                android:padding="@dimen/spacing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.xshengcn.diycode.ui.widget.SettingSwitchRowView
+                android:id="@+id/setting_night_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/selector_subtle"
+                app:rowTitle="夜间模式"
+                app:rowDescription="夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式" />
+
+            <View
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider" />
+
+            <com.xshengcn.diycode.ui.widget.SettingRowView
+                android:id="@+id/setting_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rowTitle="清理缓存"
+                app:rowDescription="清除所有缓存" />
+
+            <View
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider" />
+
+            <com.xshengcn.diycode.ui.widget.SettingRowView
+                android:id="@+id/setting_photo_upload_quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rowTitle="图片上传质量"
+                app:rowDescription="中等" />
+
+
+            <TextView
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:text="About"
+                android:textSize="@dimen/dimenTextTertiary"
+                android:padding="@dimen/spacing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/setting_about"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:padding="@dimen/spacing"
+                android:text="关于Diycode"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider" />
+
+            <TextView
+                android:id="@+id/setting_licenses"
+                android:textSize="@dimen/dimenTextSecondary"
+                android:padding="@dimen/spacing"
+                android:text="开源许可"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider" />
+
+            <com.xshengcn.diycode.ui.widget.SettingRowView
+                android:id="@+id/setting_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rowTitle="应用版本"
+                app:rowDescription="1.0.1-BETA" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

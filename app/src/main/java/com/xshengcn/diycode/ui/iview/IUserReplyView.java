@@ -9,6 +9,8 @@ public interface IUserReplyView {
 
     String getUserLogin();
 
+    boolean isMe();
+
     int getItemOffset();
 
     boolean isRefreshing();
@@ -23,5 +25,4 @@ public interface IUserReplyView {
 
     void changeStateView(@MultiStateView.ViewState int state);
 
-    void setTitle(boolean me);
 }

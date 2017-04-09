@@ -1,18 +1,21 @@
 package com.xshengcn.diycode.ui.presenter;
 
-import android.text.TextUtils;
-
 import com.kennyc.view.MultiStateView;
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.topic.Topic;
+import com.xshengcn.diycode.data.model.user.UserDetail;
 import com.xshengcn.diycode.ui.iview.IUserFavoriteView;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
 
@@ -28,10 +31,6 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
     @Override
     public void onAttach(IUserFavoriteView view) {
         super.onAttach(view);
-        boolean me = mPreferencesHelper.getUser() != null && TextUtils
-                .equals(view.getUserLogin(), mPreferencesHelper.getUser().login);
-
-        view.setTitle(me);
     }
 
     public void onRefresh() {
@@ -50,9 +49,21 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
     private void loadUserTopics(boolean clean) {
         final IUserFavoriteView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
-        Disposable disposable = mDataManager.getUserFavorites(view.getUserLogin(), offset)
-                .subscribe(topics -> handleNext(topics, clean), this::handleError);
-        addDisposable(disposable);
+        if (view.isMe()) {
+            addDisposable(Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
+                    .firstOrError()
+                    .flatMap(new Function<UserDetail, SingleSource<List<Topic>>>() {
+                        @Override
+                        public SingleSource<List<Topic>> apply(@NonNull UserDetail userDetail)
+                                throws Exception {
+                            return mDataManager.getUserFavorites(userDetail.login, offset);
+                        }
+                    }).subscribe(topics -> handleNext(topics, clean), this::handleError));
+        } else {
+            Disposable disposable = mDataManager.getUserFavorites(view.getUserLogin(), offset)
+                    .subscribe(topics -> handleNext(topics, clean), this::handleError);
+            addDisposable(disposable);
+        }
     }
 
     private void handleNext(List<Topic> topics, boolean clean) {

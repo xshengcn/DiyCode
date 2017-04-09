@@ -2,6 +2,8 @@ package com.xshengcn.diycode.data.model.user;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class UserDetail {
 
     @SerializedName("id")
@@ -27,7 +29,7 @@ public class UserDetail {
     @SerializedName("github")
     public String github;
     @SerializedName("created_at")
-    public String createdAt;
+    public Date createdAt;
     @SerializedName("email")
     public String email;
     @SerializedName("topics_count")

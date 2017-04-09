@@ -66,7 +66,7 @@
         <activity
             android:name=".ui.activity.UserActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar.Main" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ui.activity.UserTopicActivity"
@@ -119,7 +119,7 @@
         <activity
             android:name=".ui.activity.SettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Settings" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".ui.receiver.ActionBroadcastReceiver" />
 
