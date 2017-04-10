@@ -59,15 +59,14 @@ public class HtmlUtils {
         return source.subSequence(0, i + 1);
     }
 
-    public static void parseHtmlAndSetText(String source,
-            @NonNull TextView textView,
-            Callback callback) {
+    public static void parseHtmlAndSetText(String source, @NonNull TextView textView,
+            Callback callback, int maxWidth) {
         if (TextUtils.isEmpty(source)) {
             return;
         }
 
         Spanned spanned = Html.fromHtml(
-                source, new GlideImageGetter(textView), new CodeTagHandler());
+                source, new GlideImageGetter(textView, maxWidth), new CodeTagHandler());
 
         int color = textView.getResources().getColor(R.color.colorTextTertiary);
         int background = textView.getResources().getColor(R.color.content_background);

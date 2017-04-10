@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 
 public class URLDrawable extends BitmapDrawable implements Drawable.Callback {
 
-    private GlideDrawable mDrawable;
+    private Drawable mDrawable;
     private final String mSource;
 
     public URLDrawable(String source) {
@@ -49,7 +49,7 @@ public class URLDrawable extends BitmapDrawable implements Drawable.Callback {
         return 0;
     }
 
-    public void setDrawable(GlideDrawable drawable) {
+    public void setDrawable(Drawable drawable) {
         if (this.mDrawable != null) {
             this.mDrawable.setCallback(null);
         }

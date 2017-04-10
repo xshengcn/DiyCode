@@ -22,13 +22,15 @@ public final class GlideImageGetter
         implements Html.ImageGetter, View.OnAttachStateChangeListener, Drawable.Callback {
 
     private final TextView mTextView;
+    private final int mMaxWdith;
 
 
     private final Set<ViewTarget<TextView, GlideDrawable>> mViewTargetSet = Collections
             .newSetFromMap(new WeakHashMap<>());
 
-    public GlideImageGetter(TextView textView) {
+    public GlideImageGetter(TextView textView, int maxWdith) {
         this.mTextView = textView;
+        mMaxWdith = maxWdith;
 
         mTextView.setTag(R.id.drawable_callback_tag, this);
         mTextView.addOnAttachStateChangeListener(this);
@@ -38,9 +40,10 @@ public final class GlideImageGetter
     public Drawable getDrawable(String url) {
         URLDrawable urlDrawable = new URLDrawable(url);
         ImageGetterViewTarget imageGetterViewTarget = new ImageGetterViewTarget(mTextView,
-                urlDrawable);
+                urlDrawable, mMaxWdith);
         Glide.with(mTextView.getContext().getApplicationContext())
                 .load(url)
+                .placeholder(R.drawable.placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageGetterViewTarget);
 
@@ -81,13 +84,34 @@ public final class GlideImageGetter
     private static final class ImageGetterViewTarget extends ViewTarget<TextView, GlideDrawable> {
 
         private final URLDrawable mDrawable;
+        private final int mMaxWidth;
 
         private Request mRequest;
 
-        private ImageGetterViewTarget(TextView view, URLDrawable drawable) {
+        private ImageGetterViewTarget(TextView view, URLDrawable drawable, int maxWdith) {
             super(view);
 
-            this.mDrawable = drawable;
+            mDrawable = drawable;
+            mMaxWidth = maxWdith;
+        }
+
+
+        @Override
+        public void onLoadStarted(Drawable placeholder) {
+            super.onLoadStarted(placeholder);
+            final TextView textView = getView();
+            final double aspectRatio =
+                    (1.0 * placeholder.getIntrinsicWidth()) / placeholder.getIntrinsicHeight();
+            boolean isEmoji = mDrawable.getSource()
+                    .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/");
+            final int width = isEmoji ? placeholder.getIntrinsicWidth() : mMaxWidth;
+            final int height = (int) (width / aspectRatio);
+            Rect rect = new Rect(0, 0, width, height);
+            placeholder.setBounds(rect);
+            mDrawable.setBounds(rect);
+            mDrawable.setDrawable(placeholder);
+//            textView.setTag(R.id.drawable_callback_tag, null);
+            textView.setText(textView.getText());
         }
 
         @Override
@@ -98,7 +122,7 @@ public final class GlideImageGetter
                     (1.0 * resource.getIntrinsicWidth()) / resource.getIntrinsicHeight();
             boolean isEmoji = mDrawable.getSource()
                     .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/");
-            final int width = isEmoji ? resource.getIntrinsicWidth() : textView.getWidth();
+            final int width = isEmoji ? resource.getIntrinsicWidth() : mMaxWidth;
             final int height = (int) (width / aspectRatio);
 
             Rect rect = new Rect(0, 0, width, height);

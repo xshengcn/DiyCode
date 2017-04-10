@@ -16,6 +16,7 @@ import com.xshengcn.diycode.data.model.topic.TopicAndReplies;
 import com.xshengcn.diycode.data.model.topic.TopicDetail;
 import com.xshengcn.diycode.data.model.topic.TopicReply;
 import com.xshengcn.diycode.util.DateUtils;
+import com.xshengcn.diycode.util.DensityUtil;
 import com.xshengcn.diycode.util.HtmlUtils;
 
 import java.text.MessageFormat;
@@ -133,8 +134,9 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
                 mOnHeaderClickListener.clickHead(reply.user.login);
             }
         });
-
-        HtmlUtils.parseHtmlAndSetText(reply.bodyHtml, holder.body, mCallback);
+        int max = DensityUtil.getScreenWidth(mContext) - holder.itemContent.getPaddingLeft()
+                - holder.itemContent.getPaddingRight();
+        HtmlUtils.parseHtmlAndSetText(reply.bodyHtml, holder.body, mCallback, max);
     }
 
     private void bindHeaderViewHolder(HeaderViewHolder holder, TopicDetail detail) {
@@ -154,7 +156,9 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
         }
         holder.title.setText(detail.title);
 
-        HtmlUtils.parseHtmlAndSetText(detail.bodyHtml, holder.body, mCallback);
+        int max = DensityUtil.getScreenWidth(mContext) - holder.detailContent.getPaddingLeft()
+                - holder.detailContent.getPaddingRight();
+        HtmlUtils.parseHtmlAndSetText(detail.bodyHtml, holder.body, mCallback, max);
 
         holder.replyCount.setVisibility(detail.repliesCount == 0 ? View.GONE : View.VISIBLE);
         holder.replyCount.setText(MessageFormat
@@ -221,6 +225,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.item_content)
+        View itemContent;
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)

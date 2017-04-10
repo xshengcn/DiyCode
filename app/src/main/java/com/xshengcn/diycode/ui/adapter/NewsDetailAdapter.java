@@ -84,27 +84,27 @@ public class NewsDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void bindReplyViewHolder(@NonNull ViewHolder holder, @NonNull NewsReply reply) {
 
-        Spanned spanned = Html.fromHtml(reply.bodyHtml,
-                new GlideImageGetter(holder.body),
-                new CodeTagHandler());
-        holder.body.setText(spanned);
-        holder.body.setMovementMethod(LinkMovementMethod.getInstance());
-        URLSpan[] urlSpen = spanned.getSpans(0, spanned.length(), URLSpan.class);
-        ImageSpan[] imageSpen = spanned.getSpans(0, spanned.length(), ImageSpan.class);
-        SpannableStringBuilder style = new SpannableStringBuilder(spanned);
-        for (URLSpan urlSpan : urlSpen) {
-            style.setSpan(new ClickableURLSpan(urlSpan.getURL()), spanned.getSpanStart(urlSpan),
-                    spanned.getSpanEnd(urlSpan), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            style.removeSpan(urlSpan);
-        }
-
-        for (ImageSpan imageSpan : imageSpen) {
-            style.setSpan(new ClickableImageSpan(imageSpan.getSource()),
-                    spanned.getSpanStart(imageSpan),
-                    spanned.getSpanEnd(imageSpan),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        holder.body.setText(style);
+//        Spanned spanned = Html.fromHtml(reply.bodyHtml,
+//                new GlideImageGetter(holder.body),
+//                new CodeTagHandler());
+//        holder.body.setText(spanned);
+//        holder.body.setMovementMethod(LinkMovementMethod.getInstance());
+//        URLSpan[] urlSpen = spanned.getSpans(0, spanned.length(), URLSpan.class);
+//        ImageSpan[] imageSpen = spanned.getSpans(0, spanned.length(), ImageSpan.class);
+//        SpannableStringBuilder style = new SpannableStringBuilder(spanned);
+//        for (URLSpan urlSpan : urlSpen) {
+//            style.setSpan(new ClickableURLSpan(urlSpan.getURL()), spanned.getSpanStart(urlSpan),
+//                    spanned.getSpanEnd(urlSpan), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            style.removeSpan(urlSpan);
+//        }
+//
+//        for (ImageSpan imageSpan : imageSpen) {
+//            style.setSpan(new ClickableImageSpan(imageSpan.getSource()),
+//                    spanned.getSpanStart(imageSpan),
+//                    spanned.getSpanEnd(imageSpan),
+//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        }
+//        holder.body.setText(style);
     }
 
     @Override
