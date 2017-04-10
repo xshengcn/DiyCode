@@ -22,15 +22,15 @@ public final class GlideImageGetter
         implements Html.ImageGetter, View.OnAttachStateChangeListener, Drawable.Callback {
 
     private final TextView mTextView;
-    private final int mMaxWdith;
+    private final int mMaxWidth;
 
 
     private final Set<ViewTarget<TextView, GlideDrawable>> mViewTargetSet = Collections
             .newSetFromMap(new WeakHashMap<>());
 
-    public GlideImageGetter(TextView textView, int maxWdith) {
+    public GlideImageGetter(TextView textView, int maxWidth) {
         this.mTextView = textView;
-        mMaxWdith = maxWdith;
+        mMaxWidth = maxWidth;
 
         mTextView.setTag(R.id.drawable_callback_tag, this);
         mTextView.addOnAttachStateChangeListener(this);
@@ -40,7 +40,7 @@ public final class GlideImageGetter
     public Drawable getDrawable(String url) {
         URLDrawable urlDrawable = new URLDrawable(url);
         ImageGetterViewTarget imageGetterViewTarget = new ImageGetterViewTarget(mTextView,
-                urlDrawable, mMaxWdith);
+                urlDrawable, mMaxWidth);
         Glide.with(mTextView.getContext().getApplicationContext())
                 .load(url)
                 .placeholder(R.drawable.placeholder)
