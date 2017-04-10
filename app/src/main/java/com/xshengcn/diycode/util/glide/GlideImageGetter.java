@@ -139,7 +139,7 @@ public final class GlideImageGetter
                     resource.start();
                 }
             } else {
-                textView.setTag(R.id.drawable_callback_tag, null);
+//                textView.setTag(R.id.drawable_callback_tag, null);
             }
 
             textView.setText(textView.getText());
