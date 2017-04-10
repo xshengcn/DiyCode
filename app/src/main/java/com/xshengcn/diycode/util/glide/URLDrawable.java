@@ -5,8 +5,6 @@ import android.graphics.ColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-
 public class URLDrawable extends BitmapDrawable implements Drawable.Callback {
 
     private Drawable mDrawable;

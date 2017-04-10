@@ -66,7 +66,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     private void checkUser() {
-        mPreferencesHelper.getUserDetail().subscribe(getView()::setupNavigationView, e -> {});
+        mPreferencesHelper.getUserDetail().subscribe(getView()::setupNavigationView, e -> {
+        });
     }
 
 }
