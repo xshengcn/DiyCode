@@ -61,7 +61,7 @@ public class PreferencesHelper {
                 UserDetail detail = new Gson().fromJson(userStr, UserDetail.class);
                 e.onSuccess(detail);
             } else {
-                e.onError(new NullPointerException("userStr is empty"));
+                e.onError(new RuntimeException("userStr is empty"));
             }
         }).compose(RxUtils.applySingleSchedulers());
     }
