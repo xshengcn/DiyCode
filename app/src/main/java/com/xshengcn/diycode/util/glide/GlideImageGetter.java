@@ -24,14 +24,12 @@ public final class GlideImageGetter
     private final TextView mTextView;
     private final int mMaxWidth;
 
-
     private final Set<ViewTarget<TextView, GlideDrawable>> mViewTargetSet = Collections
             .newSetFromMap(new WeakHashMap<>());
 
     public GlideImageGetter(TextView textView, int maxWidth) {
         this.mTextView = textView;
         mMaxWidth = maxWidth;
-
         mTextView.setTag(R.id.drawable_callback_tag, this);
         mTextView.addOnAttachStateChangeListener(this);
     }
@@ -64,7 +62,7 @@ public final class GlideImageGetter
         mViewTargetSet.clear();
         v.removeOnAttachStateChangeListener(this);
 
-        v.setTag(R.id.drawable_callback_tag, null);
+//        v.setTag(R.id.drawable_callback_tag, null);
     }
 
 
@@ -102,9 +100,11 @@ public final class GlideImageGetter
             final TextView textView = getView();
             final double aspectRatio =
                     (1.0 * placeholder.getIntrinsicWidth()) / placeholder.getIntrinsicHeight();
-            boolean isEmoji = mDrawable.getSource()
-                    .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/");
-            final int width = isEmoji ? placeholder.getIntrinsicWidth() : mMaxWidth;
+            if (mDrawable.getSource()
+                    .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/")) {
+                return;
+            }
+            final int width = Math.min(placeholder.getIntrinsicWidth(), mMaxWidth);
             final int height = (int) (width / aspectRatio);
             Rect rect = new Rect(0, 0, width, height);
             placeholder.setBounds(rect);
@@ -133,13 +133,11 @@ public final class GlideImageGetter
             if (resource.isAnimated()) {
                 Drawable.Callback callback = (Drawable.Callback) textView.getTag(
                         R.id.drawable_callback_tag);
-                if (callback != null) {
-                    mDrawable.setCallback(callback);
-                    resource.setLoopCount(GlideDrawable.LOOP_FOREVER);
-                    resource.start();
-                }
+                mDrawable.setCallback(callback);
+                resource.setLoopCount(GlideDrawable.LOOP_FOREVER);
+                resource.start();
             } else {
-//                textView.setTag(R.id.drawable_callback_tag, null);
+                textView.setTag(R.id.drawable_callback_tag, null);
             }
 
             textView.setText(textView.getText());
