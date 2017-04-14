@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
 import com.xshengcn.diycode.R;
-import com.xshengcn.diycode.ui.activity.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

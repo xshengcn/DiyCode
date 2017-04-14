@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.util;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Editable;
@@ -45,6 +46,7 @@ public class CodeTagHandler implements Html.TagHandler {
         }
     }
 
+    @SuppressLint("ParcelCreator")
     class CodeTypefaceSpan extends TypefaceSpan {
 
         public CodeTypefaceSpan() {

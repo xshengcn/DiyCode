@@ -56,9 +56,7 @@ public final class GlideImageGetter
 
     @Override
     public void onViewDetachedFromWindow(View v) {
-        for (ViewTarget<TextView, GlideDrawable> viewTarget : mViewTargetSet) {
-            Glide.clear(viewTarget);
-        }
+        mViewTargetSet.forEach(Glide::clear);
         mViewTargetSet.clear();
         v.removeOnAttachStateChangeListener(this);
 

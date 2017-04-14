@@ -5,7 +5,6 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -127,13 +126,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 } else {
                     holder.body.setText(R.string.notification_empty_mention);
                 }
-                holder.itemContent.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnItemClickListener != null && notification.mention != null) {
-                            mOnItemClickListener
-                                    .clickTopicNotification(notification.mention.topicId);
-                        }
+                holder.itemContent.setOnClickListener(v -> {
+                    if (mOnItemClickListener != null && notification.mention != null) {
+                        mOnItemClickListener
+                                .clickTopicNotification(notification.mention.topicId);
                     }
                 });
                 break;

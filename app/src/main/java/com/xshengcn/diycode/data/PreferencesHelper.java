@@ -16,11 +16,7 @@ import com.xshengcn.diycode.util.RxUtils;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
-import io.reactivex.SingleSource;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 
 public class PreferencesHelper {
 
@@ -58,16 +54,15 @@ public class PreferencesHelper {
         mBus.send(new UserLogin());
     }
 
-    public Single<UserDetail> getUserDetail(DataManager manager) {
-        return Single.create((SingleOnSubscribe<String>) e -> e
-                .onSuccess(mPreferences.getString(KEY_USER_INFO, "")))
-                .flatMap(s -> {
-                    if (TextUtils.isEmpty(s)) {
-                        return manager.getMe();
-                    } else {
-                        return Single.just(new Gson().fromJson(s, UserDetail.class));
-                    }
-                })
+    public Single<UserDetail> getUserDetail() {
+        return Single.create((SingleOnSubscribe<UserDetail>) e -> {
+            String text = mPreferences.getString(KEY_USER_INFO, "");
+            if (!TextUtils.isEmpty(text)) {
+                e.onSuccess(new Gson().fromJson(text, UserDetail.class));
+            } else {
+                e.onError(new RuntimeException());
+            }
+        })
                 .compose(RxUtils.applySingleSchedulers());
     }
 

@@ -8,10 +8,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-
 public class SitePresenter extends BasePresenter<ISiteView> {
 
     private final DataManager mDataManager;
@@ -22,12 +18,8 @@ public class SitePresenter extends BasePresenter<ISiteView> {
     }
 
     public void loadSite() {
-        addDisposable(mDataManager.getSites().doOnSubscribe(new Consumer<Disposable>() {
-            @Override
-            public void accept(@NonNull Disposable disposable) throws Exception {
-                getView().showLoading();
-            }
-        }).subscribe(this::handleNext, this::handleError));
+        addDisposable(mDataManager.getSites().doOnSubscribe(disposable -> getView().showLoading())
+                .subscribe(this::handleNext, this::handleError));
     }
 
 

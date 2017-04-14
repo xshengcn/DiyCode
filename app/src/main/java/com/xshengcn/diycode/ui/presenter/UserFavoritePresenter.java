@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -50,17 +49,14 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
         final IUserFavoriteView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
         if (view.isMe()) {
-//            addDisposable(Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
-//                    .firstOrError()
-//                    .flatMap(new Function<UserDetail, SingleSource<List<Topic>>>() {
-//                        @Override
-//                        public SingleSource<List<Topic>> apply(@NonNull UserDetail userDetail)
-//                                throws Exception {
-//                            return mDataManager.getUserFavorites(userDetail.login, offset);
-//                        }
-//                    }).subscribe(topics -> handleNext(topics, clean), this::handleError));
-            addDisposable(mDataManager.getUserFavorites("me", offset)
-                    .subscribe(topics -> handleNext(topics, clean), this::handleError));
+            addDisposable(mDataManager.getMe(false)
+                    .flatMap(new Function<UserDetail, SingleSource<List<Topic>>>() {
+                        @Override
+                        public SingleSource<List<Topic>> apply(@NonNull UserDetail userDetail)
+                                throws Exception {
+                            return mDataManager.getUserFavorites(userDetail.login, offset);
+                        }
+                    }).subscribe(topics -> handleNext(topics, clean), this::handleError));
         } else {
             Disposable disposable = mDataManager.getUserFavorites(view.getUserLogin(), offset)
                     .subscribe(topics -> handleNext(topics, clean), this::handleError);

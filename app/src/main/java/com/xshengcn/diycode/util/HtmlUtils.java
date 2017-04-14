@@ -1,5 +1,6 @@
 package com.xshengcn.diycode.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -205,6 +206,7 @@ public class HtmlUtils {
         }
     }
 
+    @SuppressLint("ParcelCreator")
     private static class ClickableURLSpan extends URLSpan {
 
         private Callback mCallback;

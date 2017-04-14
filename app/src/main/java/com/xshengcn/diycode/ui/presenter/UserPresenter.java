@@ -1,24 +1,18 @@
 package com.xshengcn.diycode.ui.presenter;
 
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.ui.iview.IUserView;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-
 public class UserPresenter extends BasePresenter<IUserView> {
 
     private final DataManager mDataManager;
-    private final PreferencesHelper mPreferencesHelper;
 
     @Inject
-    public UserPresenter(DataManager dataManager, PreferencesHelper preferencesHelper) {
+    public UserPresenter(DataManager dataManager) {
         mDataManager = dataManager;
-        mPreferencesHelper = preferencesHelper;
     }
-
 
     @Override
     public void onAttach(IUserView view) {
@@ -28,7 +22,7 @@ public class UserPresenter extends BasePresenter<IUserView> {
     public void loadUserDetail() {
         final IUserView view = getView();
         if (view.isMe()) {
-            addDisposable(mPreferencesHelper.getUserDetail(mDataManager)
+            addDisposable(mDataManager.getMe(false)
                     .subscribe(view::updateUserDetail, Throwable::printStackTrace));
         } else {
             addDisposable(mDataManager.getUserDetail(view.getUserLogin())

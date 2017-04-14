@@ -128,6 +128,16 @@ public class DataManager {
                 .compose(applySingleSchedulers());
     }
 
+    public Single<UserDetail> getMe(boolean forced) {
+        if (forced) {
+            return getMe();
+        } else {
+            return mPreferencesHelper.getUserDetail()
+                    .onErrorReturn(throwable -> getMe().blockingGet())
+                    .compose(applySingleSchedulers());
+        }
+    }
+
     public Single<NotificationUnread> getNotificationsUnreadCount() {
         return mService.getNotificationsUnreadCount(buildAuthorization())
                 .compose(applySingleSchedulers());

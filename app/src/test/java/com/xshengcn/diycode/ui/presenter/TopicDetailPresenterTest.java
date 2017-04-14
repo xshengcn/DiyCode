@@ -19,9 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,13 +54,10 @@ public class TopicDetailPresenterTest {
         mPresenter = new TopicDetailPresenter(mDataManager, mBus);
 
         when(mBus.toObservable()).thenReturn(PublishSubject.create());
-        when(mBus.toObservable().filter(spy(Predicate.class))).thenAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                Predicate arg = mock(Predicate.class);
-                arg.test(new Object());
-                return mock(Observable.class);
-            }
+        when(mBus.toObservable().filter(spy(Predicate.class))).thenAnswer(invocation -> {
+            Predicate arg = mock(Predicate.class);
+            arg.test(new Object());
+            return mock(Observable.class);
         });
         mPresenter.onAttach(mTopicDetailView);
 

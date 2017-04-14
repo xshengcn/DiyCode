@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.data.DataManager;
-import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.data.model.topic.Topic;
 import com.xshengcn.diycode.ui.iview.ITopicView;
 
@@ -19,12 +18,10 @@ import io.reactivex.disposables.Disposable;
 public class TopicPresenter extends BasePresenter<ITopicView> {
 
     private final DataManager mDataManager;
-    private final PreferencesHelper mPreferencesHelper;
 
     @Inject
-    public TopicPresenter(DataManager dataManager, PreferencesHelper preferencesHelper) {
+    public TopicPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
-        mPreferencesHelper = preferencesHelper;
     }
 
     @Override
@@ -54,7 +51,7 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
         String s = getView().getUser();
         if (TextUtils.isEmpty(s)) {
             if (getView().isMe()) {
-                return mPreferencesHelper.getUserDetail(mDataManager)
+                return mDataManager.getMe(false)
                         .flatMap(detail -> mDataManager.getUserTopics(detail.login, offset));
             } else {
                 return mDataManager.getTopics(offset);

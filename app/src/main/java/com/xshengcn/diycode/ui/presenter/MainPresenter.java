@@ -2,7 +2,6 @@ package com.xshengcn.diycode.ui.presenter;
 
 import com.xshengcn.diycode.data.DataManager;
 import com.xshengcn.diycode.data.PreferencesHelper;
-import com.xshengcn.diycode.data.event.UserDetailUpdate;
 import com.xshengcn.diycode.data.event.UserLogin;
 import com.xshengcn.diycode.ui.iview.IMainView;
 import com.xshengcn.diycode.util.RxBus;
@@ -35,15 +34,9 @@ public class MainPresenter extends BasePresenter<IMainView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(o -> {
                     loadNotificationCount();
-                    checkUser();
+                    updateUserDetail();
                 });
         addDisposable(userLogin);
-
-        Disposable userDetailUpdate = mBus.toObservable()
-                .filter(o -> o instanceof UserDetailUpdate)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(o -> checkUser());
-        addDisposable(userDetailUpdate);
 
         checkUser();
         loadNotificationCount();
@@ -69,8 +62,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     private void checkUser() {
-        mPreferencesHelper.getUserDetail(mDataManager).subscribe(getView()::setupNavigationView, e -> {
-        });
+        if (mPreferencesHelper.getToken() != null) {
+            addDisposable(mDataManager.getMe(false)
+                    .subscribe(getView()::setupNavigationView, Throwable::printStackTrace));
+        }
     }
 
 }

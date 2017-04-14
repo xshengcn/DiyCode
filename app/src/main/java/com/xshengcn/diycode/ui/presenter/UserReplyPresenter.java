@@ -10,8 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-
 public class UserReplyPresenter extends BasePresenter<IUserReplyView> {
 
     private final DataManager mDataManager;
@@ -46,7 +44,7 @@ public class UserReplyPresenter extends BasePresenter<IUserReplyView> {
         int offset = clean ? 0 : view.getItemOffset();
 
         if (view.isMe()) {
-            addDisposable(mPreferencesHelper.getUserDetail(mDataManager)
+            addDisposable(mDataManager.getMe(false)
                     .flatMap(detail -> mDataManager.getUserReplies(detail.login, offset))
                     .subscribe(topics -> handleNext(topics, clean)));
         } else {
