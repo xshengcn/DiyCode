@@ -7,7 +7,7 @@ import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.injection.PreActivity;
 import com.xshengcn.diycode.ui.activity.LicensesActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
-import com.xshengcn.diycode.ui.activity.MarkdownGuideActivity;
+import com.xshengcn.diycode.ui.activity.MarkdownSyntaxReferenceActivity;
 import com.xshengcn.diycode.ui.activity.MarkdownPreviewActivity;
 import com.xshengcn.diycode.ui.activity.NotificationActivity;
 import com.xshengcn.diycode.ui.activity.SearchActivity;
@@ -133,7 +133,7 @@ public final class ActivityNavigator {
     }
 
     public void showMarkdownHelper() {
-        MarkdownGuideActivity.start(mActivity);
+        MarkdownSyntaxReferenceActivity.start(mActivity);
     }
 
     public void showSettings() {

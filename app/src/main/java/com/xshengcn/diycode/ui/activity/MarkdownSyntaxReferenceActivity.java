@@ -17,7 +17,7 @@ import com.xshengcn.diycode.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MarkdownGuideActivity extends BaseActivity {
+public class MarkdownSyntaxReferenceActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -32,7 +32,7 @@ public class MarkdownGuideActivity extends BaseActivity {
         setContentView(R.layout.activity_markdown);
         ButterKnife.bind(this);
 
-        mToolbar.setTitle(R.string.markdown_guide);
+        mToolbar.setTitle(R.string.markdown_syntax_reference);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -57,10 +57,10 @@ public class MarkdownGuideActivity extends BaseActivity {
 
             }
         });
-        mWebView.loadUrl("file:///android_asset/markdown-helper.html");
+        mWebView.loadUrl("file:///android_asset/markdown-syntax-reference.html");
     }
 
     public static void start(@NonNull Activity activity) {
-        activity.startActivity(new Intent(activity, MarkdownGuideActivity.class));
+        activity.startActivity(new Intent(activity, MarkdownSyntaxReferenceActivity.class));
     }
 }

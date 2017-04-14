@@ -106,8 +106,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ui.activity.MarkdownGuideActivity"
-            android:label="@string/markdown_guide"
+            android:name=".ui.activity.MarkdownSyntaxReferenceActivity"
+            android:label="@string/markdown_syntax_reference"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
