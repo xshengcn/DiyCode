@@ -54,8 +54,7 @@ public class TopicPresenter extends BasePresenter<ITopicView> {
         String s = getView().getUser();
         if (TextUtils.isEmpty(s)) {
             if (getView().isMe()) {
-                return Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
-                        .firstOrError()
+                return mPreferencesHelper.getUserDetail(mDataManager)
                         .flatMap(detail -> mDataManager.getUserTopics(detail.login, offset));
             } else {
                 return mDataManager.getTopics(offset);

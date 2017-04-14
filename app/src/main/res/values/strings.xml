@@ -61,6 +61,7 @@
     <string name="user_id_description">第 {0} 位会员</string>
     <string name="github_user_url">https://github.com/{0}</string>
     <string name="twitter_user_url">https://twitter.com/{0}</string>
+    <string name="open_source_licenses">开源许可</string>
 
     <string-array name="main_tabs">
         <item>topics</item>

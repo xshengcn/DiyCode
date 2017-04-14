@@ -121,6 +121,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".ui.activity.LicensesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <receiver android:name=".ui.receiver.ActionBroadcastReceiver" />
 
     </application>

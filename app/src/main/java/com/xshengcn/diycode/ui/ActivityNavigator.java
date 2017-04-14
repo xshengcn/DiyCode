@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.xshengcn.diycode.data.PreferencesHelper;
 import com.xshengcn.diycode.injection.PreActivity;
+import com.xshengcn.diycode.ui.activity.LicensesActivity;
 import com.xshengcn.diycode.ui.activity.LoginActivity;
 import com.xshengcn.diycode.ui.activity.MarkdownGuideActivity;
 import com.xshengcn.diycode.ui.activity.MarkdownPreviewActivity;
@@ -137,5 +138,9 @@ public final class ActivityNavigator {
 
     public void showSettings() {
         SettingsActivity.start(mActivity);
+    }
+
+    public void showLicenses() {
+        LicensesActivity.start(mActivity);
     }
 }

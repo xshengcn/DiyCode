@@ -21,6 +21,7 @@ import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.util.glide.GlideImageGetter;
 
@@ -46,7 +47,6 @@ public class HtmlUtils {
     }
 
     public static CharSequence trimTrailingWhitespace(CharSequence source) {
-
         if (source == null) {
             return "";
         }
@@ -56,11 +56,55 @@ public class HtmlUtils {
         while (--i >= 0 && Character.isWhitespace(source.charAt(i))) {
         }
 
+        long end = System.currentTimeMillis();
+
         return source.subSequence(0, i + 1);
+    }
+
+    public static CharSequence parseHtmlAndSetText(String source, @NonNull TextView textView,
+            int maxWidth) {
+        long start = System.currentTimeMillis();
+        if (TextUtils.isEmpty(source)) {
+            return null;
+        }
+
+        Spanned spanned = Html.fromHtml(
+                source, new GlideImageGetter(textView, maxWidth), new CodeTagHandler());
+
+        int color = textView.getResources().getColor(R.color.colorTextTertiary);
+        int background = textView.getResources().getColor(R.color.content_background);
+        int width = textView.getResources().getDimensionPixelOffset(R.dimen.spacing_xsmall);
+        replaceQuoteSpans((Spannable) spanned, background, color, width);
+        URLSpan[] uslSpans = spanned.getSpans(0, spanned.length(), URLSpan.class);
+        ImageSpan[] imageSpans = spanned.getSpans(0, spanned.length(), ImageSpan.class);
+        SpannableStringBuilder style = new SpannableStringBuilder(spanned);
+
+        for (URLSpan urlSpan : uslSpans) {
+            style.setSpan(new ClickableURLSpan(urlSpan.getURL(), null),
+                    spanned.getSpanStart(urlSpan),
+                    spanned.getSpanEnd(urlSpan),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            style.removeSpan(urlSpan);
+        }
+
+        for (ImageSpan imageSpan : imageSpans) {
+            style.setSpan(new ClickableImageSpan(imageSpan.getSource(), null),
+                    spanned.getSpanStart(imageSpan), spanned.getSpanEnd(imageSpan),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+//        if (callback != null) {
+//            textView.setMovementMethod(LinkMovementMethod.getInstance());
+//        }
+
+        long end = System.currentTimeMillis();
+        Logger.d(end - start);
+        return trimTrailingWhitespace(style);
     }
 
     public static void parseHtmlAndSetText(String source, @NonNull TextView textView,
             Callback callback, int maxWidth) {
+        long start = System.currentTimeMillis();
         if (TextUtils.isEmpty(source)) {
             return;
         }
@@ -94,6 +138,8 @@ public class HtmlUtils {
             textView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        long end = System.currentTimeMillis();
+        Logger.d(end - start);
         textView.setText(trimTrailingWhitespace(style));
     }
 

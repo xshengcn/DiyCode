@@ -16,7 +16,11 @@ import com.xshengcn.diycode.util.RxUtils;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
+import io.reactivex.SingleSource;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 
 public class PreferencesHelper {
 
@@ -54,16 +58,17 @@ public class PreferencesHelper {
         mBus.send(new UserLogin());
     }
 
-    public Single<UserDetail> getUserDetail() {
-        return Single.create((SingleOnSubscribe<UserDetail>) e -> {
-            String userStr = mPreferences.getString(KEY_USER_INFO, null);
-            if (!TextUtils.isEmpty(userStr)) {
-                UserDetail detail = new Gson().fromJson(userStr, UserDetail.class);
-                e.onSuccess(detail);
-            } else {
-                e.onError(new RuntimeException("userStr is empty"));
-            }
-        }).compose(RxUtils.applySingleSchedulers());
+    public Single<UserDetail> getUserDetail(DataManager manager) {
+        return Single.create((SingleOnSubscribe<String>) e -> e
+                .onSuccess(mPreferences.getString(KEY_USER_INFO, "")))
+                .flatMap(s -> {
+                    if (TextUtils.isEmpty(s)) {
+                        return manager.getMe();
+                    } else {
+                        return Single.just(new Gson().fromJson(s, UserDetail.class));
+                    }
+                })
+                .compose(RxUtils.applySingleSchedulers());
     }
 
     public void setUserDetail(UserDetail user) {

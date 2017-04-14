@@ -121,6 +121,11 @@ public class SettingsActivity extends BaseActivity {
                 MessageFormat.format(mCacheDesc, CacheDataUtils.getTotalCacheSize(this)));
     }
 
+    @OnClick(R.id.setting_licenses)
+    void clickLicenses() {
+        mNavigator.showLicenses();
+    }
+
 
     @OnClick(R.id.setting_clear_cache)
     void clearCache(View view) {

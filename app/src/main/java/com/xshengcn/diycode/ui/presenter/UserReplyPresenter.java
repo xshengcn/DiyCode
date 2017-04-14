@@ -46,8 +46,7 @@ public class UserReplyPresenter extends BasePresenter<IUserReplyView> {
         int offset = clean ? 0 : view.getItemOffset();
 
         if (view.isMe()) {
-            addDisposable(Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
-                    .firstOrError()
+            addDisposable(mPreferencesHelper.getUserDetail(mDataManager)
                     .flatMap(detail -> mDataManager.getUserReplies(detail.login, offset))
                     .subscribe(topics -> handleNext(topics, clean)));
         } else {

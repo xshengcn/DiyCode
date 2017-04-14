@@ -28,8 +28,7 @@ public class UserPresenter extends BasePresenter<IUserView> {
     public void loadUserDetail() {
         final IUserView view = getView();
         if (view.isMe()) {
-            addDisposable(Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
-                    .firstElement()
+            addDisposable(mPreferencesHelper.getUserDetail(mDataManager)
                     .subscribe(view::updateUserDetail, Throwable::printStackTrace));
         } else {
             addDisposable(mDataManager.getUserDetail(view.getUserLogin())

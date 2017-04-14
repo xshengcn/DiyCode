@@ -50,15 +50,17 @@ public class UserFavoritePresenter extends BasePresenter<IUserFavoriteView> {
         final IUserFavoriteView view = getView();
         int offset = clean ? 0 : view.getItemOffset();
         if (view.isMe()) {
-            addDisposable(Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
-                    .firstOrError()
-                    .flatMap(new Function<UserDetail, SingleSource<List<Topic>>>() {
-                        @Override
-                        public SingleSource<List<Topic>> apply(@NonNull UserDetail userDetail)
-                                throws Exception {
-                            return mDataManager.getUserFavorites(userDetail.login, offset);
-                        }
-                    }).subscribe(topics -> handleNext(topics, clean), this::handleError));
+//            addDisposable(Single.concat(mPreferencesHelper.getUserDetail(), mDataManager.getMe())
+//                    .firstOrError()
+//                    .flatMap(new Function<UserDetail, SingleSource<List<Topic>>>() {
+//                        @Override
+//                        public SingleSource<List<Topic>> apply(@NonNull UserDetail userDetail)
+//                                throws Exception {
+//                            return mDataManager.getUserFavorites(userDetail.login, offset);
+//                        }
+//                    }).subscribe(topics -> handleNext(topics, clean), this::handleError));
+            addDisposable(mDataManager.getUserFavorites("me", offset)
+                    .subscribe(topics -> handleNext(topics, clean), this::handleError));
         } else {
             Disposable disposable = mDataManager.getUserFavorites(view.getUserLogin(), offset)
                     .subscribe(topics -> handleNext(topics, clean), this::handleError);

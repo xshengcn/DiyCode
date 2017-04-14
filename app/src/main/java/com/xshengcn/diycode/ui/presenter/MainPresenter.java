@@ -33,7 +33,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
         Disposable userLogin = mBus.toObservable()
                 .filter(o -> o instanceof UserLogin)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(o -> loadNotificationCount());
+                .subscribe(o -> {
+                    loadNotificationCount();
+                    checkUser();
+                });
         addDisposable(userLogin);
 
         Disposable userDetailUpdate = mBus.toObservable()
@@ -66,7 +69,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     private void checkUser() {
-        mPreferencesHelper.getUserDetail().subscribe(getView()::setupNavigationView, e -> {
+        mPreferencesHelper.getUserDetail(mDataManager).subscribe(getView()::setupNavigationView, e -> {
         });
     }
 
