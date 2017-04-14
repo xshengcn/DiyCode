@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.xshengcn.diycode.data.event.UserDetailUpdate;
 import com.xshengcn.diycode.data.event.UserLogin;
 import com.xshengcn.diycode.data.model.Token;
 import com.xshengcn.diycode.data.model.user.UserDetail;
@@ -70,6 +69,5 @@ public class PreferencesHelper {
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(KEY_USER_INFO, new Gson().toJson(user));
         editor.apply();
-        mBus.send(new UserDetailUpdate());
     }
 }
