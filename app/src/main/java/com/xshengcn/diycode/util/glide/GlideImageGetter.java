@@ -2,6 +2,7 @@ package com.xshengcn.diycode.util.glide;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
@@ -14,142 +15,134 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.xshengcn.diycode.R;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.WeakHashMap;
 
-public final class GlideImageGetter
-        implements Html.ImageGetter, View.OnAttachStateChangeListener, Drawable.Callback {
+public final class GlideImageGetter implements Html.ImageGetter, Drawable.Callback {
+
 
     private final TextView mTextView;
     private final int mMaxWidth;
+    private final Set<ImageGetterViewTarget> mTargets;
 
-    private final Set<ViewTarget<TextView, GlideDrawable>> mViewTargetSet = Collections
-            .newSetFromMap(new WeakHashMap<>());
+    public static GlideImageGetter get(View view) {
+        return (GlideImageGetter) view.getTag(R.id.drawable_callback_tag);
+    }
+
+    public void clear() {
+        GlideImageGetter prev = get(mTextView);
+        if (prev == null) {
+            return;
+        }
+
+        prev.mTargets.forEach(Glide::clear);
+    }
 
     public GlideImageGetter(TextView textView, int maxWidth) {
-        this.mTextView = textView;
+        mTextView = textView;
         mMaxWidth = maxWidth;
+
+        clear();
+        mTargets = new HashSet<>();
         mTextView.setTag(R.id.drawable_callback_tag, this);
-        mTextView.addOnAttachStateChangeListener(this);
     }
 
     @Override
     public Drawable getDrawable(String url) {
-        URLDrawable urlDrawable = new URLDrawable(url);
-        ImageGetterViewTarget imageGetterViewTarget = new ImageGetterViewTarget(mTextView,
-                urlDrawable, mMaxWidth);
-        Glide.with(mTextView.getContext().getApplicationContext())
+        final URLDrawable urlDrawable = new URLDrawable(url);
+
+        System.out.println("Downloading from: " + url);
+        Glide.with(mTextView.getContext())
                 .load(url)
                 .placeholder(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(imageGetterViewTarget);
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new ImageGetterViewTarget(mTextView, urlDrawable, mMaxWidth));
 
-        mViewTargetSet.add(imageGetterViewTarget);
         return urlDrawable;
 
     }
 
     @Override
-    public void onViewAttachedToWindow(View v) {
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(View v) {
-        mViewTargetSet.forEach(Glide::clear);
-        mViewTargetSet.clear();
-        v.removeOnAttachStateChangeListener(this);
-
-//        v.setTag(R.id.drawable_callback_tag, null);
-    }
-
-
-    @Override
-    public void invalidateDrawable(Drawable who) {
+    public void invalidateDrawable(@NonNull Drawable who) {
         mTextView.invalidate();
     }
 
     @Override
-    public void scheduleDrawable(Drawable who, Runnable what, long when) {
+    public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) {
+
     }
 
     @Override
-    public void unscheduleDrawable(Drawable who, Runnable what) {
+    public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) {
+
     }
 
-    private static final class ImageGetterViewTarget extends ViewTarget<TextView, GlideDrawable> {
+    private class ImageGetterViewTarget extends ViewTarget<TextView, GlideDrawable> {
 
         private final URLDrawable mDrawable;
-        private final int mMaxWidth;
+        private final int mWidth;
 
-        private Request mRequest;
-
-        private ImageGetterViewTarget(TextView view, URLDrawable drawable, int maxWdith) {
+        private ImageGetterViewTarget(TextView view, URLDrawable drawable, int maxWidth) {
             super(view);
-
-            mDrawable = drawable;
-            mMaxWidth = maxWdith;
+            mTargets.add(this);
+            this.mDrawable = drawable;
+            mWidth = maxWidth;
         }
-
 
         @Override
         public void onLoadStarted(Drawable placeholder) {
             super.onLoadStarted(placeholder);
-            final TextView textView = getView();
             final double aspectRatio =
                     (1.0 * placeholder.getIntrinsicWidth()) / placeholder.getIntrinsicHeight();
             if (mDrawable.getSource()
                     .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/")) {
                 return;
             }
-            final int width = Math.min(placeholder.getIntrinsicWidth(), mMaxWidth);
+            final int width = Math.min(placeholder.getIntrinsicWidth(), mWidth);
             final int height = (int) (width / aspectRatio);
             Rect rect = new Rect(0, 0, width, height);
             placeholder.setBounds(rect);
             mDrawable.setBounds(rect);
             mDrawable.setDrawable(placeholder);
-//            textView.setTag(R.id.drawable_callback_tag, null);
-            textView.setText(textView.getText());
+            getView().setText(getView().getText());
+            getView().invalidate();
         }
+
 
         @Override
         public void onResourceReady(GlideDrawable resource,
                 GlideAnimation<? super GlideDrawable> glideAnimation) {
-            final TextView textView = getView();
             final double aspectRatio =
                     (1.0 * resource.getIntrinsicWidth()) / resource.getIntrinsicHeight();
             boolean isEmoji = mDrawable.getSource()
                     .startsWith("https://diycode.b0.upaiyun.com/assets/emojis/");
-            final int width = isEmoji ? resource.getIntrinsicWidth() : mMaxWidth;
+            final int width = isEmoji ? resource.getIntrinsicWidth() : mWidth;
             final int height = (int) (width / aspectRatio);
-
             Rect rect = new Rect(0, 0, width, height);
             resource.setBounds(rect);
             mDrawable.setBounds(rect);
             mDrawable.setDrawable(resource);
 
             if (resource.isAnimated()) {
-                Drawable.Callback callback = (Drawable.Callback) textView.getTag(
-                        R.id.drawable_callback_tag);
-                mDrawable.setCallback(callback);
+                mDrawable.setCallback(get(getView()));
                 resource.setLoopCount(GlideDrawable.LOOP_FOREVER);
                 resource.start();
-            } else {
-                textView.setTag(R.id.drawable_callback_tag, null);
             }
 
-            textView.setText(textView.getText());
+            getView().setText(getView().getText());
+            getView().invalidate();
         }
 
+        private Request request;
 
         @Override
         public Request getRequest() {
-            return mRequest;
+            return request;
         }
 
         @Override
         public void setRequest(Request request) {
-            this.mRequest = request;
+            this.request = request;
         }
     }
 }
