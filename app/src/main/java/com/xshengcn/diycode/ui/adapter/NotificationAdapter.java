@@ -92,6 +92,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         Glide.with(mContext)
                 .load(notification.actor.avatarUrl.replace("large_avatar", "avatar"))
+                .centerCrop()
                 .into(holder.avatar);
         switch (notification.type) {
             case "TopicReply":

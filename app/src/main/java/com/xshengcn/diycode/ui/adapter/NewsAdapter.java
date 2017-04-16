@@ -70,6 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         }
 
         Glide.with(mContext).load(news.user.avatarUrl.replace("large_avatar", "avatar"))
+                .centerCrop()
                 .into(holder.avatar);
         holder.itemView.setOnClickListener(v -> {
             if (mOnItemClickListener != null) {

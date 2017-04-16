@@ -119,6 +119,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     private void bindItemViewHolder(ViewHolder holder, TopicReply reply, int position) {
         Glide.with(mContext).load(reply.user.avatarUrl.replace("large_avatar", "avatar"))
+                .centerCrop()
                 .into(holder.avatar);
         holder.name.setText(reply.user.login);
         holder.floor.setText(
@@ -141,6 +142,7 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
 
     private void bindHeaderViewHolder(HeaderViewHolder holder, TopicDetail detail) {
         Glide.with(mContext).load(detail.user.avatarUrl.replace("large_avatar", "avatar"))
+                .centerCrop()
                 .into(holder.avatar);
         holder.avatar.setOnClickListener(v -> {
             if (mOnHeaderClickListener != null) {

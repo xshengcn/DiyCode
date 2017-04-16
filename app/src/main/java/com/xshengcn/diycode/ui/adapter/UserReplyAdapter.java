@@ -53,6 +53,7 @@ public class UserReplyAdapter extends RecyclerView.Adapter<UserReplyAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserReply reply = mUserReplies.get(position);
         Glide.with(mContext).load(reply.user.avatarUrl.replace("large_avatar", "avatar"))
+                .centerCrop()
                 .into(holder.avatar);
         holder.name.setText(reply.user.login);
         if (reply.updatedAt != null) {
