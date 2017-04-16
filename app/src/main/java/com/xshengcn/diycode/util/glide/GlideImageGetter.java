@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.xshengcn.diycode.R;
@@ -50,8 +49,6 @@ public final class GlideImageGetter implements Html.ImageGetter, Drawable.Callba
     @Override
     public Drawable getDrawable(String url) {
         final URLDrawable urlDrawable = new URLDrawable(url);
-
-        System.out.println("Downloading from: " + url);
         Glide.with(mTextView.getContext())
                 .load(url)
                 .placeholder(R.drawable.placeholder)
@@ -59,7 +56,6 @@ public final class GlideImageGetter implements Html.ImageGetter, Drawable.Callba
                 .into(new ImageGetterViewTarget(mTextView, urlDrawable, mMaxWidth));
 
         return urlDrawable;
-
     }
 
     @Override
@@ -131,18 +127,6 @@ public final class GlideImageGetter implements Html.ImageGetter, Drawable.Callba
 
             getView().setText(getView().getText());
             getView().invalidate();
-        }
-
-        private Request request;
-
-        @Override
-        public Request getRequest() {
-            return request;
-        }
-
-        @Override
-        public void setRequest(Request request) {
-            this.request = request;
         }
     }
 }

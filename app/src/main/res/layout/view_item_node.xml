@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:maxLines="1"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingLeft="@dimen/spacing"
     android:paddingRight="@dimen/spacing"
-    android:maxLines="1"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    tools:text="开发者服务"/>
+    tools:text="开发者服务" />

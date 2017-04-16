@@ -3,11 +3,11 @@
     android:id="@+id/site_header"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:gravity="center_vertical"
     android:background="@color/colorDivider"
+    android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingLeft="@dimen/spacing"
     android:paddingRight="@dimen/spacing"
     android:textColor="@color/colorTextSecondary"
-    android:textSize="@dimen/dimenTextSecondary"/>
+    android:textSize="@dimen/dimenTextSecondary" />
 

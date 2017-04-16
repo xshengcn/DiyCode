@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/spacing"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/spacing">
 
     <TextView
         android:id="@+id/setting_title"
-        tools:text="title"
-        android:textSize="@dimen/dimenTextSecondary"
-        android:textColor="@color/colorTextPrimary"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/dimenTextSecondary"
+        tools:text="title" />
 
     <TextView
         android:id="@+id/setting_description"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:textSize="@dimen/dimenTextTertiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
         android:textColor="@color/colorTextTertiary"
+        android:textSize="@dimen/dimenTextTertiary"
         tools:text="当前缓存大小为23.8M" />
 
 </LinearLayout>

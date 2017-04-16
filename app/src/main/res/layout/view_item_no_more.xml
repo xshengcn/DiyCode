@@ -5,6 +5,6 @@
     android:layout_height="72dp"
     android:gravity="center"
     android:text="@string/tips_no_more"
-    android:textColor="@color/colorTextSecondary"/>
+    android:textColor="@color/colorTextSecondary" />
 
 

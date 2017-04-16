@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tips_error"
-        android:textColor="@color/colorTextSecondary"/>
+        android:textColor="@color/colorTextSecondary" />
 
     <TextView
         android:id="@+id/button_retry"
@@ -23,7 +23,7 @@
         android:padding="@dimen/spacing_xsmall"
         android:text="@string/bt_retry"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@android:color/holo_blue_light"/>
+        android:textColor="@android:color/holo_blue_light" />
 
     <TextView
         android:id="@+id/button_ignore"
@@ -36,6 +36,6 @@
         android:padding="@dimen/spacing_xsmall"
         android:text="@string/bt_ignore"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@android:color/holo_blue_light"/>
+        android:textColor="@android:color/holo_blue_light" />
 
 </RelativeLayout>

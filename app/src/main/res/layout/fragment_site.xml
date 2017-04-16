@@ -12,11 +12,11 @@
     app:msv_viewState="loading">
 
     <android.support.v7.widget.RecyclerView
-        android:background="@android:color/white"
         android:id="@+id/recycler_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"/>
+        android:background="@android:color/white"
+        android:clipToPadding="false" />
 
 </com.kennyc.view.MultiStateView>
 

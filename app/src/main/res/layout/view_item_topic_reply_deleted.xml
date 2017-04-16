@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deleted_floor"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:background="@android:color/white"
     android:gravity="center"
-    tools:text="6楼 Deleted"
-    android:id="@+id/deleted_floor"
     android:textColor="@color/colorTextTertiary"
     android:textSize="@dimen/dimenTextTertiary"
-    android:background="@android:color/white" />
+    tools:text="6楼 Deleted" />
 

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/item_content"
-    android:background="@android:color/white"
-    android:foreground="@drawable/selector_subtle"
+    android:background="@drawable/selector_subtle"
     android:paddingBottom="@dimen/spacing"
     android:paddingLeft="@dimen/spacing"
     android:paddingRight="@dimen/spacing"
@@ -13,36 +12,36 @@
 
     <ImageView
         android:id="@+id/avatar"
-        tools:src="@drawable/ic_default_header"
-        android:scaleType="centerCrop"
         android:layout_width="@dimen/header_size_middle"
-        android:layout_height="@dimen/header_size_middle" />
+        android:layout_height="@dimen/header_size_middle"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/ic_default_header" />
 
     <LinearLayout
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/avatar"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginLeft="@dimen/spacing"
             android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing"
             android:textColor="@color/colorTextTertiary"
             android:textSize="@dimen/dimenTextTertiary"
-            tools:text="@string/no_connection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            tools:text="@string/no_connection" />
 
         <TextView
-            android:layout_marginLeft="@dimen/spacing"
             android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing"
             android:layout_marginTop="@dimen/spacing_small"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/dimenTextSecondary"
-            tools:text="@string/no_connection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            tools:text="@string/no_connection" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@
     app:msv_loadingView="@layout/view_progress"
     app:msv_viewState="content">
 
-    <include layout="@layout/view_common_recycler"/>
+    <include layout="@layout/view_common_recycler" />
+
 </com.kennyc.view.MultiStateView>
 

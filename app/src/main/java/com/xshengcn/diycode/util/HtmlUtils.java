@@ -110,8 +110,16 @@ public class HtmlUtils {
             return;
         }
 
-        Spanned spanned = Html.fromHtml(
-                source, new GlideImageGetter(textView, maxWidth), new CodeTagHandler());
+        Spanned spanned = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            spanned = Html.fromHtml(
+                    source, Html.FROM_HTML_MODE_LEGACY, new GlideImageGetter(textView, maxWidth),
+                    new CodeTagHandler());
+        } else {
+            spanned = Html.fromHtml(
+                    source, new GlideImageGetter(textView, maxWidth),
+                    new CodeTagHandler());
+        }
 
         int color = textView.getResources().getColor(R.color.colorTextTertiary);
         int background = textView.getResources().getColor(R.color.content_background);

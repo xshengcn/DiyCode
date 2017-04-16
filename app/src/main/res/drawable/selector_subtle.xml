@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/selector_list"/>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/item_touch_effect" android:state_selected="true" />
+    <item android:drawable="@color/item_normal" />
+</selector>

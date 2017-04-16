@@ -57,9 +57,9 @@ public class TopicFragment extends BaseFragment
      * 如果获取全部的主题
      */
     public static TopicFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         TopicFragment fragment = new TopicFragment();
         fragment.setArguments(args);
         return fragment;

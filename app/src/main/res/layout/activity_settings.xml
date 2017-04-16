@@ -21,7 +21,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
-        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,123 +30,128 @@
             android:orientation="vertical">
 
             <TextView
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:text="Account"
-                android:textSize="@dimen/dimenTextTertiary"
-                android:padding="@dimen/spacing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing"
+                android:text="Account"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/dimenTextTertiary"
+                android:textStyle="bold" />
 
             <com.xshengcn.diycode.ui.widget.SettingRowView
                 android:id="@+id/setting_account"
-                android:foreground="@drawable/selector_subtle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:rowTitle="账号"
-                app:rowDescription="xshengcn@gmail.com" />
+                android:background="@drawable/selector_subtle"
+                app:rowDescription="xshengcn@gmail.com"
+                app:rowTitle="账号" />
 
             <View
                 android:id="@+id/setting_account_divider"
-                android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divider" />
+                android:layout_height="@dimen/divider"
+                android:background="@color/colorDivider" />
 
             <TextView
                 android:id="@+id/setting_account_state"
-                android:textSize="@dimen/dimenTextSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_subtle"
                 android:padding="@dimen/spacing"
-                android:foreground="@drawable/selector_subtle"
                 android:text="退出账号"
                 android:textColor="@color/colorTextPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/dimenTextSecondary" />
 
             <TextView
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:text="General"
-                android:textSize="@dimen/dimenTextTertiary"
-                android:padding="@dimen/spacing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing"
+                android:text="General"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/dimenTextTertiary"
+                android:textStyle="bold" />
 
             <com.xshengcn.diycode.ui.widget.SettingSwitchRowView
                 android:id="@+id/setting_night_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="@drawable/selector_subtle"
-                app:rowTitle="夜间模式"
-                app:rowDescription="夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式" />
+                android:background="@drawable/selector_subtle"
+                app:rowDescription="夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式夜间模式"
+                app:rowTitle="夜间模式" />
 
             <View
-                android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divider" />
+                android:layout_height="@dimen/divider"
+                android:background="@color/colorDivider" />
 
             <com.xshengcn.diycode.ui.widget.SettingRowView
                 android:id="@+id/setting_clear_cache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:rowTitle="清理缓存"
-                app:rowDescription="清除所有缓存" />
+                android:background="@drawable/selector_subtle"
+                app:rowDescription="清除所有缓存"
+                app:rowTitle="清理缓存" />
 
             <View
-                android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divider" />
+                android:layout_height="@dimen/divider"
+                android:background="@color/colorDivider" />
 
             <com.xshengcn.diycode.ui.widget.SettingRowView
                 android:id="@+id/setting_photo_upload_quality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:rowTitle="图片上传质量"
-                app:rowDescription="中等" />
+                android:background="@drawable/selector_subtle"
+                app:rowDescription="中等"
+                app:rowTitle="图片上传质量" />
 
 
             <TextView
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:text="About"
-                android:textSize="@dimen/dimenTextTertiary"
-                android:padding="@dimen/spacing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing"
+                android:text="About"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/dimenTextTertiary"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/setting_about"
-                android:textSize="@dimen/dimenTextSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_subtle"
                 android:padding="@dimen/spacing"
                 android:text="关于Diycode"
                 android:textColor="@color/colorTextPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/dimenTextSecondary" />
 
             <View
-                android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divider" />
+                android:layout_height="@dimen/divider"
+                android:background="@color/colorDivider" />
 
             <TextView
                 android:id="@+id/setting_licenses"
-                android:textSize="@dimen/dimenTextSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_subtle"
                 android:padding="@dimen/spacing"
                 android:text="开源许可"
                 android:textColor="@color/colorTextPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/dimenTextSecondary" />
 
             <View
-                android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divider" />
+                android:layout_height="@dimen/divider"
+                android:background="@color/colorDivider" />
 
             <com.xshengcn.diycode.ui.widget.SettingRowView
                 android:id="@+id/setting_version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:rowTitle="应用版本"
-                app:rowDescription="1.0.1-BETA" />
+                android:background="@drawable/selector_subtle"
+                app:rowDescription="1.0.1-BETA"
+                app:rowTitle="应用版本" />
 
         </LinearLayout>
 

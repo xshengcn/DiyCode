@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -26,22 +26,22 @@
 
 
     <ScrollView
-        android:background="@color/content_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/content_background">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginTop="@dimen/spacing"
-                android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:padding="@dimen/spacing"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing"
+                android:background="@drawable/selector_subtle"
                 android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/spacing">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -55,37 +55,37 @@
 
 
                     <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/spacing"
                         android:layout_toRightOf="@id/user_avatar"
-                        android:id="@+id/username"
-                        android:textSize="@dimen/dimenTextSecondary"
-                        tools:text="xshengcn(Hsum)"
                         android:textColor="@color/colorTextPrimary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/dimenTextSecondary"
+                        tools:text="xshengcn(Hsum)" />
 
                     <TextView
-                        android:layout_marginLeft="@dimen/spacing"
-                        android:layout_toRightOf="@id/user_avatar"
-                        android:layout_below="@id/username"
                         android:id="@+id/user_id"
-                        android:layout_marginTop="@dimen/spacing_xsmall"
-                        android:textSize="@dimen/dimenTextSecondary"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/colorTextTertiary"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/username"
+                        android:layout_marginLeft="@dimen/spacing"
+                        android:layout_marginTop="@dimen/spacing_xsmall"
+                        android:layout_toRightOf="@id/user_avatar"
+                        android:textColor="@color/colorTextTertiary"
+                        android:textSize="@dimen/dimenTextSecondary"
                         tools:text="第 3711 位会员" />
 
                     <TextView
-                        android:layout_marginLeft="@dimen/spacing"
                         android:id="@+id/user_join"
-                        android:layout_toRightOf="@id/user_avatar"
-                        android:layout_below="@id/user_id"
-                        android:layout_marginTop="@dimen/spacing_xsmall"
-                        android:textSize="@dimen/dimenTextSecondary"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/colorTextTertiary"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/user_id"
+                        android:layout_marginLeft="@dimen/spacing"
+                        android:layout_marginTop="@dimen/spacing_xsmall"
+                        android:layout_toRightOf="@id/user_avatar"
+                        android:textColor="@color/colorTextTertiary"
+                        android:textSize="@dimen/dimenTextSecondary"
                         tools:text="2017-01-17" />
 
 
@@ -93,121 +93,117 @@
 
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/spacing"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing">
 
                     <com.xshengcn.diycode.ui.widget.TitleDescriptionView
                         android:id="@+id/user_follower"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:rowTitle="1"
-                        app:rowDescription="关注者" />
+                        app:rowDescription="关注者"
+                        tools:rowTitle="1" />
 
 
                     <com.xshengcn.diycode.ui.widget.TitleDescriptionView
-                        android:layout_marginLeft="@dimen/spacing_large"
                         android:id="@+id/user_following"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:rowTitle="10"
-                        app:rowDescription="正在关注" />
+                        android:layout_marginLeft="@dimen/spacing_large"
+                        app:rowDescription="正在关注"
+                        tools:rowTitle="10" />
 
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/recent_reply"
-                android:foreground="@drawable/selector_subtle"
-                android:background="@android:color/white"
-                android:layout_marginTop="@dimen/spacing"
-                android:padding="@dimen/spacing"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="@dimen/dimenTextSecondary"
-                android:text="最近回复"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing"
+                android:background="@drawable/selector_subtle"
+                android:padding="@dimen/spacing"
+                android:text="最近回复"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimenTextSecondary" />
 
             <LinearLayout
-                android:foreground="@drawable/selector_subtle"
                 android:id="@+id/topic_layout"
-                android:background="@android:color/white"
-                android:layout_marginTop="@dimen/spacing"
-                android:padding="@dimen/spacing"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing"
+                android:background="@drawable/selector_subtle"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing">
 
                 <TextView
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimenTextSecondary"
-                    android:text="@string/topic"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/topic"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimenTextSecondary" />
 
                 <TextView
                     android:id="@+id/topic_count"
-                    android:textColor="@color/colorTextTertiary"
-                    android:textSize="@dimen/dimenTextSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1" />
+                    android:text="1"
+                    android:textColor="@color/colorTextTertiary"
+                    android:textSize="@dimen/dimenTextSecondary" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/divider"
-                android:foreground="@drawable/selector_subtle"
                 android:id="@+id/favorite_layout"
-                android:background="@android:color/white"
-                android:padding="@dimen/spacing"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/divider"
+                android:background="@drawable/selector_subtle"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing">
 
                 <TextView
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimenTextSecondary"
-                    android:text="@string/favorite"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/favorite"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimenTextSecondary" />
 
                 <TextView
                     android:id="@+id/favorite_count"
-                    android:textColor="@color/colorTextTertiary"
-                    android:textSize="@dimen/dimenTextSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1" />
+                    android:text="1"
+                    android:textColor="@color/colorTextTertiary"
+                    android:textSize="@dimen/dimenTextSecondary" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginTop="@dimen/divider"
-                android:foreground="@drawable/selector_subtle"
                 android:id="@+id/share_layout"
-                android:background="@android:color/white"
-                android:padding="@dimen/spacing"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/divider"
+                android:background="@drawable/selector_subtle"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing">
 
                 <TextView
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimenTextSecondary"
-                    android:text="@string/share"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/share"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimenTextSecondary" />
 
                 <TextView
                     android:id="@+id/share_count"
-                    android:textColor="@color/colorTextTertiary"
-                    android:textSize="@dimen/dimenTextSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1" />
+                    android:text="1"
+                    android:textColor="@color/colorTextTertiary"
+                    android:textSize="@dimen/dimenTextSecondary" />
             </LinearLayout>
 
             <Space
@@ -215,51 +211,48 @@
                 android:layout_height="@dimen/spacing" />
 
             <TextView
-                android:foreground="@drawable/selector_subtle"
-                android:visibility="gone"
                 android:id="@+id/user_github"
-                android:gravity="center_vertical"
-                android:drawablePadding="@dimen/spacing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_subtle"
                 android:drawableLeft="@drawable/ic_github_circle"
-                android:background="@android:color/white"
+                android:drawablePadding="@dimen/spacing"
+                android:gravity="center_vertical"
                 android:padding="@dimen/spacing"
+                android:text="GitHub"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/dimenTextSecondary"
-                android:text="GitHub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
 
             <TextView
-                android:visibility="gone"
-                android:foreground="@drawable/selector_subtle"
-                android:layout_marginTop="@dimen/divider"
                 android:id="@+id/user_twitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/divider"
+                android:background="@drawable/selector_subtle"
                 android:drawableLeft="@drawable/ic_twitter_circle"
                 android:drawablePadding="@dimen/spacing"
-                android:background="@android:color/white"
                 android:padding="@dimen/spacing"
+                android:text="Twitter"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/dimenTextSecondary"
-                android:text="Twitter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
 
             <TextView
-                android:visibility="gone"
-                android:foreground="@drawable/selector_subtle"
-                android:layout_marginTop="@dimen/divider"
                 android:id="@+id/user_website"
-                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/divider"
+                android:background="@drawable/selector_subtle"
+                android:drawableLeft="@drawable/ic_website"
+                android:drawablePadding="@dimen/spacing"
                 android:padding="@dimen/spacing"
+                android:text="Website"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/dimenTextSecondary"
-                android:text="Website"
-                android:drawablePadding="@dimen/spacing"
-                android:drawableLeft="@drawable/ic_website"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
 
         </LinearLayout>

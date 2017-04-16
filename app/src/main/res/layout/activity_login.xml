@@ -7,14 +7,14 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+        android:layout_height="?attr/actionBarSize" />
 
     <ImageView
         android:layout_width="160dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:focusableInTouchMode="true"
-        android:src="@drawable/ic_logo"/>
+        android:src="@drawable/ic_logo" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/usernameWrapper"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email_username"
-            android:inputType="textVisiblePassword"/>
+            android:inputType="textVisiblePassword" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -58,7 +58,7 @@
         android:layout_marginTop="@dimen/spacing"
         android:background="@drawable/btn_login"
         android:text="@string/login"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

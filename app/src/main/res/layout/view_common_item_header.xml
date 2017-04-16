@@ -11,7 +11,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_centerVertical="true"
-        tools:src="@mipmap/ic_launcher"/>
+        tools:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/name"
@@ -22,7 +22,7 @@
         android:layout_toRightOf="@id/avatar"
         android:textColor="@color/colorTextSecondary"
         android:textSize="@dimen/dimenTextTertiary"
-        tools:text="李嘉图"/>
+        tools:text="李嘉图" />
 
     <View
         android:id="@+id/split_point"
@@ -31,7 +31,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/spacing_small"
         android:layout_toRightOf="@+id/name"
-        android:background="@drawable/split_point"/>
+        android:background="@drawable/split_point" />
 
     <TextView
         android:id="@+id/node"
@@ -42,7 +42,7 @@
         android:layout_toRightOf="@+id/split_point"
         android:textColor="@color/colorTextQuaternary"
         android:textSize="@dimen/dimenTextTertiary"
-        tools:text="Android"/>
+        tools:text="Android" />
 
     <TextView
         android:id="@+id/date"
@@ -52,6 +52,6 @@
         android:layout_centerVertical="true"
         android:textColor="@color/colorTextQuaternary"
         android:textSize="@dimen/dimenTextTertiary"
-        tools:text="24分钟前"/>
+        tools:text="24分钟前" />
 
 </RelativeLayout>

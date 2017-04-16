@@ -6,7 +6,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <include layout="@layout/view_common_appbar"/>
+    <include layout="@layout/view_common_appbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,28 +23,28 @@
             android:layout_marginRight="@dimen/spacing"
             android:text="选择节点"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/dimenTextSecondary"/>
+            android:textSize="@dimen/dimenTextSecondary" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/topic_node_category"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ellipsize="end"/>
+            android:ellipsize="end" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/topic_node"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider"
-        android:background="@color/colorDivider"/>
+        android:background="@color/colorDivider" />
 
     <EditText
         android:id="@+id/title"
@@ -62,12 +62,12 @@
         android:scrollbars="vertical"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/dimenTextSecondary"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider"
-        android:background="@color/colorDivider"/>
+        android:background="@color/colorDivider" />
 
     <EditText
         android:id="@+id/body"
@@ -84,12 +84,12 @@
         android:paddingTop="@dimen/spacing_small"
         android:scrollbars="vertical"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="@dimen/dimenTextSecondary"/>
+        android:textSize="@dimen/dimenTextSecondary" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider"
-        android:background="@color/colorDivider"/>
+        android:background="@color/colorDivider" />
 
     <LinearLayout
         android:id="@+id/edit_toolbar"
@@ -106,7 +106,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_image_gray"/>
+            android:src="@drawable/ic_image_gray" />
 
         <ImageView
             android:id="@+id/code"
@@ -114,7 +114,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_code_gray"/>
+            android:src="@drawable/ic_code_gray" />
 
         <ImageView
             android:id="@+id/link"
@@ -122,7 +122,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_link_gray"/>
+            android:src="@drawable/ic_link_gray" />
 
         <ImageView
             android:id="@+id/pre_view"
@@ -130,7 +130,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/spacing_large"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_preview_gray"/>
+            android:src="@drawable/ic_preview_gray" />
 
     </LinearLayout>
 

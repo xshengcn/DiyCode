@@ -5,13 +5,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/detail_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:foreground="@drawable/selector_subtle"
+        android:background="@drawable/selector_subtle"
         android:paddingBottom="@dimen/spacing_small"
         android:paddingLeft="@dimen/spacing"
         android:paddingRight="@dimen/spacing"
@@ -19,7 +17,7 @@
 
         <include
             android:id="@+id/item_header"
-            layout="@layout/view_common_item_header"/>
+            layout="@layout/view_common_item_header" />
 
         <TextView
             android:id="@+id/title"
@@ -30,7 +28,7 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/dimenTextPrimary"
             android:textStyle="bold"
-            tools:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物"/>
+            tools:text="Hacker News 使用指南：认识更多和善的朋友以及见识更多的美好事物" />
 
         <TextView
             android:id="@+id/body"
@@ -41,7 +39,7 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/dimenTextSecondary"
             tools:text="《提问的智慧》就是一个敲门砖，它把黑客间的礼仪和准则明白地写下来。它会让你了解到一个事实，为什么那些看起来很牛的人几乎从不提问，似乎他们一进入这个行业就是牛人了。不是的，他们也有问题，但是通常在提问之前就自己解决了；不是因为他们本来就懂得怎么解决，而是解决问题的经历让他们成为牛人；最终，你只会看到网络上多了一篇文章：关于解决XXX问题的方案。
-不是的，他们也有问题，但是通常在提问之前就自己解决了；不是因为他们本来就懂得怎么解决，而是解决问题的经历让他们成为牛人；最终，你只会看到网络上多了一篇文章：关于解决XXX问题的方案。」"/>
+不是的，他们也有问题，但是通常在提问之前就自己解决了；不是因为他们本来就懂得怎么解决，而是解决问题的经历让他们成为牛人；最终，你只会看到网络上多了一篇文章：关于解决XXX问题的方案。」" />
 
         <ImageView
             android:id="@+id/favorite"
@@ -54,7 +52,7 @@
             android:layout_marginTop="@dimen/spacing"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="2dp"
-            android:src="@drawable/ic_favorite_normal"/>
+            android:src="@drawable/ic_favorite_normal" />
 
         <ImageView
             android:id="@+id/thumb_up"
@@ -67,7 +65,7 @@
             android:layout_toLeftOf="@+id/favorite"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="2dp"
-            android:src="@drawable/ic_thumb_up_normal"/>
+            android:src="@drawable/ic_thumb_up_normal" />
 
     </RelativeLayout>
 
@@ -79,6 +77,6 @@
         android:padding="@dimen/spacing"
         android:text="共收到13条回复"
         android:textColor="@color/colorTextTertiary"
-        android:textSize="@dimen/dimenTextQuaternary"/>
+        android:textSize="@dimen/dimenTextQuaternary" />
 
 </LinearLayout>

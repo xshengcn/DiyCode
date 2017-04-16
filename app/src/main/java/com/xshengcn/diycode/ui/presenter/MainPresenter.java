@@ -46,7 +46,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     private void updateUserDetail() {
         if (mPreferencesHelper.getToken() != null) {
-            addDisposable(mDataManager.getMe().subscribe(getView()::setupNavigationView, Throwable::printStackTrace));
+            addDisposable(mDataManager.getMe()
+                    .subscribe(getView()::setupNavigationView, Throwable::printStackTrace));
         }
     }
 

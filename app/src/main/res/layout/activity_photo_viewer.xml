@@ -7,8 +7,8 @@
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:scaleType="fitCenter" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,11 +16,11 @@
         android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
-            android:background="@drawable/actionbar_shadow"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:theme="@style/AppTheme.DarkAppBarOverlay"/>
+            android:background="@drawable/actionbar_shadow"
+            android:theme="@style/AppTheme.DarkAppBarOverlay" />
     </FrameLayout>
 
 </FrameLayout>
