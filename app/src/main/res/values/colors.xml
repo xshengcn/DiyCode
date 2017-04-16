@@ -13,7 +13,7 @@
 
     <color name="fab_menu">#A8FFFFFF</color>
 
-    <color name="content_background">#F0F0F0</color>
+    <color name="content_background">#FAFAFA</color>
     <color name="colorDivider">@color/content_background</color>
 
 
