@@ -2,6 +2,7 @@ package com.xshengcn.diycode.util.glide;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
@@ -44,7 +45,7 @@ public class URLDrawable extends BitmapDrawable implements Drawable.Callback {
         if (mDrawable != null) {
             return mDrawable.getOpacity();
         }
-        return 0;
+        return PixelFormat.UNKNOWN;
     }
 
     public void setDrawable(Drawable drawable) {

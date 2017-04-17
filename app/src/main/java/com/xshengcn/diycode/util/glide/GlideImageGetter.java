@@ -51,7 +51,6 @@ public final class GlideImageGetter implements Html.ImageGetter, Drawable.Callba
     public Drawable getDrawable(String url) {
         final URLDrawable urlDrawable = new URLDrawable(url);
 
-        System.out.println("Downloading from: " + url);
         Glide.with(mTextView.getContext())
                 .load(url)
                 .placeholder(R.drawable.placeholder)

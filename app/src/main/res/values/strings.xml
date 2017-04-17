@@ -62,6 +62,7 @@
     <string name="github_user_url">https://github.com/{0}</string>
     <string name="twitter_user_url">https://twitter.com/{0}</string>
     <string name="open_source_licenses">开源许可</string>
+    <string name="floor_deleted">{0}楼 Deleted</string>
 
     <string-array name="main_tabs">
         <item>topics</item>

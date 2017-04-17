@@ -110,7 +110,8 @@ public class TopicDetailAdapter extends RecyclerView.Adapter {
             TopicReply reply = mTopicAndReplies.replies.get(position - 1);
             bindItemViewHolder((ViewHolder) holder, reply, position);
         } else if (getItemViewType(position) == TYPE_TOPIC_ITEM_DELETE) {
-            ((DeletedViewHolder) holder).deletedFloor.setText(position + "楼 Deleted");
+            ((DeletedViewHolder) holder).deletedFloor.setText(
+                    MessageFormat.format(mContext.getString(R.string.floor_deleted), position));
             Paint paint = ((DeletedViewHolder) holder).deletedFloor.getPaint();
             paint.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             paint.setAntiAlias(true);
