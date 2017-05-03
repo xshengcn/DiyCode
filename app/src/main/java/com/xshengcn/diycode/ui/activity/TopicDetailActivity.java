@@ -84,7 +84,7 @@ public class TopicDetailActivity extends BaseActivity
         }
     };
 
-    public static void start(Activity activity, @NonNull int topicId, @NonNull String topicTitle) {
+    public static void start(Activity activity, int topicId, @NonNull String topicTitle) {
         Intent intent = new Intent(activity, TopicDetailActivity.class);
         intent.putExtra(EXTRA_TOPIC_ID, topicId);
         intent.putExtra(EXTRA_TOPIC_TITLE, topicTitle);

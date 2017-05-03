@@ -100,7 +100,7 @@ public final class ActivityNavigator {
         NotificationActivity.start(mActivity);
     }
 
-    public void showReply(@NonNull String title, @NonNull int id) {
+    public void showReply(@NonNull String title, int id) {
         if (mPreferencesHelper.getToken() == null) {
             showLogin();
             return;
@@ -120,7 +120,7 @@ public final class ActivityNavigator {
         SiteActivity.start(mActivity);
     }
 
-    public void showTopicDetail(@NonNull int topicId, @NonNull String topicTitle) {
+    public void showTopicDetail(int topicId, @NonNull String topicTitle) {
         TopicDetailActivity.start(mActivity, topicId, topicTitle);
     }
 

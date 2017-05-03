@@ -8,9 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.xshengcn.diycode.R;
 
@@ -25,6 +27,8 @@ public class MarkdownSyntaxReferenceActivity extends BaseActivity {
     AppBarLayout mAppbarLayout;
     @BindView(R.id.web_view)
     WebView mWebView;
+    @BindView(R.id.progressbar)
+    ProgressBar mProgressbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class MarkdownSyntaxReferenceActivity extends BaseActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                mProgressbar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -54,7 +59,7 @@ public class MarkdownSyntaxReferenceActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
+                mProgressbar.setVisibility(View.GONE);
             }
         });
         mWebView.loadUrl("file:///android_asset/markdown-syntax-reference.html");

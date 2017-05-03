@@ -21,6 +21,7 @@ import com.xshengcn.diycode.ui.presenter.NewsPresenter;
 import com.xshengcn.diycode.ui.widget.itemdecoration.OffsetDecoration;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreHandler;
 import com.xshengcn.diycode.ui.widget.recyclerview.LoadMoreWrapper;
+import com.xshengcn.diycode.util.BrowserUtil;
 import com.xshengcn.diycode.util.customtabs.CustomTabActivityHelper;
 
 import java.util.List;
@@ -102,8 +103,9 @@ public class NewsFragment extends BaseFragment
         builder.setToolbarColor(Color.WHITE);
         builder.setShowTitle(true);
 
-        CustomTabActivityHelper.openCustomTab(
-                getActivity(), builder.build(), Uri.parse(news.address), null);
+        CustomTabActivityHelper
+                .openCustomTab(getActivity(), builder.build(), Uri.parse(news.address),
+                        BrowserUtil::onCustomTabFallback);
     }
 
     @Override

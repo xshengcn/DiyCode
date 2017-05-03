@@ -68,7 +68,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     }
 
     public void addProjects(List<Project> projects) {
-        int positionStart = getItemCount();
         this.mProjects.addAll(projects);
     }
 

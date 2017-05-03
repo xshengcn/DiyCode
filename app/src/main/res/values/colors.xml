@@ -15,6 +15,7 @@
 
     <color name="content_background">#FAFAFA</color>
     <color name="colorDivider">@color/content_background</color>
+    <color name="colorBlockquote">#E5E5E5</color>
 
 
 </resources>

@@ -57,8 +57,6 @@ public class HtmlUtils {
         while (--i >= 0 && Character.isWhitespace(source.charAt(i))) {
         }
 
-        long end = System.currentTimeMillis();
-
         return source.subSequence(0, i + 1);
     }
 
@@ -72,8 +70,8 @@ public class HtmlUtils {
         Spanned spanned = Html.fromHtml(
                 source, new GlideImageGetter(textView, maxWidth), new CodeTagHandler());
 
-        int color = textView.getResources().getColor(R.color.colorTextTertiary);
-        int background = textView.getResources().getColor(R.color.content_background);
+        int color = AppUtils.getColor(textView.getContext(), R.color.colorTextTertiary);
+        int background = AppUtils.getColor(textView.getContext(), R.color.content_background);
         int width = textView.getResources().getDimensionPixelOffset(R.dimen.spacing_xsmall);
         replaceQuoteSpans((Spannable) spanned, background, color, width);
         URLSpan[] uslSpans = spanned.getSpans(0, spanned.length(), URLSpan.class);
@@ -110,19 +108,11 @@ public class HtmlUtils {
             return;
         }
 
-        Spanned spanned = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            spanned = Html.fromHtml(
-                    source, Html.FROM_HTML_MODE_LEGACY, new GlideImageGetter(textView, maxWidth),
-                    new CodeTagHandler());
-        } else {
-            spanned = Html.fromHtml(
-                    source, new GlideImageGetter(textView, maxWidth),
-                    new CodeTagHandler());
-        }
+        Spanned spanned = AppUtils
+                .fromHtml(source, new GlideImageGetter(textView, maxWidth), new CodeTagHandler());
 
-        int color = textView.getResources().getColor(R.color.colorTextTertiary);
-        int background = textView.getResources().getColor(R.color.content_background);
+        int color = AppUtils.getColor(textView.getContext(), R.color.colorBlockquote);
+        int background = AppUtils.getColor(textView.getContext(), R.color.content_background);
         int width = textView.getResources().getDimensionPixelOffset(R.dimen.spacing_xsmall);
         replaceQuoteSpans((Spannable) spanned, background, color, width);
         URLSpan[] uslSpans = spanned.getSpans(0, spanned.length(), URLSpan.class);

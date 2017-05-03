@@ -28,12 +28,7 @@ public class BrowserUtil {
     }
 
     public static void openUrl(@NonNull Activity activity, @NonNull Uri uri) {
-        int color;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            color = activity.getColor(R.color.colorPrimary);
-        } else {
-            color = activity.getResources().getColor(R.color.colorPrimary);
-        }
+        int color = AppUtils.getColor(activity, R.color.colorPrimary);
         openUrl(color, activity, uri);
     }
 
@@ -49,11 +44,11 @@ public class BrowserUtil {
                 createPendingIntent(activity, ActionBroadcastReceiver.ACTION_MENU_SHARE);
         builder.setActionButton(shareIcon, shareMenuTitle, shareMenuIntent);
 
-        CustomTabActivityHelper.openCustomTab(
-                activity, builder.build(), uri, BrowserUtil::onCustomTabFallback);
+        CustomTabActivityHelper
+                .openCustomTab(activity, builder.build(), uri, BrowserUtil::onCustomTabFallback);
     }
 
-    private static void onCustomTabFallback(Activity activity, Uri uri) {
+    public static void onCustomTabFallback(Activity activity, Uri uri) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(uri);
         activity.startActivity(intent);

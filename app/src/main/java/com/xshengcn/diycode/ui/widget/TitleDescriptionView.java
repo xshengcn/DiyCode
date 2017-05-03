@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xshengcn.diycode.R;
+import com.xshengcn.diycode.util.AppUtils;
 
 public class TitleDescriptionView extends LinearLayout {
 
@@ -58,10 +59,10 @@ public class TitleDescriptionView extends LinearLayout {
         super.setEnabled(enabled);
         mRootView.setEnabled(enabled);
         if (enabled) {
-            mTitle.setTextColor(getResources().getColor(R.color.colorTextPrimary));
-            mDescription.setTextColor(getResources().getColor(R.color.colorTextTertiary));
+            mTitle.setTextColor(AppUtils.getColor(getContext(), R.color.colorTextPrimary));
+            mDescription.setTextColor(AppUtils.getColor(getContext(), R.color.colorTextTertiary));
         } else {
-            int disabledTextColor = getResources().getColor(R.color.colorTextQuaternary);
+            int disabledTextColor = AppUtils.getColor(getContext(), R.color.colorTextQuaternary);
             mTitle.setTextColor(disabledTextColor);
             mDescription.setTextColor(disabledTextColor);
         }

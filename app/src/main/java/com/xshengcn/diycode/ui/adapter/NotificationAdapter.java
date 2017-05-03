@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xshengcn.diycode.R;
 import com.xshengcn.diycode.data.model.user.Notification;
+import com.xshengcn.diycode.util.AppUtils;
 import com.xshengcn.diycode.util.HtmlUtils;
 
 import java.text.MessageFormat;
@@ -40,8 +41,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public NotificationAdapter(Context context) {
         this.mContext = context;
         mNotifications = new ArrayList<>();
-        mColorRead = context.getResources().getColor(R.color.colorTextQuaternary);
-        mColorUnread = context.getResources().getColor(R.color.colorTextPrimary);
+        mColorRead = AppUtils.getColor(context, R.color.colorTextQuaternary);
+        mColorUnread = AppUtils.getColor(context, R.color.colorTextPrimary);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
